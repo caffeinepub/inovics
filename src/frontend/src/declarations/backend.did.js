@@ -8,6 +8,11 @@
 
 import { IDL } from '@icp-sdk/core/candid';
 
+export const UserRole = IDL.Variant({
+  'admin' : IDL.Null,
+  'user' : IDL.Null,
+  'guest' : IDL.Null,
+});
 export const Lead = IDL.Record({
   'mobileNumber' : IDL.Text,
   'revenueRange' : IDL.Text,
@@ -19,8 +24,10 @@ export const Lead = IDL.Record({
   'industry' : IDL.Text,
   'firstName' : IDL.Text,
 });
+export const UserProfile = IDL.Record({ 'name' : IDL.Text });
 
 export const idlService = IDL.Service({
+  '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
   'addLead' : IDL.Func(
       [
         IDL.Text,
@@ -36,13 +43,28 @@ export const idlService = IDL.Service({
       [IDL.Nat],
       [],
     ),
+  'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
   'getAllLeads' : IDL.Func([], [IDL.Vec(Lead)], ['query']),
+  'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
+  'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
   'getLead' : IDL.Func([IDL.Nat], [IDL.Opt(Lead)], ['query']),
+  'getUserProfile' : IDL.Func(
+      [IDL.Principal],
+      [IDL.Opt(UserProfile)],
+      ['query'],
+    ),
+  'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+  'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
 });
 
 export const idlInitArgs = [];
 
 export const idlFactory = ({ IDL }) => {
+  const UserRole = IDL.Variant({
+    'admin' : IDL.Null,
+    'user' : IDL.Null,
+    'guest' : IDL.Null,
+  });
   const Lead = IDL.Record({
     'mobileNumber' : IDL.Text,
     'revenueRange' : IDL.Text,
@@ -54,8 +76,10 @@ export const idlFactory = ({ IDL }) => {
     'industry' : IDL.Text,
     'firstName' : IDL.Text,
   });
+  const UserProfile = IDL.Record({ 'name' : IDL.Text });
   
   return IDL.Service({
+    '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
     'addLead' : IDL.Func(
         [
           IDL.Text,
@@ -71,8 +95,18 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Nat],
         [],
       ),
+    'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
     'getAllLeads' : IDL.Func([], [IDL.Vec(Lead)], ['query']),
+    'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
+    'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
     'getLead' : IDL.Func([IDL.Nat], [IDL.Opt(Lead)], ['query']),
+    'getUserProfile' : IDL.Func(
+        [IDL.Principal],
+        [IDL.Opt(UserProfile)],
+        ['query'],
+      ),
+    'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+    'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
   });
 };
 

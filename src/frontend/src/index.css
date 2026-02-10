@@ -83,7 +83,7 @@
     
     /* Scroll margin for anchor links to account for sticky header */
     section[id] {
-        scroll-margin-top: 5rem;
+        scroll-margin-top: 6rem;
     }
 }
 
@@ -102,6 +102,15 @@
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
+    }
+    
+    /* Process Section Content Hierarchy Utilities */
+    .process-punchline {
+        @apply mt-4 pt-4 border-l-4 border-accent-yellow/40 pl-4 bg-accent-yellow/5 py-3 rounded-r;
+    }
+    
+    .process-investment-block {
+        @apply p-6 bg-accent-yellow/10 border-2 border-accent-yellow/30 rounded-lg space-y-2;
     }
     
     /* Reduced motion support */

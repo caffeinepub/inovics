@@ -21,13 +21,24 @@ export interface Lead {
   'industry' : string,
   'firstName' : string,
 }
+export interface UserProfile { 'name' : string }
+export type UserRole = { 'admin' : null } |
+  { 'user' : null } |
+  { 'guest' : null };
 export interface _SERVICE {
+  '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
   'addLead' : ActorMethod<
     [string, string, string, string, string, string, string, string, string],
     bigint
   >,
+  'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
   'getAllLeads' : ActorMethod<[], Array<Lead>>,
+  'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
+  'getCallerUserRole' : ActorMethod<[], UserRole>,
   'getLead' : ActorMethod<[bigint], [] | [Lead]>,
+  'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
+  'isCallerAdmin' : ActorMethod<[], boolean>,
+  'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];

@@ -18,8 +18,22 @@ export interface Lead {
     industry: string;
     firstName: string;
 }
+export interface UserProfile {
+    name: string;
+}
+export enum UserRole {
+    admin = "admin",
+    user = "user",
+    guest = "guest"
+}
 export interface backendInterface {
     addLead(firstName: string, lastName: string, companyName: string, industry: string, revenueRange: string, operationalBottleneck: string, email: string, mobileNumber: string, message: string): Promise<bigint>;
+    assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     getAllLeads(): Promise<Array<Lead>>;
+    getCallerUserProfile(): Promise<UserProfile | null>;
+    getCallerUserRole(): Promise<UserRole>;
     getLead(id: bigint): Promise<Lead | null>;
+    getUserProfile(user: Principal): Promise<UserProfile | null>;
+    isCallerAdmin(): Promise<boolean>;
+    saveCallerUserProfile(profile: UserProfile): Promise<void>;
 }

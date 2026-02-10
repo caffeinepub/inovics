@@ -1,34 +1,38 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-10T10:26:20.201Z",
-  "summary": "REQ-1 appears implemented by removing the standalone “Strategy Session” link from TopNav’s navLinks. REQ-2 is implemented for the shared booking handler via a new/updated bookStrategyCall() that performs pushState + popstate + scroll-to-top, and TopNav imports it, but the diff evidence is insufficient to confirm all other CTAs across the site were updated to use this handler.",
+  "generatedAt": "2026-02-10T12:24:21.070Z",
+  "summary": "REQ-5 implementation cannot be confirmed from the provided diff summary because the relevant HeroSlider.tsx changes are truncated before any auto-advance interval/visibility logic is shown. Additionally, changes appear to include out-of-scope metadata/documentation files not requested by the BuildRequest.",
   "missing_requirements": [
     {
-      "id": "REQ-2",
-      "requirement": "Clicking other CTAs that use the shared booking handler (e.g., \"Book Call\" in ContactOptionsGrid and CTAs in homepage sections) also navigates to \"/strategy-session\" from any current route.",
-      "reason": "The diff shows the shared handler implementation (frontend/src/lib/strategyCall.ts) and TopNav importing it, but provides no direct code evidence that other CTA components were updated/wired to call bookStrategyCall(). The only mention is in a summaries text file, not in the actual component diffs.",
+      "id": "REQ-5",
+      "requirement": "Add automatic slide rotation to the main hero banner carousel so the HeroSlider advances to the next banner every 5 seconds and loops back to the first banner after the last banner.",
+      "reason": "In the visible portion of HeroSlider.tsx, there is no shown useEffect/interval logic to advance slides every 5000ms, no shown cleanup function for the timer on unmount, and no shown conditional disabling based on prefers-reduced-motion. The file is truncated before any such logic appears, so the requirement cannot be verified as implemented from the diff summary provided.",
       "evidence": [
-        "frontend/src/lib/strategyCall.ts",
-        "frontend/src/components/TopNav.tsx",
-        "frontend-file-summaries.txt"
+        "frontend/src/components/sections/HeroSlider.tsx (truncated)"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "Project tracking metadata updates in project_state.json (adding AR-1/AR-2/AR-3 entries and marking statuses as pending).",
-      "reason": "The BuildRequest requirements focus on navigation link removal and CTA routing behavior; it does not request modifications to project state/tracking files.",
+      "description": "Project state tracking entries (AR-1/AR-2) added/updated in project_state.json, which is not part of the requested HeroSlider-scoped implementation.",
+      "reason": "BuildRequest constrains changes to the existing hero carousel implementation in frontend/src/components/sections/HeroSlider.tsx and explicitly avoids unrelated scope; updating project_state.json is not requested behavior for the application feature.",
       "evidence": [
         "project_state.json"
+      ]
+    },
+    {
+      "description": "Update to frontend-file-summaries.txt describing broad UI/content/navigation changes across many components (e.g., App, TopNav, multiple sections).",
+      "reason": "BuildRequest asks to keep changes scoped to HeroSlider.tsx; modifying a repository-wide summary file (especially one that documents many unrelated component changes) is not requested as part of implementing auto-advance.",
+      "evidence": [
+        "frontend-file-summaries.txt (truncated)"
       ]
     }
   ],
   "confidence": 0.62,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/src/components/TopNav.tsx",
-    "frontend/src/lib/strategyCall.ts",
+    "frontend/src/components/sections/HeroSlider.tsx",
     "project_state.json"
   ]
 }

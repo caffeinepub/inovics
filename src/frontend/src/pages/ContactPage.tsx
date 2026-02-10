@@ -3,36 +3,31 @@ import { ContactOptionsGrid } from '@/components/contact/ContactOptionsGrid';
 import { FounderControlBlueprintInquiryForm } from '@/components/forms/FounderControlBlueprintInquiryForm';
 import { Check } from 'lucide-react';
 import { bookStrategyCall } from '@/lib/strategyCall';
+import { PageHero } from '@/components/sections/PageHero';
+import { useEffect } from 'react';
 
 export function ContactPage() {
+  useEffect(() => {
+    // Handle hash-based scroll after navigation
+    if (window.location.hash) {
+      const hash = window.location.hash.substring(1);
+      const element = document.getElementById(hash);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    }
+  }, []);
+
   return (
     <main className="min-h-screen bg-background pt-20">
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy-dark to-charcoal">
-          <div
-            className="absolute inset-0 opacity-10"
-            style={{
-              backgroundImage: 'url(/assets/generated/inovics-data-grid-bg-logo-palette.dim_1920x1080.png)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-          />
-        </div>
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center space-y-6">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-foreground">
-              Let's Build Beyond the Founder.
-            </h1>
-            <p className="text-xl sm:text-2xl text-muted-foreground font-medium">
-              Whether you're exploring transformation or ready to begin — start the conversation.
-            </p>
-            <p className="text-base sm:text-lg text-muted-foreground/80">
-              We work with a limited number of growth-stage businesses each quarter.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        title="Let's Build Beyond the Founder."
+        subtitle="Whether you're exploring transformation or ready to begin — start the conversation."
+        description="We work with a limited number of growth-stage businesses each quarter."
+      />
 
       {/* Contact Options Section */}
       <section className="py-16 lg:py-24 bg-card">
@@ -47,7 +42,7 @@ export function ContactPage() {
       </section>
 
       {/* Inquiry Form Section */}
-      <section className="py-16 lg:py-24 bg-background">
+      <section id="founder-control-blueprint" className="py-16 lg:py-24 bg-background scroll-mt-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">

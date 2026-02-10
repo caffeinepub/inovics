@@ -62,7 +62,7 @@ export default {
                     dark: 'oklch(var(--navy-dark))'
                 },
                 charcoal: 'oklch(var(--charcoal))',
-                'accent-yellow': 'oklch(var(--accent-yellow))'
+                'accent-yellow': 'oklch(var(--accent-yellow) / <alpha-value>)'
             },
             borderRadius: {
                 lg: 'var(--radius)',

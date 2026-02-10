@@ -1,35 +1,24 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-10T10:26:20.203Z",
+  "generatedAt": "2026-02-10T12:24:21.072Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 2,
-    "implemented": 2,
+    "total": 1,
+    "implemented": 1,
     "items": [
       {
-        "id": "REQ-1",
-        "summary": "Remove the separate \"Strategy Session\" navigation link so users are not presented with a standalone menu entry for the Strategy Session page.",
+        "id": "REQ-5",
+        "summary": "Add automatic slide rotation to the main hero banner carousel so the HeroSlider advances to the next banner every 5 seconds and loops back to the first banner after the last banner.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/TopNav.tsx"
+          "frontend/src/components/sections/HeroSlider.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/TopNav.tsx"
-        ]
-      },
-      {
-        "id": "REQ-2",
-        "summary": "Change the \"Book Strategy Call\" button behavior (site-wide) to open the internal Strategy Session page route (\"/strategy-session\") using the existing client-side routing pattern (history.pushState + popstate dispatch), so the Strategy Session page opens from the button on all pages.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/lib/strategyCall.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/lib/strategyCall.ts"
+          "frontend/src/components/sections/HeroSlider.tsx"
         ]
       }
     ]
@@ -39,8 +28,7 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/components/TopNav.tsx",
-    "frontend/src/lib/strategyCall.ts",
+    "frontend/src/components/sections/HeroSlider.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

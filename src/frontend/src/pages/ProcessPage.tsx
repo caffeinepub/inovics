@@ -3,35 +3,27 @@ import { Card } from '@/components/ui/card';
 import { ProcessLeadGenForm } from '@/components/forms/ProcessLeadGenForm';
 import { bookStrategyCall } from '@/lib/strategyCall';
 import { CheckCircle2 } from 'lucide-react';
+import { PageHero } from '@/components/sections/PageHero';
 
 export function ProcessPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-navy via-charcoal to-navy opacity-95" />
-        <div className="absolute inset-0 bg-[url('/assets/generated/inovics-data-grid-bg-logo-palette.dim_1920x1080.png')] bg-cover bg-center opacity-10" />
-        
-        <div className="container mx-auto max-w-5xl text-center relative z-10">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-            Our Process
-          </h1>
-          <p className="text-xl sm:text-2xl text-muted-foreground mb-4 max-w-3xl mx-auto">
-            A structured, risk-controlled path from operational chaos to institutional strength.
-          </p>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Digital transformation fails without structure.<br />
-            We bring structure first.
-          </p>
+      <div className="pt-20">
+        <PageHero
+          title="Our Process"
+          subtitle="A structured, risk-controlled path from operational chaos to institutional strength."
+          description="Digital transformation fails without structure. We bring structure first."
+        >
           <Button
             onClick={bookStrategyCall}
             size="lg"
-            className="bg-accent-yellow text-navy hover:bg-accent-yellow/90 font-semibold text-lg px-8 py-6"
+            className="bg-accent-yellow text-navy hover:bg-accent-yellow/90 font-semibold text-lg px-8 py-6 h-auto mt-4"
           >
             Start with a Founder Strategy Call
           </Button>
-        </div>
-      </section>
+        </PageHero>
+      </div>
 
       {/* Section 1 - The Philosophy */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
@@ -345,7 +337,7 @@ export function ProcessPage() {
             </Card>
             
             <Card className="p-6 text-center">
-              <div className="text-4xl font-bold text-accent-yellow mb-3">Month 3–5</div>
+              <div className="text-4xl font-bold text-accent-yellow mb-3">Months 3–5</div>
               <h3 className="text-lg font-semibold text-foreground mb-2">Phased Implementation</h3>
             </Card>
             
@@ -355,12 +347,9 @@ export function ProcessPage() {
             </Card>
           </div>
           
-          <div className="text-center">
-            <p className="text-lg text-muted-foreground mb-2">
-              Timelines vary based on business complexity and readiness.
-            </p>
-            <p className="text-xl font-semibold text-foreground">
-              We prioritize sustainable transformation over rushed deployment.
+          <div className="bg-card border border-border rounded-xl p-8 text-center">
+            <p className="text-lg text-muted-foreground">
+              <strong className="text-foreground">Timeline varies</strong> based on business complexity, team size, and current system maturity.
             </p>
           </div>
         </div>
@@ -370,67 +359,66 @@ export function ProcessPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
         <div className="container mx-auto max-w-5xl">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-12 text-center">
-            What to Expect When Working with Inovics
+            What We Expect From You
           </h2>
           
-          <div className="space-y-6">
-            <Card className="p-8 lg:p-10">
-              <h3 className="text-xl font-bold text-foreground mb-4">1. Founder Involvement Is Required</h3>
-              <p className="text-lg text-muted-foreground">
-                We need direct access to the founder during the diagnosis phase. Delegation doesn't work here.
-              </p>
-            </Card>
-            
-            <Card className="p-8 lg:p-10">
-              <h3 className="text-xl font-bold text-foreground mb-4">2. Change Management Is Part of the Process</h3>
-              <p className="text-lg text-muted-foreground">
-                Your team will resist. We plan for it. Adoption is engineered, not assumed.
-              </p>
-            </Card>
-            
-            <Card className="p-8 lg:p-10">
-              <h3 className="text-xl font-bold text-foreground mb-4">3. We Don't Rush</h3>
-              <p className="text-lg text-muted-foreground">
-                Fast implementations fail. We move deliberately to ensure systems stick.
-              </p>
-            </Card>
-            
-            <Card className="p-8 lg:p-10">
-              <h3 className="text-xl font-bold text-foreground mb-4">4. This Is Not a One-Time Project</h3>
-              <p className="text-lg text-muted-foreground">
-                Institutionalization requires ongoing refinement. We stay engaged beyond go-live.
-              </p>
-            </Card>
+          <div className="bg-card border border-border rounded-xl p-8 lg:p-10">
+            <p className="text-lg text-muted-foreground mb-6">
+              Transformation is a partnership. For this to work, we need:
+            </p>
+            <ul className="space-y-4 mb-8">
+              <li className="flex items-start gap-3 text-lg">
+                <CheckCircle2 className="h-6 w-6 text-accent-yellow mt-0.5 flex-shrink-0" />
+                <span className="text-foreground"><strong>Founder commitment:</strong> Active participation in diagnosis and decision-making.</span>
+              </li>
+              <li className="flex items-start gap-3 text-lg">
+                <CheckCircle2 className="h-6 w-6 text-accent-yellow mt-0.5 flex-shrink-0" />
+                <span className="text-foreground"><strong>Internal champion:</strong> A designated team member to coordinate implementation.</span>
+              </li>
+              <li className="flex items-start gap-3 text-lg">
+                <CheckCircle2 className="h-6 w-6 text-accent-yellow mt-0.5 flex-shrink-0" />
+                <span className="text-foreground"><strong>Data access:</strong> Transparency into current workflows and systems.</span>
+              </li>
+              <li className="flex items-start gap-3 text-lg">
+                <CheckCircle2 className="h-6 w-6 text-accent-yellow mt-0.5 flex-shrink-0" />
+                <span className="text-foreground"><strong>Change readiness:</strong> Willingness to challenge legacy processes.</span>
+              </li>
+            </ul>
+            <p className="text-xl font-semibold text-foreground text-center">
+              If you're not ready to commit, we're not the right partner yet.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Section 6 - Lead Generation Form */}
+      {/* Lead Gen Form Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
               Request Your Founder Blueprint™
             </h2>
-            <p className="text-xl text-muted-foreground">
-              Let's map your current systems and identify the transformation path.
+            <p className="text-lg sm:text-xl text-muted-foreground">
+              Start with a structured diagnostic of your business systems.
             </p>
           </div>
-          
           <ProcessLeadGenForm />
         </div>
       </section>
 
-      {/* Final CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
-        <div className="container mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-8">
-            Ready to Engineer Your Business Infrastructure?
+      {/* Final CTA */}
+      <section className="py-20 lg:py-32 px-4 sm:px-6 lg:px-8 bg-background">
+        <div className="container mx-auto max-w-4xl text-center space-y-8">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground">
+            Structure Precedes Scale.
           </h2>
+          <p className="text-xl text-muted-foreground">
+            Every institutional business began with a structured decision.
+          </p>
           <Button
             onClick={bookStrategyCall}
             size="lg"
-            className="bg-accent-yellow text-navy hover:bg-accent-yellow/90 font-semibold text-lg px-8 py-6"
+            className="bg-accent-yellow text-navy hover:bg-accent-yellow/90 font-semibold text-lg px-8 py-6 h-auto"
           >
             Book Strategy Call
           </Button>

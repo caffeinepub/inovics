@@ -1,53 +1,36 @@
 {
   "kind": "build_request",
-  "title": "Remove separate Strategy Session nav link and open Strategy Session page from Book Strategy Call CTA",
+  "title": "Auto-advance main hero banner every 5 seconds",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-1",
-      "text": "Remove the separate \"Strategy Session\" navigation link so users are not presented with a standalone menu entry for the Strategy Session page.",
+      "id": "REQ-5",
+      "text": "Add automatic slide rotation to the main hero banner carousel so the HeroSlider advances to the next banner every 5 seconds and loops back to the first banner after the last banner.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-3"
         ],
         "quotes": [
-          "do not need a seperate stratergy session link. The page should open on Book Stratergy Call button from all pages"
+          "the main banner should have a 5 second auto times. it should change to next banner after every 5 seconds"
         ]
       },
       "acceptanceCriteria": [
-        "Top navigation (desktop and mobile) no longer displays a link labeled \"Strategy Session\" that routes to \"/strategy-session\".",
-        "All other existing nav links continue to work as before."
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "text": "Change the \"Book Strategy Call\" button behavior (site-wide) to open the internal Strategy Session page route (\"/strategy-session\") using the existing client-side routing pattern (history.pushState + popstate dispatch), so the Strategy Session page opens from the button on all pages.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "The page should open on Book Stratergy Call button from all pages"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Clicking \"Book Strategy Call\" in the TopNav (desktop and mobile) navigates to \"/strategy-session\" and renders the StrategySessionPage without a full page reload.",
-        "Clicking other CTAs that use the shared booking handler (e.g., \"Book Call\" in ContactOptionsGrid and CTAs in homepage sections) also navigates to \"/strategy-session\" from any current route.",
-        "After navigation to \"/strategy-session\", the page is scrolled to the top (consistent with other route navigations in the app)."
+        "When the homepage hero banner is visible, the slide automatically advances every 5000ms.",
+        "After the final slide, the next auto-advance returns to the first slide.",
+        "The auto-advance interval is cleaned up on component unmount (no timers continue running after navigation).",
+        "If the user has enabled 'prefers-reduced-motion', auto-advance is disabled (the user can still navigate slides manually)."
       ]
     }
   ],
   "constraints": [
-    "Do not edit any files under frontend/src/components/ui (read-only UI components).",
-    "Do not modify frontend/src/hooks/useInternetIdentity.ts(x), frontend/src/hooks/useActor.ts, or frontend/src/main.tsx (immutable paths).",
-    "Keep the existing client-side routing approach used in frontend/src/App.tsx and frontend/src/components/TopNav.tsx (no new router library)."
+    "Do not modify any files under frontend/src/components/ui (read-only UI component sources).",
+    "Keep changes scoped to the existing hero carousel implementation (frontend/src/components/sections/HeroSlider.tsx) without introducing new routing or backend dependencies."
   ],
   "nonGoals": [
-    "Do not remove the Strategy Session page route (\"/strategy-session\") or its content; only remove the separate navigation link and change CTA behavior.",
-    "Do not add or integrate external scheduling providers (Calendly/Cal.com) as part of this change.",
-    "Do not change backend lead storage, schemas, or submission behavior."
+    "Changing slide copy, CTA behavior, or adding/removing slides.",
+    "Changing the hero section background or generating new images.",
+    "Backend changes."
   ],
   "imageRequirements": {
     "required": [],

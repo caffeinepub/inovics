@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { TopNav } from './components/TopNav';
+import { ScrollToTopControl } from './components/ScrollToTopControl';
 import { HeroSection } from './components/sections/HeroSection';
 import { ProblemSection } from './components/sections/ProblemSection';
 import { WhatInovicsDoesSection } from './components/sections/WhatInovicsDoesSection';
@@ -15,9 +16,9 @@ import { Footer } from './components/Footer';
 import { ControlFrameworkPage } from './pages/ControlFrameworkPage';
 import { IndustriesPage } from './pages/IndustriesPage';
 import { ProcessPage } from './pages/ProcessPage';
-import { InsightsPage } from './pages/InsightsPage';
 import { ContactPage } from './pages/ContactPage';
 import { StrategySessionPage } from './pages/StrategySessionPage';
+import { AdminPage } from './pages/AdminPage';
 
 function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
@@ -36,25 +37,26 @@ function App() {
   const isControlFrameworkPage = currentPath === '/control-framework';
   const isIndustriesPage = currentPath === '/industries';
   const isProcessPage = currentPath === '/process';
-  const isInsightsPage = currentPath === '/insights';
   const isContactPage = currentPath === '/contact';
   const isStrategySessionPage = currentPath === '/strategy-session';
+  const isAdminPage = currentPath === '/admin';
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <TopNav />
+      <ScrollToTopControl />
       {isControlFrameworkPage ? (
         <ControlFrameworkPage />
       ) : isIndustriesPage ? (
         <IndustriesPage />
       ) : isProcessPage ? (
         <ProcessPage />
-      ) : isInsightsPage ? (
-        <InsightsPage />
       ) : isContactPage ? (
         <ContactPage />
       ) : isStrategySessionPage ? (
         <StrategySessionPage />
+      ) : isAdminPage ? (
+        <AdminPage />
       ) : (
         <main>
           <HeroSection />

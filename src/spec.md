@@ -1,11 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Remove the standalone “Strategy Session” nav entry and ensure the Strategy Session page opens via the “Book Strategy Call” CTA from anywhere in the site.
+**Goal:** Automatically rotate the homepage main hero banner carousel every 5 seconds, looping continuously while respecting reduced-motion preferences.
 
 **Planned changes:**
-- Remove the “Strategy Session” link from top navigation (desktop and mobile) so it no longer appears as a separate menu item.
-- Update the shared “Book Strategy Call” (and other CTAs using the same booking handler) to navigate client-side to the internal route `/strategy-session` without a full page reload.
-- Ensure navigation to `/strategy-session` scrolls the page to the top, consistent with other in-app route changes.
+- Update the existing `HeroSlider` carousel to auto-advance to the next slide every 5000ms when visible.
+- Loop from the last slide back to the first slide on the next auto-advance.
+- Ensure the auto-advance timer is cleaned up on component unmount to prevent lingering intervals after navigation.
+- Disable auto-advance when the user has `prefers-reduced-motion` enabled (manual slide navigation remains available).
 
-**User-visible outcome:** Users won’t see a separate “Strategy Session” link in the navigation, but clicking “Book Strategy Call” (and related booking CTAs) from any page will open the Strategy Session page instantly within the app.
+**User-visible outcome:** On the homepage, the hero banner automatically cycles to the next banner every 5 seconds and loops back to the first banner after the last; users with reduced-motion enabled will not see automatic slide movement.

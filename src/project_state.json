@@ -7,18 +7,10 @@
   "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-remove-the-separate-strategy-session-navigation-link-so-users-are-not-presented-with-a-standalone-menu-entry-for-the-strategy-session-page",
-      "title": "Remove the separate \"Strategy Session\" navigation link so users are not presented with a standalone menu entry for the Strategy Session page.",
+      "id": "feature-add-automatic-slide-rotation-to-the-main-hero-banner-carousel-so-the-heroslider-advances-to-the-next-banner-every-5-seconds-and-loops-back-to-the-first-banner-after-the-last-banner",
+      "title": "Add automatic slide rotation to the main hero banner carousel so the HeroSlider advances to the next banner every 5 seconds and loops back to the first banner after the last banner.",
       "reqIds": [
-        "REQ-1"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-change-the-book-strategy-call-button-behavior-site-wide-to-open-the-internal-strategy-session-page-route-strategy-session-using-the-existing-client-side-routing-pattern-history-pushstate-popstate-dispatch-so-the-strategy-session-page-opens-from-the-button-on-all-pages",
-      "title": "Change the \"Book Strategy Call\" button behavior (site-wide) to open the internal Strategy Session page route (\"/strategy-session\") using the existing client-side routing pattern (history.pushState + popstate dispatch), so the Strategy Session page opens from the button on all pages.",
-      "reqIds": [
-        "REQ-2"
+        "REQ-5"
       ],
       "version": 1
     }
@@ -26,12 +18,12 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Remove separate Strategy Session link; ensure all pages use a 'Book Strategy Call' button that opens the booking page",
+      "summary": "Main banner should auto-advance to the next banner every 5 seconds",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "projectName": "Remove separate Strategy Session nav link and open Strategy Session page from Book Strategy Call CTA",
+  "projectName": "Auto-advance main hero banner every 5 seconds",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

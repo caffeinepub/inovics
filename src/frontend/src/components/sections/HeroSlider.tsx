@@ -23,6 +23,7 @@ export function HeroSlider() {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [translateX, setTranslateX] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
   const sliderRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
 
@@ -176,6 +177,43 @@ export function HeroSlider() {
       goToNext();
     }
   };
+
+  // IntersectionObserver to detect visibility
+  useEffect(() => {
+    if (!sliderRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(sliderRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  // Auto-advance effect
+  useEffect(() => {
+    // Don't auto-advance if:
+    // - User prefers reduced motion
+    // - Slider is not visible
+    // - User is dragging
+    if (prefersReducedMotion || !isVisible || isDragging) {
+      return;
+    }
+
+    const intervalId = setInterval(() => {
+      goToNext();
+    }, 5000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [prefersReducedMotion, isVisible, isDragging, currentSlide]);
 
   useEffect(() => {
     const handleGlobalMouseUp = () => {

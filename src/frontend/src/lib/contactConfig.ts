@@ -18,3 +18,4 @@ export const CONTACT_CONFIG = {
 export const CONTACT_EMAIL = 'contact@weareinovics.com';
 export const CONTACT_PHONE_DISPLAY = '+ 91-9322286441';
 export const CONTACT_PHONE_TEL = 'tel:+919322286441';
+export const CONTACT_ADDRESS = 'Mahendra Mansion, D.J Road, Vile Parle (West), Mumbai - 400056, Maharashtra';

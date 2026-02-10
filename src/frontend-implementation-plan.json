@@ -1,36 +1,22 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Hide Strategy Session nav item and route all Book Strategy Call CTAs to /strategy-session",
+  "title": "Auto-advance homepage HeroSlider every 5 seconds",
   "requirements": [
     {
-      "id": "REQ-1",
-      "summary": "Remove the standalone \"Strategy Session\" link from top navigation (desktop and mobile) while keeping all other navigation intact.",
+      "id": "REQ-5",
+      "summary": "Implement 5-second auto-advance for the homepage HeroSlider that loops, respects prefers-reduced-motion, and cleans up timers on unmount.",
       "acceptanceCriteria": [
-        "Top navigation (desktop and mobile) no longer displays a link labeled \"Strategy Session\" that routes to \"/strategy-session\".",
-        "All other existing nav links continue to work as before."
+        "When the homepage hero banner is visible, the slide automatically advances every 5000ms.",
+        "After the final slide, the next auto-advance returns to the first slide.",
+        "The auto-advance interval is cleaned up on component unmount (no timers continue running after navigation).",
+        "If the user has enabled 'prefers-reduced-motion', auto-advance is disabled (the user can still navigate slides manually)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/TopNav.tsx",
+          "path": "frontend/src/components/sections/HeroSlider.tsx",
           "operation": "modify",
-          "description": "Remove the \"Strategy Session\" entry from the navLinks array so it no longer renders in desktop/mobile navigation while preserving existing hash/route navigation behavior for all remaining links."
-        }
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "summary": "Update the shared \"Book Strategy Call\" click handler to navigate internally to \"/strategy-session\" using the app’s existing pushState + popstate routing and scroll to top behavior.",
-      "acceptanceCriteria": [
-        "Clicking \"Book Strategy Call\" in the TopNav (desktop and mobile) navigates to \"/strategy-session\" and renders the StrategySessionPage without a full page reload.",
-        "Clicking other CTAs that use the shared booking handler (e.g., \"Book Call\" in ContactOptionsGrid and CTAs in homepage sections) also navigates to \"/strategy-session\" from any current route.",
-        "After navigation to \"/strategy-session\", the page is scrolled to the top (consistent with other route navigations in the app)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/lib/strategyCall.ts",
-          "operation": "modify",
-          "description": "Change bookStrategyCall() to perform in-app navigation to \"/strategy-session\" via window.history.pushState followed by dispatching a PopStateEvent(\"popstate\"), then scroll to the top to match the app’s client-side routing pattern (no full page reload)."
+          "description": "Add an auto-rotation effect to advance slides every 5000ms, looping back to the first slide after the last. Gate auto-advance behind prefers-reduced-motion (disable when true), and ensure the interval is created only when the hero carousel is visible (e.g., via IntersectionObserver on the existing sliderRef) and always cleared on effect cleanup/unmount to prevent lingering timers after navigation. Keep all changes scoped to this file and do not modify any files under frontend/src/components/ui."
         }
       ]
     }

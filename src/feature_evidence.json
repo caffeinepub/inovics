@@ -2,38 +2,21 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-remove-the-separate-strategy-session-navigation-link-so-users-are-not-presented-with-a-standalone-menu-entry-for-the-strategy-session-page",
-      "featureTitle": "Remove the separate \"Strategy Session\" navigation link so users are not presented with a standalone menu entry for the Strategy Session page.",
+      "featureId": "feature-add-automatic-slide-rotation-to-the-main-hero-banner-carousel-so-the-heroslider-advances-to-the-next-banner-every-5-seconds-and-loops-back-to-the-first-banner-after-the-last-banner",
+      "featureTitle": "Add automatic slide rotation to the main hero banner carousel so the HeroSlider advances to the next banner every 5 seconds and loops back to the first banner after the last banner.",
       "files": [
-        "frontend/src/components/TopNav.tsx"
+        "frontend/src/components/sections/HeroSlider.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
         "shadcn-ui@1.0.0",
         "build-template-react@1.0.0",
         "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-1"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-change-the-book-strategy-call-button-behavior-site-wide-to-open-the-internal-strategy-session-page-route-strategy-session-using-the-existing-client-side-routing-pattern-history-pushstate-popstate-dispatch-so-the-strategy-session-page-opens-from-the-button-on-all-pages",
-      "featureTitle": "Change the \"Book Strategy Call\" button behavior (site-wide) to open the internal Strategy Session page route (\"/strategy-session\") using the existing client-side routing pattern (history.pushState + popstate dispatch), so the Strategy Session page opens from the button on all pages.",
-      "files": [
-        "frontend/src/lib/strategyCall.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-2"
+        "REQ-5"
       ],
       "confidence": "high"
     }

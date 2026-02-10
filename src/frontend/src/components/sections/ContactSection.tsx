@@ -1,7 +1,7 @@
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { bookStrategyCall } from '@/lib/strategyCall';
-import { CONTACT_EMAIL, CONTACT_PHONE_DISPLAY, CONTACT_PHONE_TEL } from '@/lib/contactConfig';
+import { CONTACT_EMAIL, CONTACT_PHONE_DISPLAY, CONTACT_PHONE_TEL, CONTACT_ADDRESS } from '@/lib/contactConfig';
 
 export function ContactSection() {
   return (
@@ -49,7 +49,7 @@ export function ContactSection() {
                 <MapPin className="h-6 w-6 text-accent-yellow" />
               </div>
               <h3 className="font-semibold text-foreground mb-2">Location</h3>
-              <p className="text-muted-foreground">Mumbai, India</p>
+              <p className="text-muted-foreground">{CONTACT_ADDRESS}</p>
             </div>
           </div>
 
