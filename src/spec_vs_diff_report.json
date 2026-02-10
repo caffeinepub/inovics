@@ -1,64 +1,92 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-10T08:17:25.969Z",
-  "summary": "Diff adds a standalone /control-framework page, homepage “Read More” navigation, and a CONTROL™ menu item with client-side routing via history.pushState. It also adds a lead-gen form and a backend addLead method. However, the lead submission data model does not persist all required form fields nor a server timestamp, and the success UX currently reloads the page.",
+  "generatedAt": "2026-02-10T08:29:34.472Z",
+  "summary": "Diff adds a new /industries standalone page, updates TopNav to route \"Industries\" to /industries, adds an Industries lead-gen form using the existing useLeadSubmission hook, and expands backend lead storage/API to accept additional fields. However, the Industries page copy/structure appears not to match the user-provided verbatim content requirements, and some required Industries-page elements cannot be confirmed due to truncation.",
   "missing_requirements": [
     {
+      "id": "REQ-1",
+      "requirement": "All headings, subheadings, bullets, and CTA labels match the user-provided content verbatim (English user-facing text) across the Industries We Serve page sections.",
+      "reason": "The IndustriesPage hero headline and supporting copy shown in the diff are newly authored (e.g., \"Industries We Institutionalize\") and there is no evidence the full user-provided publish-ready content was used verbatim.",
+      "evidence": [
+        "frontend/src/pages/IndustriesPage.tsx"
+      ]
+    },
+    {
+      "id": "REQ-1",
+      "requirement": "Render all Industries page sections in the exact specified order, including four industry blocks with labeled subsections (Common Challenges / What We Implement / Outcome), consistency section, qualifying section, lead-gen section, final CTA block, and a short Caffeine AI prompt block.",
+      "reason": "Only the hero and part of the \"Our Focus\" section are visible in the truncated IndustriesPage diff; the presence/order of the remaining required sections (industry blocks, consistency, qualifying, final CTA, and prompt block placement/format) cannot be confirmed from the provided diff excerpt.",
+      "evidence": [
+        "frontend/src/pages/IndustriesPage.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-1",
+      "requirement": "A final block exists at the bottom containing a short Caffeine AI prompt, displayed as plain text with an obvious copy-to-clipboard interaction.",
+      "reason": "A copy-to-clipboard handler exists, but the prompt text shown is long and appears to be an instruction to generate the page (not clearly the requested 'short' prompt presented as a final page block). The actual on-page rendering of this block at the bottom is not visible in the truncated content.",
+      "evidence": [
+        "frontend/src/pages/IndustriesPage.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "requirement": "Industries page lead-gen submit CTA label reads exactly \"Request Industry Blueprint\" and the small text \"We partner with a limited number of businesses each quarter.\" is shown below the submit CTA.",
+      "reason": "The IndustriesLeadGenForm file is truncated before the submit button and any below-CTA small text; there is no visible evidence that the button label and the required small text are implemented.",
+      "evidence": [
+        "frontend/src/components/forms/IndustriesLeadGenForm.tsx (truncated)"
+      ]
+    },
+    {
       "id": "REQ-4",
-      "requirement": "Lead-gen form submission should include all specified fields (First Name, Last Name, Company Name, Industry, Annual Revenue Range, Biggest Operational Challenge, Work Email, Mobile Number) rather than collapsing them into a generic message.",
-      "reason": "The form collects multiple fields but only submits firstName, lastName, email, and a composed message string to the backend; this does not preserve individual required fields as structured data.",
+      "requirement": "Final CTA \"Book Strategy Call\" exists on the Industries page and triggers the existing strategy call behavior (mailto).",
+      "reason": "IndustriesPage imports bookStrategyCall, but the final CTA block and button wiring are not visible in the truncated IndustriesPage content, so implementation cannot be confirmed.",
       "evidence": [
-        "frontend/src/components/forms/ControlLeadGenForm.tsx",
-        "frontend/src/hooks/useLeadSubmission.ts",
-        "backend/main.mo"
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "requirement": "Backend must accept and persist lead submissions including all form fields plus a server timestamp.",
-      "reason": "Backend Lead type contains only firstName, lastName, email, and message, and there is no server timestamp field stored. Persistence is in an in-memory Map with no stable storage indicated.",
-      "evidence": [
-        "backend/main.mo"
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "requirement": "Provide a clear success state without navigating away unexpectedly.",
-      "reason": "On success, the UI offers a \"Submit Another Request\" action that calls window.location.reload(), which reloads/navigates away from the current state rather than keeping the user in a stable inline success/clear-form flow.",
-      "evidence": [
-        "frontend/src/components/forms/ControlLeadGenForm.tsx"
+        "frontend/src/pages/IndustriesPage.tsx (truncated)"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "Backend query endpoints to retrieve a single lead and all leads (getLead, getAllLeads).",
-      "reason": "The BuildRequest/requirements only asked for an endpoint to accept and persist lead submissions, not for lead retrieval APIs.",
+      "description": "Implemented a backend state migration (migration.mo) and integrated it into backend/main.mo with a new Lead schema and migration runner.",
+      "reason": "The BuildRequest did not require a state schema migration; it only allowed adding migration.mo if required. The diff introduces migration and modifies backend lead storage regardless.",
       "evidence": [
+        "backend/migration.mo",
         "backend/main.mo"
       ]
     },
     {
-      "description": "Changed Contact section CTA label to “Schedule Your Strategy Call”.",
-      "reason": "The requirements did not request copy changes to the existing Contact section CTA; only CONTROL™ page CTAs and navigation additions were requested.",
+      "description": "Modified the CONTROL™ lead generation form to use the expanded lead payload fields and map \"challenge\" to \"operationalBottleneck\".",
+      "reason": "REQ-3 only requests lead capture integration on the Industries page; it does not request changing the Control lead form.",
       "evidence": [
-        "frontend/src/components/sections/ContactSection.tsx"
+        "frontend/src/components/forms/ControlLeadGenForm.tsx"
+      ]
+    },
+    {
+      "description": "Introduced/updated a standalone CONTROL™ Framework page and other broad site/page styling/content updates (per repository summary file).",
+      "reason": "The BuildRequest is focused on the Industries page, navigation link change, and Industries lead capture/CTAs; these additional page/content/styling changes are not requested in the requirements.",
+      "evidence": [
+        "frontend-file-summaries.txt"
+      ]
+    },
+    {
+      "description": "Added informal developer comment text in backend/main.mo about migration instability.",
+      "reason": "Not requested and not part of functional requirements.",
+      "evidence": [
+        "backend/main.mo"
       ]
     }
   ],
-  "confidence": 0.74,
+  "confidence": 0.62,
   "changed_files": [
     "backend/main.mo",
+    "backend/migration.mo",
     "frontend-file-summaries.txt",
     "frontend/src/App.tsx",
     "frontend/src/components/TopNav.tsx",
     "frontend/src/components/forms/ControlLeadGenForm.tsx",
-    "frontend/src/components/sections/ContactSection.tsx",
-    "frontend/src/components/sections/ControlFrameworkSection.tsx",
+    "frontend/src/components/forms/IndustriesLeadGenForm.tsx",
     "frontend/src/hooks/useLeadSubmission.ts",
-    "frontend/src/lib/strategyCall.ts",
-    "frontend/src/pages/ControlFrameworkPage.tsx",
+    "frontend/src/pages/IndustriesPage.tsx",
     "project_state.json"
   ]
 }

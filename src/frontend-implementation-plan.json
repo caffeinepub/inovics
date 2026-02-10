@@ -1,118 +1,92 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Dedicated CONTROL™ Framework page with homepage + menu navigation and lead-gen form",
+  "title": "Industries We Serve page route, navigation linking, and lead capture form",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Create a new standalone CONTROL™ Framework page with the exact user-provided sections/copy and CTAs that trigger the existing strategy-call/contact action.",
+      "summary": "Add a standalone /industries route that renders the full publish-ready Industries We Serve content with the required section order, including a copyable Caffeine AI prompt block.",
       "acceptanceCriteria": [
-        "A new navigable page exists for the CONTROL™ Framework (not just an anchor section on the homepage).",
-        "All headings, subheadings, bullet lists, and CTAs match the user-provided English copy (including ™ symbols and currency formatting like ₹5–50 Cr).",
-        "The CONTROL™ page includes all requested sections in the same order as provided.",
-        "Both CTAs labeled “Book a Founder Strategy Call” on the CONTROL™ page navigate the user to the site’s strategy-call/contact action (consistent with existing behavior, e.g., scroll to contact or open the existing mailto flow)."
+        "Navigating to the Industries page route renders all sections in the exact order specified above.",
+        "All headings, subheadings, bullets, and CTA labels match the user-provided content verbatim (English user-facing text).",
+        "Each of the four industries is displayed as its own section and includes labeled subsections for Common Challenges, What We Implement, and Outcome.",
+        "A final block exists at the bottom containing a short Caffeine AI prompt, displayed as plain text with an obvious copy-to-clipboard interaction."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/ControlFrameworkPage.tsx",
+          "path": "frontend/src/pages/IndustriesPage.tsx",
           "operation": "create",
-          "description": "Create the standalone “The CONTROL™ Framework” page component and implement the exact section order and exact English copy from the user (Hero, Sections 1–5 with mid-page form, Final Section). Use shadcn-ui composed components (e.g., Button/Card/Input/Select/Textarea) for layout and form controls; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/lib/strategyCall.ts",
-          "operation": "create",
-          "description": "Add a small shared helper to trigger the existing strategy-call/contact action in a consistent way (match current behavior from ContactSection, e.g., mailto flow). This will be used by both “Book a Founder Strategy Call” CTAs on the CONTROL™ page and can be reused elsewhere."
-        },
-        {
-          "path": "frontend/src/components/sections/ContactSection.tsx",
-          "operation": "modify",
-          "description": "Refactor to use the shared strategy-call/contact helper for its CTA action so the CONTROL™ page and existing contact CTA remain behaviorally consistent."
+          "description": "Create the Industries We Serve page component rendered at /industries, implementing all sections in the exact required order and pasting the user-provided publish-ready copy verbatim from msg-4. Include an on-page lead-gen section container with a stable section id for scrolling, and a final Caffeine AI prompt block rendered as plain text with an explicit copy-to-clipboard control (using the Web Clipboard API with a visible success/failure UI). Use shadcn-ui components (e.g., Button, Card, etc.) where appropriate to match the existing site UI/UX; verify the component's usage instructions before implementing."
         },
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Wire the new CONTROL™ Framework page into the app as a standalone view by conditionally rendering either the existing single-page homepage sections or the new ControlFrameworkPage based on the current browser path (no changes to frontend/src/main.tsx). Ensure the new page is reachable via navigation changes in other requirements."
+          "description": "Wire the new /industries route into the app’s top-level path-based rendering (alongside /control-framework), ensuring /industries renders IndustriesPage and non-matching paths continue to render the homepage sections. Ensure route changes still scroll to top where appropriate."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Add a visible homepage “Read more” link/button that navigates to the standalone CONTROL™ Framework page.",
+      "summary": "Update top navigation so the Industries link routes to /industries instead of the homepage #industries anchor, while preserving existing routing/scroll behavior for other links.",
       "acceptanceCriteria": [
-        "Homepage renders a visible “Read more” (or equivalent) link/button related to the CONTROL™ Framework.",
-        "Clicking the “Read more” link navigates to the new CONTROL™ Framework page."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/sections/ControlFrameworkSection.tsx",
-          "operation": "modify",
-          "description": "Add a visible “Read more” (or equivalent) Button/link on the homepage CONTROL™ section that navigates to the standalone CONTROL™ Framework page path. Use shadcn-ui Button (composed only; do not modify frontend/src/components/ui); verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "summary": "Add a main-menu entry for the CONTROL™ Framework page while preserving existing homepage scroll-spy and smooth-scroll behavior for other items.",
-      "acceptanceCriteria": [
-        "Top navigation includes a menu item for the CONTROL™ Framework page.",
-        "The CONTROL™ menu item navigates to the CONTROL™ Framework page on both desktop and mobile menu.",
-        "Existing scroll-spy + smooth-scroll behavior for current homepage section links remains functional on the homepage."
+        "Clicking \"Industries\" in the top navigation takes the user to the Industries page route and scrolls to the top.",
+        "The CONTROL™ link continues to navigate to /control-framework as it does currently.",
+        "Homepage hash-based navigation (Framework/Process/Insights/Contact) continues to work as it does currently."
       ],
       "file_operations": [
         {
           "path": "frontend/src/components/TopNav.tsx",
           "operation": "modify",
-          "description": "Add a new nav link for the CONTROL™ Framework page (route-style, not a hash). Update click handling so hash links keep smooth-scroll and scroll-spy behavior on the homepage, while the CONTROL™ menu item performs normal navigation to the standalone page on both desktop and mobile sheet menus. Use existing shadcn-ui Button/Sheet components as composed; verify the component's usage instructions before implementing."
+          "description": "Update the navLinks configuration so \"Industries\" is a route link to /industries (not a hash link), while leaving existing hash links and the CONTROL™ route link unchanged. Ensure the existing click handler continues to (1) route to / and then scroll for hash links when not on homepage, and (2) scroll-to-top for route links. Use existing shadcn-ui Sheet/Button components as-is (no edits to ui sources); verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Add an Industries lead-generation form with the required fields and validation; submit via the existing lead submission hook so it calls backend addLead and stores extra fields in both dedicated params and the message payload.",
+      "acceptanceCriteria": [
+        "All listed fields are present on the Industries page form, with required-field validation and inline error states consistent with the existing lead form UX.",
+        "The submit button label reads exactly \"Request Industry Blueprint\".",
+        "Successful submission calls the backend addLead method and shows a success state (thank-you/confirmation) without a full page crash.",
+        "The stored lead message includes Company Name, Industry, Revenue Range, Mobile Number, and Biggest Operational Bottleneck (in addition to name + email stored in their dedicated fields).",
+        "The small text \"We partner with a limited number of businesses each quarter.\" is shown below the submit CTA in the lead-gen section."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/forms/IndustriesLeadGenForm.tsx",
+          "operation": "create",
+          "description": "Create an IndustriesLeadGenForm component implementing the required fields: First Name, Last Name, Company Name, Industry (Dropdown), Revenue Range, Biggest Operational Bottleneck, Work Email, Mobile Number, and a submit button labeled exactly \"Request Industry Blueprint\". Implement required-field validation and inline error rendering consistent with ControlLeadGenForm. On submit, call the existing useLeadSubmission hook and compose the lead message text to include Company Name, Industry, Revenue Range, Mobile Number, and Biggest Operational Bottleneck (mirroring the Control form’s message pattern) while also passing these values into the submission payload for dedicated storage. Render the exact small text \"We partner with a limited number of businesses each quarter.\" below the submit CTA. Use shadcn-ui form primitives (Input/Label/Select/Textarea/Button) consistent with existing forms; verify the component's usage instructions before implementing."
         },
         {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/hooks/useLeadSubmission.ts",
           "operation": "modify",
-          "description": "Ensure any new navigation path introduced for the CONTROL™ menu item is recognized by the App’s conditional rendering so navigation to/from the standalone page works without breaking homepage behavior."
+          "description": "Extend the existing submitLead API to accept the additional lead fields (companyName, industry, revenueRange, operationalBottleneck, mobileNumber) while remaining backward-compatible for existing callers. Update the actor.addLead invocation to use the full backend signature defined in frontend/src/backend.d.ts (supplying empty strings for any omitted fields) and keep existing loading/success/error behavior."
+        },
+        {
+          "path": "frontend/src/components/forms/ControlLeadGenForm.tsx",
+          "operation": "modify",
+          "description": "Update ControlLeadGenForm to pass companyName, industry, revenueRange, mobileNumber, and operationalBottleneck (mapped from the existing \"challenge\" field) into useLeadSubmission so Control submissions continue to persist the extra fields via the updated hook while preserving the existing UX and success state. Continue composing the message string similarly to today so the lead message remains populated with the same details. Use existing shadcn-ui components only (do not edit ui sources); verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/IndustriesPage.tsx",
+          "operation": "modify",
+          "description": "Wire IndustriesLeadGenForm into the Industries page Lead Generation section (Section 6 in the required order), ensuring the form is rendered within the correct section and the page shows the provided lead-gen headline/subheadline verbatim from msg-4. Use shadcn-ui layout components (e.g., Card) if desired for consistent styling; verify the component's usage instructions before implementing."
         }
       ]
     },
     {
       "id": "REQ-4",
-      "summary": "Implement the CONTROL™ Framework lead-generation form UI with exact fields/options, button copy, helper text, and basic client-side validation.",
+      "summary": "Wire Industries page CTAs so the hero CTA scrolls to the on-page lead form and the final CTA triggers the existing strategy call mailto action with correct fixed-nav offset.",
       "acceptanceCriteria": [
-        "All specified fields are present with appropriate input types (dropdowns for Industry and Annual Revenue Range; textarea for Biggest Operational Challenge).",
-        "Annual Revenue Range dropdown options exactly match: “₹5–10 Cr”, “₹10–25 Cr”, “₹25–50 Cr”, “50+ Cr”.",
-        "The submit button label is exactly “Request Blueprint Review”.",
-        "The small text “We work with a limited number of businesses each quarter.” appears below the submit button.",
-        "Basic client-side validation prevents submission when required fields are empty and validates email format for Work Email."
+        "Clicking \"Request Founder Blueprint\" on the Industries hero scrolls smoothly to the lead-generation form section on the same page.",
+        "Clicking \"Book Strategy Call\" triggers the existing strategy call behavior (mailto) used in other pages.",
+        "Scrolling offsets account for the fixed top navigation so section headers are not hidden under the nav."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/forms/ControlLeadGenForm.tsx",
-          "operation": "create",
-          "description": "Create the lead-gen form component with the exact fields: First Name, Last Name, Company Name, Industry (dropdown), Annual Revenue Range (dropdown with exact ₹ options), Biggest Operational Challenge (textarea), Work Email, Mobile Number; submit button text “Request Blueprint Review”; and the exact small text below the button. Implement basic client-side required-field checks and Work Email format validation. Use shadcn-ui composed components (Input, Select, Textarea, Button, etc.); verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/ControlFrameworkPage.tsx",
+          "path": "frontend/src/pages/IndustriesPage.tsx",
           "operation": "modify",
-          "description": "Position the ControlLeadGenForm mid-page within Section 5 per the provided page structure, ensuring surrounding copy/CTAs match the user-provided English text exactly (including ™)."
-        }
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "summary": "Submit the lead-gen form via existing backend actor capability, capture submissions, and show a clear inline success state without unexpected navigation.",
-      "acceptanceCriteria": [
-        "Form submission triggers a single, user-visible success confirmation (e.g., inline success message) and clears or preserves fields in a consistent, intentional way.",
-        "Backend exposes an endpoint to accept and persist lead submissions (anonymous users allowed).",
-        "A submitted lead includes all form fields plus a server timestamp.",
-        "No runtime errors occur when submitting the form from the CONTROL™ Framework page."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/hooks/useLeadSubmission.ts",
-          "operation": "create",
-          "description": "Create a small hook that uses the existing useActor() to submit leads using the available backendInterface capability. Map the richer form data into the backend’s supported parameters (e.g., include additional fields in the message payload) while preserving email/first/last name, and expose loading/success/error state to the form."
-        },
-        {
-          "path": "frontend/src/components/forms/ControlLeadGenForm.tsx",
-          "operation": "modify",
-          "description": "Wire the form submit handler to useLeadSubmission(), disable repeated submissions while in-flight, and render a clear inline success confirmation without navigating away. Ensure consistent post-submit behavior (clear or preserve inputs intentionally) and handle error display safely."
+          "description": "Implement CTA behaviors on the Industries page: (a) the hero CTA labeled exactly \"Request Founder Blueprint\" should smoothly scroll to the Lead Generation section (use an element id and an offset consistent with the fixed header behavior used elsewhere, and/or rely on the existing global scroll-margin rules); (b) the final CTA button labeled exactly \"Book Strategy Call\" should call the existing bookStrategyCall helper. Use shadcn-ui Button components consistent with the site; verify the component's usage instructions before implementing."
         }
       ]
     }

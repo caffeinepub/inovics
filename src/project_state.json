@@ -1,51 +1,43 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Website update for INOVICS to add a new CONTROL™ Framework landing page with specified content/sections, plus navigation entry points from the homepage and main menu, including lead-gen CTAs and a qualifying form.",
+  "summary": "Build INOVICS website pages, starting with an Industries We Serve page featuring industry-specific sections and integrated lead-capture CTAs/forms.",
   "architectural_notes": [
-    "New landing page requires global navigation update (main menu) and homepage CTA/link update to route to CONTROL™ Framework page.",
-    "Lead-gen form includes dropdown fields (Industry, Annual Revenue Range) and should support mid-page placement plus a strong final CTA section."
+    "Industries page should emphasize industry-specific operational chaos via Problem → What We Fix → Outcome blocks for each industry.",
+    "Industries page includes lead-gen form fields: First Name, Last Name, Company Name, Industry (dropdown), Revenue Range, Biggest Operational Bottleneck, Work Email, Mobile Number, with CTAs for blueprint request and strategy call."
   ],
   "known_issues": [],
   "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-create-a-new-standalone-page-for-the-control-framework-containing-the-exact-sections-and-user-provided-english-copy-hero-headline-subheadline-supporting-line-cta-book-a-founder-strategy-call-section-1-why-a-framework-section-2-detailed-control-steps-with-bullets-and-outcome-lines-section-3-what-this-means-for-you-section-4-who-this-is-for-section-5-lead-generation-form-positioned-mid-page-strong-final-cta-and-a-final-section-with-closing-line-cta-book-a-founder-strategy-call",
-      "title": "Create a new standalone page for “The CONTROL™ Framework” containing the exact sections and user-provided English copy: Hero (headline/subheadline/supporting line + CTA “Book a Founder Strategy Call”), Section 1 (Why a Framework), Section 2 (detailed CONTROL™ steps with bullets and “Outcome:” lines), Section 3 (What this means for you), Section 4 (Who this is for), Section 5 (Lead generation form positioned mid-page + strong final CTA), and a Final Section with closing line + CTA “Book a Founder Strategy Call”.",
+      "id": "feature-create-a-new-standalone-route-page-for-the-industries-we-serve-page-and-render-the-full-publish-ready-content-provided-by-the-user-using-the-following-section-structure-in-order-1-hero-section-with-headline-subheadline-supporting-line-and-cta-request-founder-blueprint-2-our-focus-section-describing-the-target-business-profile-and-explicitly-stating-you-do-not-serve-early-stage-startups-3-four-industry-blocks-manufacturing-smes-distributors-trading-companies-professional-service-firms-second-generation-leadership-teams-where-each-block-includes-three-clearly-labeled-subparts-common-challenges-what-we-implement-and-outcome-4-what-stays-consistent-across-industries-section-with-the-provided-bullet-points-and-closing-lines-5-is-this-right-for-you-qualifying-statement-section-with-fit-not-fit-messaging-6-lead-generation-section-with-headline-subheadline-and-form-7-final-cta-block-with-headline-and-book-strategy-call-button-and-8-a-short-caffeine-ai-prompt-block-at-the-end-as-requested-by-the-user-presented-as-copyable-text",
+      "title": "Create a new standalone route/page for the Industries We Serve page and render the full publish-ready content provided by the user using the following section structure in order: (1) Hero section with headline, subheadline, supporting line, and CTA \"Request Founder Blueprint\"; (2) \"Our Focus\" section describing the target business profile and explicitly stating you do not serve early-stage startups; (3) Four industry blocks (Manufacturing SMEs, Distributors & Trading Companies, Professional Service Firms, Second-Generation Leadership Teams) where each block includes three clearly labeled subparts: \"Common Challenges\", \"What We Implement\", and \"Outcome\"; (4) \"What stays consistent across industries\" section with the provided bullet points and closing lines; (5) \"Is This Right for You?\" qualifying statement section with fit/not-fit messaging; (6) Lead generation section with headline, subheadline, and form; (7) Final CTA block with headline and \"Book Strategy Call\" button; and (8) a short \"Caffeine AI prompt\" block at the end (as requested by the user) presented as copyable text.",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-add-a-read-more-or-equivalent-link-on-the-homepage-that-navigates-to-the-new-control-framework-page",
-      "title": "Add a “Read more” (or equivalent) link on the homepage that navigates to the new CONTROL™ Framework page.",
+      "id": "feature-add-site-navigation-linking-to-the-new-industries-we-serve-page-update-the-top-navigation-so-that-industries-navigates-to-the-new-industries-page-route-not-the-homepage-industries-anchor-while-keeping-existing-routing-behavior-for-other-links-e-g-control",
+      "title": "Add site navigation linking to the new Industries We Serve page: update the top navigation so that \"Industries\" navigates to the new Industries page route (not the homepage #industries anchor), while keeping existing routing behavior for other links (e.g., CONTROL™).",
       "reqIds": [
         "REQ-2"
       ],
       "version": 1
     },
     {
-      "id": "feature-add-a-main-menu-navigation-entry-that-navigates-to-the-new-control-framework-page-while-preserving-existing-homepage-section-navigation-behavior-for-other-menu-items",
-      "title": "Add a main menu navigation entry that navigates to the new CONTROL™ Framework page, while preserving existing homepage section navigation behavior for other menu items.",
+      "id": "feature-implement-lead-capture-integration-on-the-industries-page-by-adding-a-lead-generation-form-in-the-lead-generation-section-with-these-fields-first-name-last-name-company-name-industry-dropdown-revenue-range-biggest-operational-bottleneck-work-email-mobile-number-and-a-submit-cta-labeled-request-industry-blueprint-on-submit-persist-the-lead-using-the-existing-frontend-submission-hook-and-backend-addlead-api-packaging-the-additional-fields-into-the-lead-message-payload-similarly-to-the-existing-control-lead-form-pattern",
+      "title": "Implement lead capture integration on the Industries page by adding a lead-generation form in the Lead Generation section with these fields: First Name, Last Name, Company Name, Industry (Dropdown), Revenue Range, Biggest Operational Bottleneck, Work Email, Mobile Number; and a submit CTA labeled \"Request Industry Blueprint\". On submit, persist the lead using the existing frontend submission hook and backend addLead API, packaging the additional fields into the lead message payload similarly to the existing Control lead form pattern.",
       "reqIds": [
         "REQ-3"
       ],
       "version": 1
     },
     {
-      "id": "feature-implement-the-control-framework-lead-generation-form-with-the-exact-fields-specified-first-name-last-name-company-name-industry-dropdown-annual-revenue-range-dropdown-5-10-cr-10-25-cr-25-50-cr-50-cr-biggest-operational-challenge-short-text-area-work-email-mobile-number-cta-button-text-request-blueprint-review-and-display-the-small-text-under-the-button-we-work-with-a-limited-number-of-businesses-each-quarter",
-      "title": "Implement the CONTROL™ Framework lead-generation form with the exact fields specified: First Name, Last Name, Company Name, Industry (dropdown), Annual Revenue Range (dropdown: ₹5–10 Cr / ₹10–25 Cr / ₹25–50 Cr / 50+ Cr), Biggest Operational Challenge (short text area), Work Email, Mobile Number; CTA button text “Request Blueprint Review”; and display the small text under the button: “We work with a limited number of businesses each quarter.”",
+      "id": "feature-wire-the-industries-page-ctas-to-the-appropriate-on-page-actions-a-the-hero-cta-request-founder-blueprint-should-scroll-the-user-to-the-industries-page-lead-generation-form-section-b-the-final-cta-book-strategy-call-should-trigger-the-same-strategy-call-action-used-elsewhere-in-the-app",
+      "title": "Wire the Industries page CTAs to the appropriate on-page actions: (a) the Hero CTA \"Request Founder Blueprint\" should scroll the user to the Industries page lead-generation form section; (b) the Final CTA \"Book Strategy Call\" should trigger the same strategy call action used elsewhere in the app.",
       "reqIds": [
         "REQ-4"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-on-submitting-the-lead-generation-form-capture-the-submission-and-provide-a-clear-success-state-to-the-user-without-navigating-away-unexpectedly",
-      "title": "On submitting the lead-generation form, capture the submission and provide a clear success state to the user without navigating away unexpectedly.",
-      "reqIds": [
-        "REQ-5"
       ],
       "version": 1
     }
@@ -53,29 +45,18 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Create a new “CONTROL™ Framework” page for INOVICS with provided hero, sections (Why/Framework breakdown/Benefits/Who it’s for), final CTA, and overall page content structure.",
+      "summary": "Build and link the 'Industries We Serve' page with provided structure/content (hero, focus, industry blocks, consistency section, qualifying statement, lead-gen form, final CTA)",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-2",
-      "summary": "Add a “Read more” (or equivalent) link on the homepage that navigates to the new CONTROL™ Framework page.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-3",
-      "summary": "Add a main menu/navigation link to the CONTROL™ Framework page.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-4",
-      "summary": "Add a lead-generation form on the CONTROL™ Framework page with premium/qualifying fields (name, company, industry dropdown, revenue range dropdown, challenge textarea, email, mobile) and CTAs (Request Blueprint Review; Book a Founder Strategy Call).",
+      "summary": "Add lead capture integration on Industries page (Founder Blueprint/Industry Blueprint form with specified fields + CTAs: Request Founder Blueprint, Request Industry Blueprint, Book Strategy Call)",
       "reqIds": [],
       "status": "pending"
     }
   ],
+  "gameProjectType": "none",
   "projectName": "INOVICS",
   "clarification_mode": "instant",
   "clarification_rounds": 0

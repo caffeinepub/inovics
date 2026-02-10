@@ -5,7 +5,7 @@ import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/s
 
 const navLinks = [
   { label: 'Framework', href: '#framework', isHash: true },
-  { label: 'Industries', href: '#industries', isHash: true },
+  { label: 'Industries', href: '/industries', isHash: false },
   { label: 'Process', href: '#process', isHash: true },
   { label: 'Insights', href: '#insights', isHash: true },
   { label: 'Contact', href: '#contact', isHash: true },

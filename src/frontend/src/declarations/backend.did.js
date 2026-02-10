@@ -9,14 +9,33 @@
 import { IDL } from '@icp-sdk/core/candid';
 
 export const Lead = IDL.Record({
+  'mobileNumber' : IDL.Text,
+  'revenueRange' : IDL.Text,
   'email' : IDL.Text,
+  'operationalBottleneck' : IDL.Text,
   'message' : IDL.Text,
+  'companyName' : IDL.Text,
   'lastName' : IDL.Text,
+  'industry' : IDL.Text,
   'firstName' : IDL.Text,
 });
 
 export const idlService = IDL.Service({
-  'addLead' : IDL.Func([IDL.Text, IDL.Text, IDL.Text, IDL.Text], [IDL.Nat], []),
+  'addLead' : IDL.Func(
+      [
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+      ],
+      [IDL.Nat],
+      [],
+    ),
   'getAllLeads' : IDL.Func([], [IDL.Vec(Lead)], ['query']),
   'getLead' : IDL.Func([IDL.Nat], [IDL.Opt(Lead)], ['query']),
 });
@@ -25,15 +44,30 @@ export const idlInitArgs = [];
 
 export const idlFactory = ({ IDL }) => {
   const Lead = IDL.Record({
+    'mobileNumber' : IDL.Text,
+    'revenueRange' : IDL.Text,
     'email' : IDL.Text,
+    'operationalBottleneck' : IDL.Text,
     'message' : IDL.Text,
+    'companyName' : IDL.Text,
     'lastName' : IDL.Text,
+    'industry' : IDL.Text,
     'firstName' : IDL.Text,
   });
   
   return IDL.Service({
     'addLead' : IDL.Func(
-        [IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+        [
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+        ],
         [IDL.Nat],
         [],
       ),

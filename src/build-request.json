@@ -1,111 +1,95 @@
 {
   "kind": "build_request",
-  "title": "Add dedicated CONTROL™ Framework page with homepage and main-menu links plus lead-gen form",
+  "title": "Build and link the Industries We Serve page with structured industry blocks and lead capture",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Create a new standalone page for “The CONTROL™ Framework” containing the exact sections and user-provided English copy: Hero (headline/subheadline/supporting line + CTA “Book a Founder Strategy Call”), Section 1 (Why a Framework), Section 2 (detailed CONTROL™ steps with bullets and “Outcome:” lines), Section 3 (What this means for you), Section 4 (Who this is for), Section 5 (Lead generation form positioned mid-page + strong final CTA), and a Final Section with closing line + CTA “Book a Founder Strategy Call”.",
+      "text": "Create a new standalone route/page for the Industries We Serve page and render the full publish-ready content provided by the user using the following section structure in order: (1) Hero section with headline, subheadline, supporting line, and CTA \"Request Founder Blueprint\"; (2) \"Our Focus\" section describing the target business profile and explicitly stating you do not serve early-stage startups; (3) Four industry blocks (Manufacturing SMEs, Distributors & Trading Companies, Professional Service Firms, Second-Generation Leadership Teams) where each block includes three clearly labeled subparts: \"Common Challenges\", \"What We Implement\", and \"Outcome\"; (4) \"What stays consistent across industries\" section with the provided bullet points and closing lines; (5) \"Is This Right for You?\" qualifying statement section with fit/not-fit messaging; (6) Lead generation section with headline, subheadline, and form; (7) Final CTA block with headline and \"Book Strategy Call\" button; and (8) a short \"Caffeine AI prompt\" block at the end (as requested by the user) presented as copyable text.",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-4"
         ],
         "quotes": [
-          "🚀 INOVICS – CONTROL™ Framework Page creation and link... (full page copy and sections provided)"
+          "now lets build and link the industries page. below is the structre i want ... 🚀 INOVICS – Industries We Serve Page ... 4️⃣ Short Caffine AI prompt at the end"
         ]
       },
       "acceptanceCriteria": [
-        "A new navigable page exists for the CONTROL™ Framework (not just an anchor section on the homepage).",
-        "All headings, subheadings, bullet lists, and CTAs match the user-provided English copy (including ™ symbols and currency formatting like ₹5–50 Cr).",
-        "The CONTROL™ page includes all requested sections in the same order as provided.",
-        "Both CTAs labeled “Book a Founder Strategy Call” on the CONTROL™ page navigate the user to the site’s strategy-call/contact action (consistent with existing behavior, e.g., scroll to contact or open the existing mailto flow)."
+        "Navigating to the Industries page route renders all sections in the exact order specified above.",
+        "All headings, subheadings, bullets, and CTA labels match the user-provided content verbatim (English user-facing text).",
+        "Each of the four industries is displayed as its own section and includes labeled subsections for Common Challenges, What We Implement, and Outcome.",
+        "A final block exists at the bottom containing a short Caffeine AI prompt, displayed as plain text with an obvious copy-to-clipboard interaction."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Add a “Read more” (or equivalent) link on the homepage that navigates to the new CONTROL™ Framework page.",
+      "text": "Add site navigation linking to the new Industries We Serve page: update the top navigation so that \"Industries\" navigates to the new Industries page route (not the homepage #industries anchor), while keeping existing routing behavior for other links (e.g., CONTROL™).",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-4"
         ],
         "quotes": [
-          "Add a read more on the homepage to be able to visit this page"
+          "now lets build and link the industries page"
         ]
       },
       "acceptanceCriteria": [
-        "Homepage renders a visible “Read more” (or equivalent) link/button related to the CONTROL™ Framework.",
-        "Clicking the “Read more” link navigates to the new CONTROL™ Framework page."
+        "Clicking \"Industries\" in the top navigation takes the user to the Industries page route and scrolls to the top.",
+        "The CONTROL™ link continues to navigate to /control-framework as it does currently.",
+        "Homepage hash-based navigation (Framework/Process/Insights/Contact) continues to work as it does currently."
       ]
     },
     {
       "id": "REQ-3",
-      "text": "Add a main menu navigation entry that navigates to the new CONTROL™ Framework page, while preserving existing homepage section navigation behavior for other menu items.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "...and from main menu also"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Top navigation includes a menu item for the CONTROL™ Framework page.",
-        "The CONTROL™ menu item navigates to the CONTROL™ Framework page on both desktop and mobile menu.",
-        "Existing scroll-spy + smooth-scroll behavior for current homepage section links remains functional on the homepage."
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "text": "Implement the CONTROL™ Framework lead-generation form with the exact fields specified: First Name, Last Name, Company Name, Industry (dropdown), Annual Revenue Range (dropdown: ₹5–10 Cr / ₹10–25 Cr / ₹25–50 Cr / 50+ Cr), Biggest Operational Challenge (short text area), Work Email, Mobile Number; CTA button text “Request Blueprint Review”; and display the small text under the button: “We work with a limited number of businesses each quarter.”",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "SECTION 5 – LEAD GENERATION FORM ... Form Fields (Premium + Qualifying) ... CTA Button: Request Blueprint Review ... Below button (small text): We work with a limited number of businesses each quarter."
-        ]
-      },
-      "acceptanceCriteria": [
-        "All specified fields are present with appropriate input types (dropdowns for Industry and Annual Revenue Range; textarea for Biggest Operational Challenge).",
-        "Annual Revenue Range dropdown options exactly match: “₹5–10 Cr”, “₹10–25 Cr”, “₹25–50 Cr”, “50+ Cr”.",
-        "The submit button label is exactly “Request Blueprint Review”.",
-        "The small text “We work with a limited number of businesses each quarter.” appears below the submit button.",
-        "Basic client-side validation prevents submission when required fields are empty and validates email format for Work Email."
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "text": "On submitting the lead-generation form, capture the submission and provide a clear success state to the user without navigating away unexpectedly.",
+      "text": "Implement lead capture integration on the Industries page by adding a lead-generation form in the Lead Generation section with these fields: First Name, Last Name, Company Name, Industry (Dropdown), Revenue Range, Biggest Operational Bottleneck, Work Email, Mobile Number; and a submit CTA labeled \"Request Industry Blueprint\". On submit, persist the lead using the existing frontend submission hook and backend addLead API, packaging the additional fields into the lead message payload similarly to the existing Control lead form pattern.",
       "target": "both",
       "source": {
         "messageIds": [
           "msg-4"
         ],
         "quotes": [
-          "SECTION 5 – LEAD GENERATION FORM ... Request Your Founder Control Blueprint™ ... (premium + qualifying fields)"
+          "SECTION 5 – LEAD GENERATION ... Form Fields: First Name ... Mobile Number ... CTA: Request Industry Blueprint"
         ]
       },
       "acceptanceCriteria": [
-        "Form submission triggers a single, user-visible success confirmation (e.g., inline success message) and clears or preserves fields in a consistent, intentional way.",
-        "Backend exposes an endpoint to accept and persist lead submissions (anonymous users allowed).",
-        "A submitted lead includes all form fields plus a server timestamp.",
-        "No runtime errors occur when submitting the form from the CONTROL™ Framework page."
+        "All listed fields are present on the Industries page form, with required-field validation and inline error states consistent with the existing lead form UX.",
+        "The submit button label reads exactly \"Request Industry Blueprint\".",
+        "Successful submission calls the backend addLead method and shows a success state (thank-you/confirmation) without a full page crash.",
+        "The stored lead message includes Company Name, Industry, Revenue Range, Mobile Number, and Biggest Operational Bottleneck (in addition to name + email stored in their dedicated fields).",
+        "The small text \"We partner with a limited number of businesses each quarter.\" is shown below the submit CTA in the lead-gen section."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Wire the Industries page CTAs to the appropriate on-page actions: (a) the Hero CTA \"Request Founder Blueprint\" should scroll the user to the Industries page lead-generation form section; (b) the Final CTA \"Book Strategy Call\" should trigger the same strategy call action used elsewhere in the app.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "CTA: Request Founder Blueprint",
+          "FINAL CTA BLOCK ... Button: Book Strategy Call"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Clicking \"Request Founder Blueprint\" on the Industries hero scrolls smoothly to the lead-generation form section on the same page.",
+        "Clicking \"Book Strategy Call\" triggers the existing strategy call behavior (mailto) used in other pages.",
+        "Scrolling offsets account for the fixed top navigation so section headers are not hidden under the nav."
       ]
     }
   ],
   "constraints": [
-    "Do not edit files under frontend/src/components/ui (shadcn components must be composed, not modified).",
-    "Do not edit immutable hook files: frontend/src/hooks/useInternetIdentity.ts(x), frontend/src/hooks/useActor.ts, frontend/src/main.tsx.",
-    "Backend must remain a single Motoko actor in backend/main.mo; only add migration logic if stable state is introduced or changed."
+    "Do not edit files under frontend/src/components/ui (read-only UI component sources).",
+    "Do not edit frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, or frontend/src/main.tsx (immutable paths).",
+    "Backend must remain a single Motoko actor (all logic in backend/main.mo); only add migration.mo if an incompatible state upgrade is required."
   ],
   "nonGoals": [
-    "Do not implement third-party authentication beyond existing Internet Identity setup.",
-    "Do not add external databases or third-party form/CRM integrations.",
-    "Do not redesign unrelated homepage sections beyond what is required to add the “Read more” link and navigation entry."
+    "Do not add third-party authentication providers (only Internet Identity is supported).",
+    "Do not introduce external databases or non-Motoko backend services.",
+    "Do not implement real-time features (WebSockets/chat/push).",
+    "Do not rewrite the existing homepage IndustriesSection content unless necessary for linking behavior; the new Industries page is the primary deliverable."
   ],
   "imageRequirements": {
     "required": [],
@@ -114,9 +98,7 @@
   "userProfileUpdate": {
     "goalsToAdd": [],
     "goalsToRemove": [],
-    "preferencesToAdd": [
-      "Use English for all user-facing text in the app UI."
-    ],
+    "preferencesToAdd": [],
     "preferencesToRemove": [],
     "miscToAdd": [],
     "miscToRemove": [],

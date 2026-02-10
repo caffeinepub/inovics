@@ -11,13 +11,21 @@ import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
 export interface Lead {
+  'mobileNumber' : string,
+  'revenueRange' : string,
   'email' : string,
+  'operationalBottleneck' : string,
   'message' : string,
+  'companyName' : string,
   'lastName' : string,
+  'industry' : string,
   'firstName' : string,
 }
 export interface _SERVICE {
-  'addLead' : ActorMethod<[string, string, string, string], bigint>,
+  'addLead' : ActorMethod<
+    [string, string, string, string, string, string, string, string, string],
+    bigint
+  >,
   'getAllLeads' : ActorMethod<[], Array<Lead>>,
   'getLead' : ActorMethod<[bigint], [] | [Lead]>,
 }

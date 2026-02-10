@@ -26,14 +26,14 @@ const revenueRanges = [
   '50+ Cr',
 ];
 
-export function ControlLeadGenForm() {
+export function IndustriesLeadGenForm() {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     companyName: '',
     industry: '',
     revenueRange: '',
-    challenge: '',
+    operationalBottleneck: '',
     email: '',
     mobile: '',
   });
@@ -54,7 +54,7 @@ export function ControlLeadGenForm() {
     if (!formData.companyName.trim()) newErrors.companyName = 'Company name is required';
     if (!formData.industry) newErrors.industry = 'Industry is required';
     if (!formData.revenueRange) newErrors.revenueRange = 'Revenue range is required';
-    if (!formData.challenge.trim()) newErrors.challenge = 'Please describe your challenge';
+    if (!formData.operationalBottleneck.trim()) newErrors.operationalBottleneck = 'Please describe your biggest operational bottleneck';
     if (!formData.email.trim()) {
       newErrors.email = 'Work email is required';
     } else if (!validateEmail(formData.email)) {
@@ -75,7 +75,7 @@ export function ControlLeadGenForm() {
 Industry: ${formData.industry}
 Revenue Range: ${formData.revenueRange}
 Mobile: ${formData.mobile}
-Challenge: ${formData.challenge}`;
+Biggest Operational Bottleneck: ${formData.operationalBottleneck}`;
 
     await submitLead({
       firstName: formData.firstName,
@@ -83,7 +83,7 @@ Challenge: ${formData.challenge}`;
       companyName: formData.companyName,
       industry: formData.industry,
       revenueRange: formData.revenueRange,
-      operationalBottleneck: formData.challenge,
+      operationalBottleneck: formData.operationalBottleneck,
       email: formData.email,
       mobileNumber: formData.mobile,
       message,
@@ -98,7 +98,7 @@ Challenge: ${formData.challenge}`;
         </div>
         <h3 className="text-2xl font-bold text-foreground mb-4">Thank You!</h3>
         <p className="text-lg text-muted-foreground mb-6">
-          Your request has been received. We'll review your information and get back to you shortly.
+          Your request has been received. We'll review your information and get back to you shortly with your Industry Blueprint.
         </p>
         <Button
           onClick={() => window.location.reload()}
@@ -183,7 +183,7 @@ Challenge: ${formData.challenge}`;
 
         <div>
           <Label htmlFor="revenueRange" className="text-foreground mb-2 block">
-            Annual Revenue Range <span className="text-destructive">*</span>
+            Revenue Range <span className="text-destructive">*</span>
           </Label>
           <Select
             value={formData.revenueRange}
@@ -206,18 +206,19 @@ Challenge: ${formData.challenge}`;
       </div>
 
       <div className="mb-6">
-        <Label htmlFor="challenge" className="text-foreground mb-2 block">
-          Biggest Operational Challenge <span className="text-destructive">*</span>
+        <Label htmlFor="operationalBottleneck" className="text-foreground mb-2 block">
+          Biggest Operational Bottleneck <span className="text-destructive">*</span>
         </Label>
         <Textarea
-          id="challenge"
-          value={formData.challenge}
-          onChange={(e) => setFormData({ ...formData, challenge: e.target.value })}
-          className={errors.challenge ? 'border-destructive' : ''}
+          id="operationalBottleneck"
+          value={formData.operationalBottleneck}
+          onChange={(e) => setFormData({ ...formData, operationalBottleneck: e.target.value })}
+          className={errors.operationalBottleneck ? 'border-destructive' : ''}
           rows={4}
+          placeholder="Describe your biggest operational challenge..."
           disabled={isLoading}
         />
-        {errors.challenge && <p className="text-sm text-destructive mt-1">{errors.challenge}</p>}
+        {errors.operationalBottleneck && <p className="text-sm text-destructive mt-1">{errors.operationalBottleneck}</p>}
       </div>
 
       <div className="grid md:grid-cols-2 gap-6 mb-6">
@@ -269,7 +270,7 @@ Challenge: ${formData.challenge}`;
             Submitting...
           </>
         ) : (
-          'Request Founder Control Blueprint™'
+          'Request Industry Blueprint'
         )}
       </Button>
 

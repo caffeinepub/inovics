@@ -1,13 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Add a dedicated “The CONTROL™ Framework” page, link to it from the homepage and main menu, and include a lead-generation form that captures submissions with an on-page success state.
+**Goal:** Add a publish-ready “Industries We Serve” page, link it from the site navigation, and capture leads via a dedicated industry form.
 
 **Planned changes:**
-- Create a new standalone “The CONTROL™ Framework” page with the exact user-provided English copy and section order, including two CTAs labeled “Book a Founder Strategy Call” that follow the site’s existing strategy-call/contact behavior.
-- Add a visible “Read more” (or equivalent) link on the homepage that navigates to the new CONTROL™ Framework page.
-- Add a main navigation menu entry (desktop and mobile) that routes to the CONTROL™ Framework page while keeping existing homepage smooth-scroll/scroll-spy behavior for other menu items.
-- Implement the CONTROL™ lead-generation form mid-page with the specified fields, dropdown options (including ₹5–10 Cr / ₹10–25 Cr / ₹25–50 Cr / 50+ Cr), button text “Request Blueprint Review”, and the specified small text under the button, plus basic client-side validation.
-- Add backend + frontend wiring to submit and persist lead form submissions (including server timestamp) and show a clear inline success confirmation without unexpected navigation.
+- Create a new standalone Industries page route that renders the full user-provided content in the required order: Hero (with “Request Founder Blueprint” CTA), Our Focus, four structured industry blocks (each with “Common Challenges”, “What We Implement”, “Outcome”), consistency section, “Is This Right for You?” section, lead generation section with form, final CTA block with “Book Strategy Call”, and a copyable “Caffeine AI prompt” block.
+- Update top navigation so “Industries” routes to the new Industries page (instead of a homepage anchor) while preserving existing behavior for other links (e.g., CONTROL™) and homepage hash navigation.
+- Implement the Industries lead-generation form with the specified fields, validation/error states consistent with existing lead form UX, and submission via the existing frontend submission hook to the backend addLead API (including additional fields packaged into the lead message payload).
+- Wire CTAs: Hero “Request Founder Blueprint” smoothly scrolls to the on-page lead form section (accounting for fixed nav), and “Book Strategy Call” triggers the existing strategy call action used elsewhere.
 
-**User-visible outcome:** Users can open a dedicated CONTROL™ Framework page from the homepage or main menu, read the full framework content, click “Book a Founder Strategy Call” CTAs, and submit a lead form that confirms successful submission on the page.
+**User-visible outcome:** Users can navigate to a dedicated Industries page, read the structured industry content, copy the included Caffeine AI prompt, and submit an “Request Industry Blueprint” lead form; the page CTAs scroll or trigger the existing strategy-call action as expected.

@@ -6,6 +6,11 @@ interface LeadData {
   lastName: string;
   email: string;
   message: string;
+  companyName?: string;
+  industry?: string;
+  revenueRange?: string;
+  operationalBottleneck?: string;
+  mobileNumber?: string;
 }
 
 export function useLeadSubmission() {
@@ -28,7 +33,12 @@ export function useLeadSubmission() {
       await actor.addLead(
         data.firstName,
         data.lastName,
+        data.companyName || '',
+        data.industry || '',
+        data.revenueRange || '',
+        data.operationalBottleneck || '',
         data.email,
+        data.mobileNumber || '',
         data.message
       );
       setIsSuccess(true);

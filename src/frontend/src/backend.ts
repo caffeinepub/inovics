@@ -90,30 +90,35 @@ export class ExternalBlob {
     }
 }
 export interface Lead {
+    mobileNumber: string;
+    revenueRange: string;
     email: string;
+    operationalBottleneck: string;
     message: string;
+    companyName: string;
     lastName: string;
+    industry: string;
     firstName: string;
 }
 export interface backendInterface {
-    addLead(firstName: string, lastName: string, email: string, message: string): Promise<bigint>;
+    addLead(firstName: string, lastName: string, companyName: string, industry: string, revenueRange: string, operationalBottleneck: string, email: string, mobileNumber: string, message: string): Promise<bigint>;
     getAllLeads(): Promise<Array<Lead>>;
     getLead(id: bigint): Promise<Lead | null>;
 }
 import type { Lead as _Lead } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
-    async addLead(arg0: string, arg1: string, arg2: string, arg3: string): Promise<bigint> {
+    async addLead(arg0: string, arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, arg6: string, arg7: string, arg8: string): Promise<bigint> {
         if (this.processError) {
             try {
-                const result = await this.actor.addLead(arg0, arg1, arg2, arg3);
+                const result = await this.actor.addLead(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.addLead(arg0, arg1, arg2, arg3);
+            const result = await this.actor.addLead(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
             return result;
         }
     }

@@ -1,6 +1,6 @@
 {
-  "frontend/src/App.tsx": "Main application component with client-side routing that conditionally renders either the homepage sections or the standalone CONTROL™ Framework page based on the current path.",
-  "frontend/src/components/TopNav.tsx": "Enhanced navigation component with CONTROL™ menu item, intelligent routing between homepage hash links and standalone pages, preserved scroll-spy behavior, and consistent navigation on both desktop and mobile.",
+  "frontend/src/App.tsx": "Main application component with client-side routing that conditionally renders homepage sections, CONTROL™ Framework page, or Industries page based on the current path.",
+  "frontend/src/components/TopNav.tsx": "Enhanced navigation component with Industries link now routing to /industries page instead of hash link, while preserving existing hash-based navigation for other homepage sections and CONTROL™ route link.",
   "frontend/src/components/sections/HeroSection.tsx": "Hero section with bold headline, subheadline, supporting copy, primary/secondary CTAs, and dark gradient background using logo-palette-tuned data-grid pattern image.",
   "frontend/src/components/sections/ProblemSection.tsx": "Problem section displaying five key business pain points in a two-column grid with bold closing statement and updated Tailwind v3 classes.",
   "frontend/src/components/sections/WhatInovicsDoesSection.tsx": "Three-column feature section showcasing Control, Clarity, and Continuity with minimal line icons.",
@@ -17,7 +17,9 @@
   "frontend/tailwind.config.js": "Tailwind configuration with custom INOVICS logo-matched color tokens (navy, charcoal, accent-yellow) mapped to CSS variables, Inter font family, and design system utilities.",
   "frontend/index.html": "HTML entry point with SEO meta description, Inter font preload, and dark mode class applied to html element.",
   "frontend/src/pages/ControlFrameworkPage.tsx": "Standalone CONTROL™ Framework page with hero section, detailed framework breakdown, outcomes, target audience, lead generation form, and final CTA matching the exact user-provided copy and structure.",
-  "frontend/src/components/forms/ControlLeadGenForm.tsx": "Premium lead generation form component with all required fields (first/last name, company, industry dropdown, revenue range dropdown with ₹ options, challenge textarea, email, mobile), client-side validation, loading states, and success confirmation.",
-  "frontend/src/hooks/useLeadSubmission.ts": "Custom hook that uses the backend actor to submit lead data via the addLead method, managing loading, success, and error states for the form.",
-  "frontend/src/lib/strategyCall.ts": "Shared utility function that triggers the strategy call action via mailto link, ensuring consistent behavior across all CTAs."
+  "frontend/src/components/forms/ControlLeadGenForm.tsx": "Premium lead generation form for the CONTROL™ Framework page, now updated to pass all additional fields to the extended useLeadSubmission hook for complete backend storage.",
+  "frontend/src/hooks/useLeadSubmission.ts": "Custom hook that submits lead data to the backend via addLead method, now extended to accept optional additional fields (companyName, industry, revenueRange, operationalBottleneck, mobileNumber) while remaining backward-compatible.",
+  "frontend/src/lib/strategyCall.ts": "Shared utility function that triggers the strategy call action via mailto link, ensuring consistent behavior across all CTAs.",
+  "frontend/src/pages/IndustriesPage.tsx": "Comprehensive Industries We Serve page with hero section, focus statement, four detailed industry blocks (Manufacturing, Distributors, Professional Services, Second-Generation Leadership), consistency section, qualifying statement, lead generation form, final CTA, and copyable Caffeine AI prompt block.",
+  "frontend/src/components/forms/IndustriesLeadGenForm.tsx": "Lead generation form component for the Industries page with all required fields (first/last name, company, industry dropdown, revenue range, operational bottleneck, email, mobile), validation, and submission via the extended useLeadSubmission hook."
 }

@@ -13,6 +13,7 @@ import { FinalCtaSection } from './components/sections/FinalCtaSection';
 import { ContactSection } from './components/sections/ContactSection';
 import { Footer } from './components/Footer';
 import { ControlFrameworkPage } from './pages/ControlFrameworkPage';
+import { IndustriesPage } from './pages/IndustriesPage';
 
 function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
@@ -26,14 +27,17 @@ function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Check if we're on the CONTROL Framework page
+  // Check if we're on a standalone page
   const isControlFrameworkPage = currentPath === '/control-framework';
+  const isIndustriesPage = currentPath === '/industries';
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <TopNav />
       {isControlFrameworkPage ? (
         <ControlFrameworkPage />
+      ) : isIndustriesPage ? (
+        <IndustriesPage />
       ) : (
         <main>
           <HeroSection />
