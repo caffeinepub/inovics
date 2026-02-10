@@ -1,0 +1,23 @@
+{
+  "frontend/src/App.tsx": "Main application component with client-side routing that conditionally renders either the homepage sections or the standalone CONTROL™ Framework page based on the current path.",
+  "frontend/src/components/TopNav.tsx": "Enhanced navigation component with CONTROL™ menu item, intelligent routing between homepage hash links and standalone pages, preserved scroll-spy behavior, and consistent navigation on both desktop and mobile.",
+  "frontend/src/components/sections/HeroSection.tsx": "Hero section with bold headline, subheadline, supporting copy, primary/secondary CTAs, and dark gradient background using logo-palette-tuned data-grid pattern image.",
+  "frontend/src/components/sections/ProblemSection.tsx": "Problem section displaying five key business pain points in a two-column grid with bold closing statement and updated Tailwind v3 classes.",
+  "frontend/src/components/sections/WhatInovicsDoesSection.tsx": "Three-column feature section showcasing Control, Clarity, and Continuity with minimal line icons.",
+  "frontend/src/components/sections/ControlFrameworkSection.tsx": "Homepage CONTROL™ Framework section with added \"Read More\" button that navigates to the standalone framework page.",
+  "frontend/src/components/sections/OutcomesSection.tsx": "Outcomes section with bullet list and logo-palette-tuned abstract dashboard mockup visualization in a two-column layout, with headline now reading \"What Changes After Inovics?\"",
+  "frontend/src/components/sections/IndustriesSection.tsx": "Industries section displaying four target industry cards with revenue range prominently shown, enhanced with abstract industry mosaic background visual for added depth.",
+  "frontend/src/components/sections/ProcessSection.tsx": "Four-step engagement model section with numbered process cards in premium enterprise styling, enhanced with abstract process flow visual on the right side.",
+  "frontend/src/components/sections/EmotionalBlockSection.tsx": "Full-width dark emotional block section with powerful copy about founder dependency.",
+  "frontend/src/components/sections/InsightsSection.tsx": "Static insights section with three premium insight cards for future content, enhanced with the new v2 abstract header banner visual at the top.",
+  "frontend/src/components/sections/FinalCtaSection.tsx": "Final call-to-action section with headline, supporting text, and prominent yellow CTA button.",
+  "frontend/src/components/sections/ContactSection.tsx": "Contact section refactored to use the shared bookStrategyCall helper for consistent CTA behavior.",
+  "frontend/src/components/Footer.tsx": "Footer component with copyright, year, and Caffeine.ai attribution with UTM tracking.",
+  "frontend/src/index.css": "Global styles with OKLCH color system matching INOVICS logo palette (teal-leaning navy hue 210 + golden yellow hue 75), maintaining dark-first premium aesthetic with accessible contrast, plus decorative visual utility class for responsive image rendering.",
+  "frontend/tailwind.config.js": "Tailwind configuration with custom INOVICS logo-matched color tokens (navy, charcoal, accent-yellow) mapped to CSS variables, Inter font family, and design system utilities.",
+  "frontend/index.html": "HTML entry point with SEO meta description, Inter font preload, and dark mode class applied to html element.",
+  "frontend/src/pages/ControlFrameworkPage.tsx": "Standalone CONTROL™ Framework page with hero section, detailed framework breakdown, outcomes, target audience, lead generation form, and final CTA matching the exact user-provided copy and structure.",
+  "frontend/src/components/forms/ControlLeadGenForm.tsx": "Premium lead generation form component with all required fields (first/last name, company, industry dropdown, revenue range dropdown with ₹ options, challenge textarea, email, mobile), client-side validation, loading states, and success confirmation.",
+  "frontend/src/hooks/useLeadSubmission.ts": "Custom hook that uses the backend actor to submit lead data via the addLead method, managing loading, success, and error states for the form.",
+  "frontend/src/lib/strategyCall.ts": "Shared utility function that triggers the strategy call action via mailto link, ensuring consistent behavior across all CTAs."
+}

@@ -1,0 +1,105 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-10T08:17:25.972Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 5,
+    "implemented": 5,
+    "items": [
+      {
+        "id": "REQ-1",
+        "summary": "Create a new standalone page for “The CONTROL™ Framework” containing the exact sections and user-provided English copy: Hero (headline/subheadline/supporting line + CTA “Book a Founder Strategy Call”), Section 1 (Why a Framework), Section 2 (detailed CONTROL™ steps with bullets and “Outcome:” lines), Section 3 (What this means for you), Section 4 (Who this is for), Section 5 (Lead generation form positioned mid-page + strong final CTA), and a Final Section with closing line + CTA “Book a Founder Strategy Call”.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/ControlFrameworkPage.tsx",
+          "frontend/src/lib/strategyCall.ts",
+          "frontend/src/components/sections/ContactSection.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/ControlFrameworkPage.tsx",
+          "frontend/src/lib/strategyCall.ts",
+          "frontend/src/components/sections/ContactSection.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-2",
+        "summary": "Add a “Read more” (or equivalent) link on the homepage that navigates to the new CONTROL™ Framework page.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/sections/ControlFrameworkSection.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/sections/ControlFrameworkSection.tsx"
+        ]
+      },
+      {
+        "id": "REQ-3",
+        "summary": "Add a main menu navigation entry that navigates to the new CONTROL™ Framework page, while preserving existing homepage section navigation behavior for other menu items.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/TopNav.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/TopNav.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-4",
+        "summary": "Implement the CONTROL™ Framework lead-generation form with the exact fields specified: First Name, Last Name, Company Name, Industry (dropdown), Annual Revenue Range (dropdown: ₹5–10 Cr / ₹10–25 Cr / ₹25–50 Cr / 50+ Cr), Biggest Operational Challenge (short text area), Work Email, Mobile Number; CTA button text “Request Blueprint Review”; and display the small text under the button: “We work with a limited number of businesses each quarter.”",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/forms/ControlLeadGenForm.tsx",
+          "frontend/src/pages/ControlFrameworkPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/forms/ControlLeadGenForm.tsx",
+          "frontend/src/pages/ControlFrameworkPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-5",
+        "summary": "On submitting the lead-generation form, capture the submission and provide a clear success state to the user without navigating away unexpectedly.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useLeadSubmission.ts",
+          "frontend/src/components/forms/ControlLeadGenForm.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/hooks/useLeadSubmission.ts",
+          "frontend/src/components/forms/ControlLeadGenForm.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "backend/main.mo",
+    "build-request.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/App.tsx",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/components/TopNav.tsx",
+    "frontend/src/components/forms/ControlLeadGenForm.tsx",
+    "frontend/src/components/sections/ContactSection.tsx",
+    "frontend/src/components/sections/ControlFrameworkSection.tsx",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/hooks/useLeadSubmission.ts",
+    "frontend/src/lib/strategyCall.ts",
+    "frontend/src/pages/ControlFrameworkPage.tsx",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

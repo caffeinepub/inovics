@@ -1,0 +1,126 @@
+{
+  "kind": "build_request",
+  "title": "Add dedicated CONTROL™ Framework page with homepage and main-menu links plus lead-gen form",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create a new standalone page for “The CONTROL™ Framework” containing the exact sections and user-provided English copy: Hero (headline/subheadline/supporting line + CTA “Book a Founder Strategy Call”), Section 1 (Why a Framework), Section 2 (detailed CONTROL™ steps with bullets and “Outcome:” lines), Section 3 (What this means for you), Section 4 (Who this is for), Section 5 (Lead generation form positioned mid-page + strong final CTA), and a Final Section with closing line + CTA “Book a Founder Strategy Call”.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "🚀 INOVICS – CONTROL™ Framework Page creation and link... (full page copy and sections provided)"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A new navigable page exists for the CONTROL™ Framework (not just an anchor section on the homepage).",
+        "All headings, subheadings, bullet lists, and CTAs match the user-provided English copy (including ™ symbols and currency formatting like ₹5–50 Cr).",
+        "The CONTROL™ page includes all requested sections in the same order as provided.",
+        "Both CTAs labeled “Book a Founder Strategy Call” on the CONTROL™ page navigate the user to the site’s strategy-call/contact action (consistent with existing behavior, e.g., scroll to contact or open the existing mailto flow)."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Add a “Read more” (or equivalent) link on the homepage that navigates to the new CONTROL™ Framework page.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "Add a read more on the homepage to be able to visit this page"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Homepage renders a visible “Read more” (or equivalent) link/button related to the CONTROL™ Framework.",
+        "Clicking the “Read more” link navigates to the new CONTROL™ Framework page."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Add a main menu navigation entry that navigates to the new CONTROL™ Framework page, while preserving existing homepage section navigation behavior for other menu items.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "...and from main menu also"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Top navigation includes a menu item for the CONTROL™ Framework page.",
+        "The CONTROL™ menu item navigates to the CONTROL™ Framework page on both desktop and mobile menu.",
+        "Existing scroll-spy + smooth-scroll behavior for current homepage section links remains functional on the homepage."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Implement the CONTROL™ Framework lead-generation form with the exact fields specified: First Name, Last Name, Company Name, Industry (dropdown), Annual Revenue Range (dropdown: ₹5–10 Cr / ₹10–25 Cr / ₹25–50 Cr / 50+ Cr), Biggest Operational Challenge (short text area), Work Email, Mobile Number; CTA button text “Request Blueprint Review”; and display the small text under the button: “We work with a limited number of businesses each quarter.”",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "SECTION 5 – LEAD GENERATION FORM ... Form Fields (Premium + Qualifying) ... CTA Button: Request Blueprint Review ... Below button (small text): We work with a limited number of businesses each quarter."
+        ]
+      },
+      "acceptanceCriteria": [
+        "All specified fields are present with appropriate input types (dropdowns for Industry and Annual Revenue Range; textarea for Biggest Operational Challenge).",
+        "Annual Revenue Range dropdown options exactly match: “₹5–10 Cr”, “₹10–25 Cr”, “₹25–50 Cr”, “50+ Cr”.",
+        "The submit button label is exactly “Request Blueprint Review”.",
+        "The small text “We work with a limited number of businesses each quarter.” appears below the submit button.",
+        "Basic client-side validation prevents submission when required fields are empty and validates email format for Work Email."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "On submitting the lead-generation form, capture the submission and provide a clear success state to the user without navigating away unexpectedly.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "SECTION 5 – LEAD GENERATION FORM ... Request Your Founder Control Blueprint™ ... (premium + qualifying fields)"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Form submission triggers a single, user-visible success confirmation (e.g., inline success message) and clears or preserves fields in a consistent, intentional way.",
+        "Backend exposes an endpoint to accept and persist lead submissions (anonymous users allowed).",
+        "A submitted lead includes all form fields plus a server timestamp.",
+        "No runtime errors occur when submitting the form from the CONTROL™ Framework page."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not edit files under frontend/src/components/ui (shadcn components must be composed, not modified).",
+    "Do not edit immutable hook files: frontend/src/hooks/useInternetIdentity.ts(x), frontend/src/hooks/useActor.ts, frontend/src/main.tsx.",
+    "Backend must remain a single Motoko actor in backend/main.mo; only add migration logic if stable state is introduced or changed."
+  ],
+  "nonGoals": [
+    "Do not implement third-party authentication beyond existing Internet Identity setup.",
+    "Do not add external databases or third-party form/CRM integrations.",
+    "Do not redesign unrelated homepage sections beyond what is required to add the “Read more” link and navigation entry."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [
+      "Use English for all user-facing text in the app UI."
+    ],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

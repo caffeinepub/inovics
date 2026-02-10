@@ -1,0 +1,82 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Website update for INOVICS to add a new CONTROL™ Framework landing page with specified content/sections, plus navigation entry points from the homepage and main menu, including lead-gen CTAs and a qualifying form.",
+  "architectural_notes": [
+    "New landing page requires global navigation update (main menu) and homepage CTA/link update to route to CONTROL™ Framework page.",
+    "Lead-gen form includes dropdown fields (Industry, Annual Revenue Range) and should support mid-page placement plus a strong final CTA section."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-create-a-new-standalone-page-for-the-control-framework-containing-the-exact-sections-and-user-provided-english-copy-hero-headline-subheadline-supporting-line-cta-book-a-founder-strategy-call-section-1-why-a-framework-section-2-detailed-control-steps-with-bullets-and-outcome-lines-section-3-what-this-means-for-you-section-4-who-this-is-for-section-5-lead-generation-form-positioned-mid-page-strong-final-cta-and-a-final-section-with-closing-line-cta-book-a-founder-strategy-call",
+      "title": "Create a new standalone page for “The CONTROL™ Framework” containing the exact sections and user-provided English copy: Hero (headline/subheadline/supporting line + CTA “Book a Founder Strategy Call”), Section 1 (Why a Framework), Section 2 (detailed CONTROL™ steps with bullets and “Outcome:” lines), Section 3 (What this means for you), Section 4 (Who this is for), Section 5 (Lead generation form positioned mid-page + strong final CTA), and a Final Section with closing line + CTA “Book a Founder Strategy Call”.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-read-more-or-equivalent-link-on-the-homepage-that-navigates-to-the-new-control-framework-page",
+      "title": "Add a “Read more” (or equivalent) link on the homepage that navigates to the new CONTROL™ Framework page.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-main-menu-navigation-entry-that-navigates-to-the-new-control-framework-page-while-preserving-existing-homepage-section-navigation-behavior-for-other-menu-items",
+      "title": "Add a main menu navigation entry that navigates to the new CONTROL™ Framework page, while preserving existing homepage section navigation behavior for other menu items.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-control-framework-lead-generation-form-with-the-exact-fields-specified-first-name-last-name-company-name-industry-dropdown-annual-revenue-range-dropdown-5-10-cr-10-25-cr-25-50-cr-50-cr-biggest-operational-challenge-short-text-area-work-email-mobile-number-cta-button-text-request-blueprint-review-and-display-the-small-text-under-the-button-we-work-with-a-limited-number-of-businesses-each-quarter",
+      "title": "Implement the CONTROL™ Framework lead-generation form with the exact fields specified: First Name, Last Name, Company Name, Industry (dropdown), Annual Revenue Range (dropdown: ₹5–10 Cr / ₹10–25 Cr / ₹25–50 Cr / 50+ Cr), Biggest Operational Challenge (short text area), Work Email, Mobile Number; CTA button text “Request Blueprint Review”; and display the small text under the button: “We work with a limited number of businesses each quarter.”",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-on-submitting-the-lead-generation-form-capture-the-submission-and-provide-a-clear-success-state-to-the-user-without-navigating-away-unexpectedly",
+      "title": "On submitting the lead-generation form, capture the submission and provide a clear success state to the user without navigating away unexpectedly.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create a new “CONTROL™ Framework” page for INOVICS with provided hero, sections (Why/Framework breakdown/Benefits/Who it’s for), final CTA, and overall page content structure.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Add a “Read more” (or equivalent) link on the homepage that navigates to the new CONTROL™ Framework page.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Add a main menu/navigation link to the CONTROL™ Framework page.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Add a lead-generation form on the CONTROL™ Framework page with premium/qualifying fields (name, company, industry dropdown, revenue range dropdown, challenge textarea, email, mobile) and CTAs (Request Blueprint Review; Book a Founder Strategy Call).",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "projectName": "INOVICS",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

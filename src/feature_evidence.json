@@ -1,0 +1,101 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-a-new-standalone-page-for-the-control-framework-containing-the-exact-sections-and-user-provided-english-copy-hero-headline-subheadline-supporting-line-cta-book-a-founder-strategy-call-section-1-why-a-framework-section-2-detailed-control-steps-with-bullets-and-outcome-lines-section-3-what-this-means-for-you-section-4-who-this-is-for-section-5-lead-generation-form-positioned-mid-page-strong-final-cta-and-a-final-section-with-closing-line-cta-book-a-founder-strategy-call",
+      "featureTitle": "Create a new standalone page for “The CONTROL™ Framework” containing the exact sections and user-provided English copy: Hero (headline/subheadline/supporting line + CTA “Book a Founder Strategy Call”), Section 1 (Why a Framework), Section 2 (detailed CONTROL™ steps with bullets and “Outcome:” lines), Section 3 (What this means for you), Section 4 (Who this is for), Section 5 (Lead generation form positioned mid-page + strong final CTA), and a Final Section with closing line + CTA “Book a Founder Strategy Call”.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/sections/ContactSection.tsx",
+        "frontend/src/lib/strategyCall.ts",
+        "frontend/src/pages/ControlFrameworkPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-read-more-or-equivalent-link-on-the-homepage-that-navigates-to-the-new-control-framework-page",
+      "featureTitle": "Add a “Read more” (or equivalent) link on the homepage that navigates to the new CONTROL™ Framework page.",
+      "files": [
+        "frontend/src/components/sections/ControlFrameworkSection.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-main-menu-navigation-entry-that-navigates-to-the-new-control-framework-page-while-preserving-existing-homepage-section-navigation-behavior-for-other-menu-items",
+      "featureTitle": "Add a main menu navigation entry that navigates to the new CONTROL™ Framework page, while preserving existing homepage section navigation behavior for other menu items.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/TopNav.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-the-control-framework-lead-generation-form-with-the-exact-fields-specified-first-name-last-name-company-name-industry-dropdown-annual-revenue-range-dropdown-5-10-cr-10-25-cr-25-50-cr-50-cr-biggest-operational-challenge-short-text-area-work-email-mobile-number-cta-button-text-request-blueprint-review-and-display-the-small-text-under-the-button-we-work-with-a-limited-number-of-businesses-each-quarter",
+      "featureTitle": "Implement the CONTROL™ Framework lead-generation form with the exact fields specified: First Name, Last Name, Company Name, Industry (dropdown), Annual Revenue Range (dropdown: ₹5–10 Cr / ₹10–25 Cr / ₹25–50 Cr / 50+ Cr), Biggest Operational Challenge (short text area), Work Email, Mobile Number; CTA button text “Request Blueprint Review”; and display the small text under the button: “We work with a limited number of businesses each quarter.”",
+      "files": [
+        "frontend/src/components/forms/ControlLeadGenForm.tsx",
+        "frontend/src/pages/ControlFrameworkPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-on-submitting-the-lead-generation-form-capture-the-submission-and-provide-a-clear-success-state-to-the-user-without-navigating-away-unexpectedly",
+      "featureTitle": "On submitting the lead-generation form, capture the submission and provide a clear success state to the user without navigating away unexpectedly.",
+      "files": [
+        "frontend/src/components/forms/ControlLeadGenForm.tsx",
+        "frontend/src/hooks/useLeadSubmission.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

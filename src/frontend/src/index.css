@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 0.5rem;
+        
+        /* INOVICS Logo-matched Navy/Teal Base Colors */
+        --navy: 0.20 0.10 210;
+        --navy-dark: 0.14 0.10 210;
+        --charcoal: 0.18 0.04 215;
+        
+        /* INOVICS Logo-matched Golden Yellow Accent */
+        --accent-yellow: 0.82 0.20 75;
+        
+        /* Dark Mode Design System (logo-palette aligned) */
+        --background: 0.16 0.10 210;
+        --foreground: 0.98 0.01 75;
+        --card: 0.22 0.08 210;
+        --card-foreground: 0.98 0.01 75;
+        --popover: 0.22 0.08 210;
+        --popover-foreground: 0.98 0.01 75;
+        --primary: 0.82 0.20 75;
+        --primary-foreground: 0.16 0.10 210;
+        --secondary: 0.32 0.08 210;
+        --secondary-foreground: 0.98 0.01 75;
+        --muted: 0.32 0.08 210;
+        --muted-foreground: 0.68 0.06 210;
+        --accent: 0.32 0.08 210;
+        --accent-foreground: 0.98 0.01 75;
+        --destructive: 0.55 0.22 25;
+        --destructive-foreground: 0.98 0.01 75;
+        --border: 0.38 0.08 210;
+        --input: 0.38 0.08 210;
+        --ring: 0.82 0.20 75;
+        --chart-1: 0.65 0.20 200;
+        --chart-2: 0.60 0.15 280;
+        --chart-3: 0.70 0.18 150;
+        --chart-4: 0.75 0.16 320;
+        --chart-5: 0.68 0.19 40;
+    }
+
+    .dark {
+        --background: 0.16 0.10 210;
+        --foreground: 0.98 0.01 75;
+        --card: 0.22 0.08 210;
+        --card-foreground: 0.98 0.01 75;
+        --popover: 0.22 0.08 210;
+        --popover-foreground: 0.98 0.01 75;
+        --primary: 0.82 0.20 75;
+        --primary-foreground: 0.16 0.10 210;
+        --secondary: 0.32 0.08 210;
+        --secondary-foreground: 0.98 0.01 75;
+        --muted: 0.32 0.08 210;
+        --muted-foreground: 0.68 0.06 210;
+        --accent: 0.32 0.08 210;
+        --accent-foreground: 0.98 0.01 75;
+        --destructive: 0.55 0.22 25;
+        --destructive-foreground: 0.98 0.01 75;
+        --border: 0.38 0.08 210;
+        --input: 0.38 0.08 210;
+        --ring: 0.82 0.20 75;
+        --chart-1: 0.65 0.20 200;
+        --chart-2: 0.60 0.15 280;
+        --chart-3: 0.70 0.18 150;
+        --chart-4: 0.75 0.16 320;
+        --chart-5: 0.68 0.19 40;
+    }
+
+    * {
+        @apply border-border;
+    }
+    
+    body {
+        @apply bg-background text-foreground;
+        font-feature-settings: "rlig" 1, "calt" 1;
+    }
+    
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    /* Scroll margin for anchor links to account for sticky header */
+    section[id] {
+        scroll-margin-top: 5rem;
+    }
+}
+
+@layer utilities {
+    /* Decorative visual utility - prevents layout shift and ensures responsive rendering */
+    .decorative-visual {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+    
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+    }
+}

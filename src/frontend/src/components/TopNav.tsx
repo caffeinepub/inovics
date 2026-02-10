@@ -1,0 +1,195 @@
+import { useState, useEffect } from 'react';
+import { Menu } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
+
+const navLinks = [
+  { label: 'Framework', href: '#framework', isHash: true },
+  { label: 'Industries', href: '#industries', isHash: true },
+  { label: 'Process', href: '#process', isHash: true },
+  { label: 'Insights', href: '#insights', isHash: true },
+  { label: 'Contact', href: '#contact', isHash: true },
+  { label: 'CONTROL™', href: '/control-framework', isHash: false },
+];
+
+export function TopNav() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+
+      // Only update active section on homepage
+      if (currentPath === '/') {
+        const sections = navLinks.filter(link => link.isHash).map(link => link.href.substring(1));
+        for (const section of sections) {
+          const element = document.getElementById(section);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            if (rect.top <= 120 && rect.bottom >= 120) {
+              setActiveSection(section);
+              break;
+            }
+          }
+        }
+      }
+    };
+
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('popstate', handlePopState);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [currentPath]);
+
+  const scrollToSection = (href: string) => {
+    const element = document.getElementById(href.substring(1));
+    if (element) {
+      const offset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, link: typeof navLinks[0]) => {
+    e.preventDefault();
+    
+    if (link.isHash) {
+      // Hash link - check if we need to navigate home first
+      if (currentPath !== '/') {
+        window.history.pushState({}, '', '/');
+        window.dispatchEvent(new PopStateEvent('popstate'));
+        setTimeout(() => scrollToSection(link.href), 100);
+      } else {
+        scrollToSection(link.href);
+      }
+    } else {
+      // Route link
+      window.history.pushState({}, '', link.href);
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleCtaClick = () => {
+    if (currentPath !== '/') {
+      window.history.pushState({}, '', '/');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      setTimeout(() => scrollToSection('#contact'), 100);
+    } else {
+      scrollToSection('#contact');
+    }
+  };
+
+  const handleBrandClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (currentPath !== '/') {
+      window.history.pushState({}, '', '/');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-background/95 backdrop-blur-md border-b border-border' : 'bg-transparent'
+      }`}
+    >
+      <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
+          {/* Text-based Brand Mark */}
+          <a
+            href="/"
+            onClick={handleBrandClick}
+            className="flex items-center hover:opacity-90 transition-opacity"
+          >
+            <span className="text-2xl sm:text-3xl font-bold text-accent-yellow tracking-tight">
+              INOVICS
+            </span>
+          </a>
+
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => handleNavClick(e, link)}
+                className={`text-sm font-medium transition-colors hover:text-accent-yellow ${
+                  link.isHash && activeSection === link.href.substring(1)
+                    ? 'text-accent-yellow'
+                    : !link.isHash && currentPath === link.href
+                    ? 'text-accent-yellow'
+                    : 'text-muted-foreground'
+                }`}
+              >
+                {link.label}
+              </a>
+            ))}
+            <Button
+              onClick={handleCtaClick}
+              className="bg-accent-yellow text-navy hover:bg-accent-yellow/90 font-semibold"
+            >
+              Book Strategy Call
+            </Button>
+          </div>
+
+          {/* Mobile Navigation */}
+          <Sheet>
+            <SheetTrigger asChild className="lg:hidden">
+              <Button variant="ghost" size="icon" className="text-foreground">
+                <Menu className="h-6 w-6" />
+                <span className="sr-only">Open menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-card">
+              <div className="flex flex-col gap-6 mt-8">
+                {navLinks.map((link) => (
+                  <SheetClose asChild key={link.href}>
+                    <a
+                      href={link.href}
+                      onClick={(e) => handleNavClick(e, link)}
+                      className={`text-lg font-medium transition-colors hover:text-accent-yellow ${
+                        link.isHash && activeSection === link.href.substring(1)
+                          ? 'text-accent-yellow'
+                          : !link.isHash && currentPath === link.href
+                          ? 'text-accent-yellow'
+                          : 'text-foreground'
+                      }`}
+                    >
+                      {link.label}
+                    </a>
+                  </SheetClose>
+                ))}
+                <SheetClose asChild>
+                  <Button
+                    onClick={handleCtaClick}
+                    className="bg-accent-yellow text-navy hover:bg-accent-yellow/90 font-semibold w-full"
+                  >
+                    Book Strategy Call
+                  </Button>
+                </SheetClose>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </nav>
+    </header>
+  );
+}

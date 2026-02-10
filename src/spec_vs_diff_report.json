@@ -1,0 +1,64 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-10T08:17:25.969Z",
+  "summary": "Diff adds a standalone /control-framework page, homepage “Read More” navigation, and a CONTROL™ menu item with client-side routing via history.pushState. It also adds a lead-gen form and a backend addLead method. However, the lead submission data model does not persist all required form fields nor a server timestamp, and the success UX currently reloads the page.",
+  "missing_requirements": [
+    {
+      "id": "REQ-4",
+      "requirement": "Lead-gen form submission should include all specified fields (First Name, Last Name, Company Name, Industry, Annual Revenue Range, Biggest Operational Challenge, Work Email, Mobile Number) rather than collapsing them into a generic message.",
+      "reason": "The form collects multiple fields but only submits firstName, lastName, email, and a composed message string to the backend; this does not preserve individual required fields as structured data.",
+      "evidence": [
+        "frontend/src/components/forms/ControlLeadGenForm.tsx",
+        "frontend/src/hooks/useLeadSubmission.ts",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "Backend must accept and persist lead submissions including all form fields plus a server timestamp.",
+      "reason": "Backend Lead type contains only firstName, lastName, email, and message, and there is no server timestamp field stored. Persistence is in an in-memory Map with no stable storage indicated.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "Provide a clear success state without navigating away unexpectedly.",
+      "reason": "On success, the UI offers a \"Submit Another Request\" action that calls window.location.reload(), which reloads/navigates away from the current state rather than keeping the user in a stable inline success/clear-form flow.",
+      "evidence": [
+        "frontend/src/components/forms/ControlLeadGenForm.tsx"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Backend query endpoints to retrieve a single lead and all leads (getLead, getAllLeads).",
+      "reason": "The BuildRequest/requirements only asked for an endpoint to accept and persist lead submissions, not for lead retrieval APIs.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "Changed Contact section CTA label to “Schedule Your Strategy Call”.",
+      "reason": "The requirements did not request copy changes to the existing Contact section CTA; only CONTROL™ page CTAs and navigation additions were requested.",
+      "evidence": [
+        "frontend/src/components/sections/ContactSection.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.74,
+  "changed_files": [
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/src/App.tsx",
+    "frontend/src/components/TopNav.tsx",
+    "frontend/src/components/forms/ControlLeadGenForm.tsx",
+    "frontend/src/components/sections/ContactSection.tsx",
+    "frontend/src/components/sections/ControlFrameworkSection.tsx",
+    "frontend/src/hooks/useLeadSubmission.ts",
+    "frontend/src/lib/strategyCall.ts",
+    "frontend/src/pages/ControlFrameworkPage.tsx",
+    "project_state.json"
+  ]
+}
