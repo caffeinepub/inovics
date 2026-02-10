@@ -2,12 +2,8 @@ import Map "mo:core/Map";
 import Nat "mo:core/Nat";
 import Text "mo:core/Text";
 import Iter "mo:core/Iter";
-import Migration "migration";
-import List "mo:core/List";
 
-// Use behavior migration which we found to work after updating a couple paths. Steve, could you try to simulate this one in runtime as it is not working stably for me? Thanks!
-
-(with migration = Migration.run)
+// In this case, we follow the without update migration style since there is no data change. Only a UI change! No field or datatype change.
 actor {
   type Lead = {
     firstName : Text;
@@ -21,7 +17,6 @@ actor {
     message : Text;
   };
 
-  // Use persistent Map instead of var Map.
   let leads = Map.empty<Nat, Lead>();
 
   var nextId = 0;

@@ -1,92 +1,83 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Industries We Serve page route, navigation linking, and lead capture form",
+  "title": "Convert homepage hero into scrollable multi-banner slider",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Add a standalone /industries route that renders the full publish-ready Industries We Serve content with the required section order, including a copyable Caffeine AI prompt block.",
+      "summary": "Replace the static HeroSection message with a swipe/drag-enabled hero slider/carousel while keeping the full-viewport hero layout and fixed TopNav behavior intact.",
       "acceptanceCriteria": [
-        "Navigating to the Industries page route renders all sections in the exact order specified above.",
-        "All headings, subheadings, bullets, and CTA labels match the user-provided content verbatim (English user-facing text).",
-        "Each of the four industries is displayed as its own section and includes labeled subsections for Common Challenges, What We Implement, and Outcome.",
-        "A final block exists at the bottom containing a short Caffeine AI prompt, displayed as plain text with an obvious copy-to-clipboard interaction."
+        "On route '/' the top section renders as a slider/carousel instead of a single static hero message.",
+        "Users can change slides on mobile via horizontal swipe/drag.",
+        "Users can change slides on desktop via visible navigation controls (e.g., arrows and/or dots).",
+        "The hero section retains its existing full-viewport feel (min-h-screen) and does not break the fixed TopNav behavior."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/IndustriesPage.tsx",
+          "path": "frontend/src/components/sections/HeroSlider.tsx",
           "operation": "create",
-          "description": "Create the Industries We Serve page component rendered at /industries, implementing all sections in the exact required order and pasting the user-provided publish-ready copy verbatim from msg-4. Include an on-page lead-gen section container with a stable section id for scrolling, and a final Caffeine AI prompt block rendered as plain text with an explicit copy-to-clipboard control (using the Web Clipboard API with a visible success/failure UI). Use shadcn-ui components (e.g., Button, Card, etc.) where appropriate to match the existing site UI/UX; verify the component's usage instructions before implementing."
+          "description": "Create a reusable hero slider component implementing slide state, drag/swipe gestures (touch + pointer), and desktop navigation controls (prev/next + indicators) without adding new dependencies."
         },
         {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/components/sections/HeroSection.tsx",
           "operation": "modify",
-          "description": "Wire the new /industries route into the app’s top-level path-based rendering (alongside /control-framework), ensuring /industries renders IndustriesPage and non-matching paths continue to render the homepage sections. Ensure route changes still scroll to top where appropriate."
+          "description": "Refactor HeroSection to render the new HeroSlider inside the existing full-viewport section wrapper, preserving current background visuals, spacing (including pt-20), and min-h-screen layout so TopNav remains unaffected."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Update top navigation so the Industries link routes to /industries instead of the homepage #industries anchor, while preserving existing routing/scroll behavior for other links.",
+      "summary": "Populate the hero slider with the 4 provided banner slides, each with the exact Headline, Subheadline, Supporting Line, and CTA button text, maintaining the existing HeroSection typographic style.",
       "acceptanceCriteria": [
-        "Clicking \"Industries\" in the top navigation takes the user to the Industries page route and scrolls to the top.",
-        "The CONTROL™ link continues to navigate to /control-framework as it does currently.",
-        "Homepage hash-based navigation (Framework/Process/Insights/Contact) continues to work as it does currently."
+        "The slider contains 4 slides (the 3 primary banners plus the optional 4th banner).",
+        "Each slide displays its Headline, Subheadline, Supporting Line, and CTA(s) as provided, without reusing the same overall message across slides.",
+        "Typography and spacing remain consistent with the existing HeroSection style (centered layout, large headline, readable subhead/supporting lines)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/TopNav.tsx",
+          "path": "frontend/src/components/sections/HeroSlider.tsx",
           "operation": "modify",
-          "description": "Update the navLinks configuration so \"Industries\" is a route link to /industries (not a hash link), while leaving existing hash links and the CONTROL™ route link unchanged. Ensure the existing click handler continues to (1) route to / and then scroll for hash links when not on homepage, and (2) scroll-to-top for route links. Use existing shadcn-ui Sheet/Button components as-is (no edits to ui sources); verify the component's usage instructions before implementing."
+          "description": "Implement the slide content data (4 slides) with the provided English copy and CTA labels exactly as given; render each slide with HeroSection-consistent centered layout, headline/subheadline/supporting line hierarchy, and 1–2 CTA buttons per slide."
         }
       ]
     },
     {
       "id": "REQ-3",
-      "summary": "Add an Industries lead-generation form with the required fields and validation; submit via the existing lead submission hook so it calls backend addLead and stores extra fields in both dedicated params and the message payload.",
+      "summary": "Wire hero slider CTA buttons to existing strategy call behavior, framework section scrolling, and client-side route navigation (pushState + popstate) with scroll-to-top on route changes.",
       "acceptanceCriteria": [
-        "All listed fields are present on the Industries page form, with required-field validation and inline error states consistent with the existing lead form UX.",
-        "The submit button label reads exactly \"Request Industry Blueprint\".",
-        "Successful submission calls the backend addLead method and shows a success state (thank-you/confirmation) without a full page crash.",
-        "The stored lead message includes Company Name, Industry, Revenue Range, Mobile Number, and Biggest Operational Bottleneck (in addition to name + email stored in their dedicated fields).",
-        "The small text \"We partner with a limited number of businesses each quarter.\" is shown below the submit CTA in the lead-gen section."
+        "Clicking any \"Book…\"/\"Schedule…\" CTA opens the configured strategy call flow (calendar if configured, otherwise mailto).",
+        "Clicking \"Explore the CONTROL™ Framework\" smoothly scrolls to the element with id=\"framework\" on the homepage (accounting for header offset as current HeroSection does).",
+        "Clicking \"Start Your Transformation\" navigates to /process and scrolls to top.",
+        "Clicking \"See How We Work\" navigates to /process and scrolls to top.",
+        "Clicking \"Request Founder Blueprint™\" navigates to /contact and scrolls to top.",
+        "Clicking \"Evaluate Your Systems\" navigates to /contact and scrolls to top."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/forms/IndustriesLeadGenForm.tsx",
-          "operation": "create",
-          "description": "Create an IndustriesLeadGenForm component implementing the required fields: First Name, Last Name, Company Name, Industry (Dropdown), Revenue Range, Biggest Operational Bottleneck, Work Email, Mobile Number, and a submit button labeled exactly \"Request Industry Blueprint\". Implement required-field validation and inline error rendering consistent with ControlLeadGenForm. On submit, call the existing useLeadSubmission hook and compose the lead message text to include Company Name, Industry, Revenue Range, Mobile Number, and Biggest Operational Bottleneck (mirroring the Control form’s message pattern) while also passing these values into the submission payload for dedicated storage. Render the exact small text \"We partner with a limited number of businesses each quarter.\" below the submit CTA. Use shadcn-ui form primitives (Input/Label/Select/Textarea/Button) consistent with existing forms; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useLeadSubmission.ts",
+          "path": "frontend/src/components/sections/HeroSlider.tsx",
           "operation": "modify",
-          "description": "Extend the existing submitLead API to accept the additional lead fields (companyName, industry, revenueRange, operationalBottleneck, mobileNumber) while remaining backward-compatible for existing callers. Update the actor.addLead invocation to use the full backend signature defined in frontend/src/backend.d.ts (supplying empty strings for any omitted fields) and keep existing loading/success/error behavior."
-        },
-        {
-          "path": "frontend/src/components/forms/ControlLeadGenForm.tsx",
-          "operation": "modify",
-          "description": "Update ControlLeadGenForm to pass companyName, industry, revenueRange, mobileNumber, and operationalBottleneck (mapped from the existing \"challenge\" field) into useLeadSubmission so Control submissions continue to persist the extra fields via the updated hook while preserving the existing UX and success state. Continue composing the message string similarly to today so the lead message remains populated with the same details. Use existing shadcn-ui components only (do not edit ui sources); verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/IndustriesPage.tsx",
-          "operation": "modify",
-          "description": "Wire IndustriesLeadGenForm into the Industries page Lead Generation section (Section 6 in the required order), ensuring the form is rendered within the correct section and the page shows the provided lead-gen headline/subheadline verbatim from msg-4. Use shadcn-ui layout components (e.g., Card) if desired for consistent styling; verify the component's usage instructions before implementing."
+          "description": "Connect CTA actions to existing behaviors: use bookStrategyCall for all \"Book…\"/\"Schedule…\" CTAs, reuse the existing HeroSection-style scroll-to-framework behavior for \"Explore the CONTROL™ Framework\" (with header offset), and implement internal navigation using window.history.pushState + PopStateEvent('popstate') for /process and /contact plus scroll-to-top (respecting reduced-motion for scroll behavior)."
         }
       ]
     },
     {
       "id": "REQ-4",
-      "summary": "Wire Industries page CTAs so the hero CTA scrolls to the on-page lead form and the final CTA triggers the existing strategy call mailto action with correct fixed-nav offset.",
+      "summary": "Add accessibility and motion-safe behavior to the hero slider: keyboard navigation, ARIA labeling, visible focus states, and prefers-reduced-motion support for transitions/autoplay.",
       "acceptanceCriteria": [
-        "Clicking \"Request Founder Blueprint\" on the Industries hero scrolls smoothly to the lead-generation form section on the same page.",
-        "Clicking \"Book Strategy Call\" triggers the existing strategy call behavior (mailto) used in other pages.",
-        "Scrolling offsets account for the fixed top navigation so section headers are not hidden under the nav."
+        "Slider navigation controls are reachable and operable via keyboard.",
+        "Controls have appropriate accessible names (e.g., aria-label for previous/next and slide indicators).",
+        "When prefers-reduced-motion is enabled, slide transitions avoid motion-heavy animations and any autoplay behavior is disabled (if autoplay exists)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/IndustriesPage.tsx",
+          "path": "frontend/src/hooks/usePrefersReducedMotion.ts",
+          "operation": "create",
+          "description": "Create a small hook that detects prefers-reduced-motion via matchMedia and updates on changes, to be used by the hero slider for motion-safe behavior."
+        },
+        {
+          "path": "frontend/src/components/sections/HeroSlider.tsx",
           "operation": "modify",
-          "description": "Implement CTA behaviors on the Industries page: (a) the hero CTA labeled exactly \"Request Founder Blueprint\" should smoothly scroll to the Lead Generation section (use an element id and an offset consistent with the fixed header behavior used elsewhere, and/or rely on the existing global scroll-margin rules); (b) the final CTA button labeled exactly \"Book Strategy Call\" should call the existing bookStrategyCall helper. Use shadcn-ui Button components consistent with the site; verify the component's usage instructions before implementing."
+          "description": "Add a11y and motion-safe behavior: enable left/right keyboard navigation (when the slider region is focused), add ARIA attributes (e.g., aria-roledescription=\"carousel\", aria-labels for prev/next and indicators), ensure controls have visible focus styles (focus-visible ring/outline), and conditionally reduce/disable animated transitions (and ensure no autoplay when reduced motion is preferred)."
         }
       ]
     }

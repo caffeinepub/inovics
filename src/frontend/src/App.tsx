@@ -14,6 +14,9 @@ import { ContactSection } from './components/sections/ContactSection';
 import { Footer } from './components/Footer';
 import { ControlFrameworkPage } from './pages/ControlFrameworkPage';
 import { IndustriesPage } from './pages/IndustriesPage';
+import { ProcessPage } from './pages/ProcessPage';
+import { InsightsPage } from './pages/InsightsPage';
+import { ContactPage } from './pages/ContactPage';
 
 function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
@@ -30,6 +33,9 @@ function App() {
   // Check if we're on a standalone page
   const isControlFrameworkPage = currentPath === '/control-framework';
   const isIndustriesPage = currentPath === '/industries';
+  const isProcessPage = currentPath === '/process';
+  const isInsightsPage = currentPath === '/insights';
+  const isContactPage = currentPath === '/contact';
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -38,6 +44,12 @@ function App() {
         <ControlFrameworkPage />
       ) : isIndustriesPage ? (
         <IndustriesPage />
+      ) : isProcessPage ? (
+        <ProcessPage />
+      ) : isInsightsPage ? (
+        <InsightsPage />
+      ) : isContactPage ? (
+        <ContactPage />
       ) : (
         <main>
           <HeroSection />

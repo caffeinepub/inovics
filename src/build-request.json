@@ -1,95 +1,96 @@
 {
   "kind": "build_request",
-  "title": "Build and link the Industries We Serve page with structured industry blocks and lead capture",
+  "title": "Convert homepage hero into scrollable multi-banner slider",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Create a new standalone route/page for the Industries We Serve page and render the full publish-ready content provided by the user using the following section structure in order: (1) Hero section with headline, subheadline, supporting line, and CTA \"Request Founder Blueprint\"; (2) \"Our Focus\" section describing the target business profile and explicitly stating you do not serve early-stage startups; (3) Four industry blocks (Manufacturing SMEs, Distributors & Trading Companies, Professional Service Firms, Second-Generation Leadership Teams) where each block includes three clearly labeled subparts: \"Common Challenges\", \"What We Implement\", and \"Outcome\"; (4) \"What stays consistent across industries\" section with the provided bullet points and closing lines; (5) \"Is This Right for You?\" qualifying statement section with fit/not-fit messaging; (6) Lead generation section with headline, subheadline, and form; (7) Final CTA block with headline and \"Book Strategy Call\" button; and (8) a short \"Caffeine AI prompt\" block at the end (as requested by the user) presented as copyable text.",
+      "text": "Replace the current single-message homepage hero banner (HeroSection) with a scrollable banner/slider that shows multiple distinct banners, one per slide, with swipe/drag support on touch devices and clickable navigation controls on desktop.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-user-1"
         ],
         "quotes": [
-          "now lets build and link the industries page. below is the structre i want ... 🚀 INOVICS – Industries We Serve Page ... 4️⃣ Short Caffine AI prompt at the end"
+          "I want to change the manin banner section on the homepage to a scrollable banners"
         ]
       },
       "acceptanceCriteria": [
-        "Navigating to the Industries page route renders all sections in the exact order specified above.",
-        "All headings, subheadings, bullets, and CTA labels match the user-provided content verbatim (English user-facing text).",
-        "Each of the four industries is displayed as its own section and includes labeled subsections for Common Challenges, What We Implement, and Outcome.",
-        "A final block exists at the bottom containing a short Caffeine AI prompt, displayed as plain text with an obvious copy-to-clipboard interaction."
+        "On route '/' the top section renders as a slider/carousel instead of a single static hero message.",
+        "Users can change slides on mobile via horizontal swipe/drag.",
+        "Users can change slides on desktop via visible navigation controls (e.g., arrows and/or dots).",
+        "The hero section retains its existing full-viewport feel (min-h-screen) and does not break the fixed TopNav behavior."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Add site navigation linking to the new Industries We Serve page: update the top navigation so that \"Industries\" navigates to the new Industries page route (not the homepage #industries anchor), while keeping existing routing behavior for other links (e.g., CONTROL™).",
+      "text": "Implement the following banner copy as separate slides in the homepage hero slider, ensuring each slide has: Headline, Subheadline, Supporting Line, and one or two CTA buttons exactly as provided (English text). Include the optional 4th banner as an additional slide.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-user-1"
         ],
         "quotes": [
-          "now lets build and link the industries page"
+          "Your homepage banners should not repeat the same message.\nEach banner should hit a different psychological trigger:\n\n1️⃣ Pain (Chaos)\n2️⃣ Aspiration (Control)\n3️⃣ Authority (System & AI)\n\nBelow are 3 strong banner sets — each with headline, subheadline, supporting line, and CTA.\n\n🔵 BANNER 1 – The Problem (Emotional Trigger)\nHeadline\n\nGrowth Is Breaking Your Systems.\n\nSubheadline\n\nExcel sheets. WhatsApp approvals. Manual reporting. Founder bottlenecks.\n\nSupporting Line\n\nYou don’t have a revenue problem.\nYou have a structural problem.\n\nCTA\n\nBook a Founder Strategy Call\nExplore the CONTROL™ Framework\n\n🟡 BANNER 2 – The Aspiration (Vision Trigger)\nHeadline\n\nBuild Beyond the Founder.\n\nSubheadline\n\nTurn your legacy family business into a system-driven enterprise powered by AI.\n\nSupporting Line\n\nReal-time dashboards. Automated workflows. Institutional governance.\n\nControl. Clarity. Continuity.\n\nCTA\n\nStart Your Transformation\nRequest Founder Blueprint™\n\n⚫ BANNER 3 – The Authority (Strategic Trigger)\nHeadline\n\nAI Is Not the Advantage.\nSystem Design Is.\n\nSubheadline\n\nInovics builds AI-powered operating systems for ₹5–50 Cr family businesses ready to scale without chaos.\n\nSupporting Line\n\nWe don’t install tools.\nWe engineer infrastructure.\n\nCTA\n\nSee How We Work\nBook Strategy Call\n\nOptional 4th Banner (If You Want Stronger Impact)\nHeadline\n\nIf You Step Away for 30 Days… What Happens?\n\nSubheadline\n\nDoes your business operate on systems — or on you?\n\nSupporting Line\n\nInstitutional strength begins with structured transformation.\n\nCTA\n\nEvaluate Your Systems\nSchedule Strategy Call"
         ]
       },
       "acceptanceCriteria": [
-        "Clicking \"Industries\" in the top navigation takes the user to the Industries page route and scrolls to the top.",
-        "The CONTROL™ link continues to navigate to /control-framework as it does currently.",
-        "Homepage hash-based navigation (Framework/Process/Insights/Contact) continues to work as it does currently."
+        "The slider contains 4 slides (the 3 primary banners plus the optional 4th banner).",
+        "Each slide displays its Headline, Subheadline, Supporting Line, and CTA(s) as provided, without reusing the same overall message across slides.",
+        "Typography and spacing remain consistent with the existing HeroSection style (centered layout, large headline, readable subhead/supporting lines)."
       ]
     },
     {
       "id": "REQ-3",
-      "text": "Implement lead capture integration on the Industries page by adding a lead-generation form in the Lead Generation section with these fields: First Name, Last Name, Company Name, Industry (Dropdown), Revenue Range, Biggest Operational Bottleneck, Work Email, Mobile Number; and a submit CTA labeled \"Request Industry Blueprint\". On submit, persist the lead using the existing frontend submission hook and backend addLead API, packaging the additional fields into the lead message payload similarly to the existing Control lead form pattern.",
-      "target": "both",
+      "text": "Wire the hero slider CTA buttons to existing site behaviors/routes: (1) any \"Book…\"/\"Schedule…\" strategy-call CTA must trigger the existing strategy call behavior (bookStrategyCall). (2) \"Explore the CONTROL™ Framework\" must scroll to the existing homepage section with id=\"framework\". (3) Any non-strategy-call CTAs that are not scroll actions must navigate using the app’s existing client-side routing style (pushState + popstate) to appropriate existing routes (e.g., /process for \"Start Your Transformation\" and \"See How We Work\", /contact for \"Request Founder Blueprint™\" and \"Evaluate Your Systems\").",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-user-1"
         ],
         "quotes": [
-          "SECTION 5 – LEAD GENERATION ... Form Fields: First Name ... Mobile Number ... CTA: Request Industry Blueprint"
+          "CTA\n\nBook a Founder Strategy Call\nExplore the CONTROL™ Framework",
+          "CTA\n\nStart Your Transformation\nRequest Founder Blueprint™",
+          "CTA\n\nSee How We Work\nBook Strategy Call",
+          "CTA\n\nEvaluate Your Systems\nSchedule Strategy Call"
         ]
       },
       "acceptanceCriteria": [
-        "All listed fields are present on the Industries page form, with required-field validation and inline error states consistent with the existing lead form UX.",
-        "The submit button label reads exactly \"Request Industry Blueprint\".",
-        "Successful submission calls the backend addLead method and shows a success state (thank-you/confirmation) without a full page crash.",
-        "The stored lead message includes Company Name, Industry, Revenue Range, Mobile Number, and Biggest Operational Bottleneck (in addition to name + email stored in their dedicated fields).",
-        "The small text \"We partner with a limited number of businesses each quarter.\" is shown below the submit CTA in the lead-gen section."
+        "Clicking any \"Book…\"/\"Schedule…\" CTA opens the configured strategy call flow (calendar if configured, otherwise mailto).",
+        "Clicking \"Explore the CONTROL™ Framework\" smoothly scrolls to the element with id=\"framework\" on the homepage (accounting for header offset as current HeroSection does).",
+        "Clicking \"Start Your Transformation\" navigates to /process and scrolls to top.",
+        "Clicking \"See How We Work\" navigates to /process and scrolls to top.",
+        "Clicking \"Request Founder Blueprint™\" navigates to /contact and scrolls to top.",
+        "Clicking \"Evaluate Your Systems\" navigates to /contact and scrolls to top."
       ]
     },
     {
       "id": "REQ-4",
-      "text": "Wire the Industries page CTAs to the appropriate on-page actions: (a) the Hero CTA \"Request Founder Blueprint\" should scroll the user to the Industries page lead-generation form section; (b) the Final CTA \"Book Strategy Call\" should trigger the same strategy call action used elsewhere in the app.",
+      "text": "Add accessibility and motion-safe behavior to the hero slider: support keyboard navigation (left/right), provide ARIA labeling for slide controls, ensure focus styles are visible, and respect prefers-reduced-motion (disable autoplay/animated transitions if implemented).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-user-1"
         ],
         "quotes": [
-          "CTA: Request Founder Blueprint",
-          "FINAL CTA BLOCK ... Button: Book Strategy Call"
+          "change the manin banner section on the homepage to a scrollable banners"
         ]
       },
       "acceptanceCriteria": [
-        "Clicking \"Request Founder Blueprint\" on the Industries hero scrolls smoothly to the lead-generation form section on the same page.",
-        "Clicking \"Book Strategy Call\" triggers the existing strategy call behavior (mailto) used in other pages.",
-        "Scrolling offsets account for the fixed top navigation so section headers are not hidden under the nav."
+        "Slider navigation controls are reachable and operable via keyboard.",
+        "Controls have appropriate accessible names (e.g., aria-label for previous/next and slide indicators).",
+        "When prefers-reduced-motion is enabled, slide transitions avoid motion-heavy animations and any autoplay behavior is disabled (if autoplay exists)."
       ]
     }
   ],
   "constraints": [
-    "Do not edit files under frontend/src/components/ui (read-only UI component sources).",
-    "Do not edit frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, or frontend/src/main.tsx (immutable paths).",
-    "Backend must remain a single Motoko actor (all logic in backend/main.mo); only add migration.mo if an incompatible state upgrade is required."
+    "Do not modify files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or frontend/src/components/ui (immutable paths).",
+    "Backend remains single-actor Motoko; this change should not require backend changes or state migrations."
   ],
   "nonGoals": [
-    "Do not add third-party authentication providers (only Internet Identity is supported).",
-    "Do not introduce external databases or non-Motoko backend services.",
-    "Do not implement real-time features (WebSockets/chat/push).",
-    "Do not rewrite the existing homepage IndustriesSection content unless necessary for linking behavior; the new Industries page is the primary deliverable."
+    "Adding new backend APIs or changing lead storage logic.",
+    "Adding third-party carousel/analytics services or external dependencies that are not already in the project.",
+    "Changing navigation structure outside of wiring the new hero CTAs."
   ],
   "imageRequirements": {
     "required": [],
@@ -98,7 +99,9 @@
   "userProfileUpdate": {
     "goalsToAdd": [],
     "goalsToRemove": [],
-    "preferencesToAdd": [],
+    "preferencesToAdd": [
+      "Use English for any user-facing text."
+    ],
     "preferencesToRemove": [],
     "miscToAdd": [],
     "miscToRemove": [],

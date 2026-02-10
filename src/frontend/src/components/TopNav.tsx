@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
+import { bookStrategyCall } from '@/lib/strategyCall';
 
 const navLinks = [
   { label: 'Framework', href: '#framework', isHash: true },
   { label: 'Industries', href: '/industries', isHash: false },
-  { label: 'Process', href: '#process', isHash: true },
-  { label: 'Insights', href: '#insights', isHash: true },
-  { label: 'Contact', href: '#contact', isHash: true },
+  { label: 'Process', href: '/process', isHash: false },
+  { label: 'Insights', href: '/insights', isHash: false },
+  { label: 'Contact', href: '/contact', isHash: false },
   { label: 'CONTROL™', href: '/control-framework', isHash: false },
 ];
 
@@ -84,16 +85,6 @@ export function TopNav() {
     }
   };
 
-  const handleCtaClick = () => {
-    if (currentPath !== '/') {
-      window.history.pushState({}, '', '/');
-      window.dispatchEvent(new PopStateEvent('popstate'));
-      setTimeout(() => scrollToSection('#contact'), 100);
-    } else {
-      scrollToSection('#contact');
-    }
-  };
-
   const handleBrandClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     if (currentPath !== '/') {
@@ -143,7 +134,7 @@ export function TopNav() {
               </a>
             ))}
             <Button
-              onClick={handleCtaClick}
+              onClick={bookStrategyCall}
               className="bg-accent-yellow text-navy hover:bg-accent-yellow/90 font-semibold"
             >
               Book Strategy Call
@@ -179,7 +170,7 @@ export function TopNav() {
                 ))}
                 <SheetClose asChild>
                   <Button
-                    onClick={handleCtaClick}
+                    onClick={bookStrategyCall}
                     className="bg-accent-yellow text-navy hover:bg-accent-yellow/90 font-semibold w-full"
                   >
                     Book Strategy Call

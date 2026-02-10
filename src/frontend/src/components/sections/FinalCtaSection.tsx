@@ -1,17 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import { bookStrategyCall } from '@/lib/strategyCall';
 
 export function FinalCtaSection() {
-  const scrollToContact = () => {
-    const element = document.getElementById('contact');
-    if (element) {
-      const offset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-    }
-  };
-
   return (
     <section className="py-24 lg:py-32 bg-card">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -23,7 +14,7 @@ export function FinalCtaSection() {
             Inovics builds businesses that scale beyond the founder.
           </p>
           <Button
-            onClick={scrollToContact}
+            onClick={bookStrategyCall}
             size="lg"
             className="bg-accent-yellow text-navy hover:bg-accent-yellow/90 font-semibold text-lg px-8 py-6 h-auto"
           >

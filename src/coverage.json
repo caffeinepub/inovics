@@ -1,7 +1,7 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-10T08:29:34.475Z",
+  "generatedAt": "2026-02-10T09:21:28.922Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
@@ -12,75 +12,62 @@
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Create a new standalone route/page for the Industries We Serve page and render the full publish-ready content provided by the user using the following section structure in order: (1) Hero section with headline, subheadline, supporting line, and CTA \"Request Founder Blueprint\"; (2) \"Our Focus\" section describing the target business profile and explicitly stating you do not serve early-stage startups; (3) Four industry blocks (Manufacturing SMEs, Distributors & Trading Companies, Professional Service Firms, Second-Generation Leadership Teams) where each block includes three clearly labeled subparts: \"Common Challenges\", \"What We Implement\", and \"Outcome\"; (4) \"What stays consistent across industries\" section with the provided bullet points and closing lines; (5) \"Is This Right for You?\" qualifying statement section with fit/not-fit messaging; (6) Lead generation section with headline, subheadline, and form; (7) Final CTA block with headline and \"Book Strategy Call\" button; and (8) a short \"Caffeine AI prompt\" block at the end (as requested by the user) presented as copyable text.",
+        "summary": "Replace the current single-message homepage hero banner (HeroSection) with a scrollable banner/slider that shows multiple distinct banners, one per slide, with swipe/drag support on touch devices and clickable navigation controls on desktop.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/IndustriesPage.tsx",
-          "frontend/src/App.tsx"
+          "frontend/src/components/sections/HeroSlider.tsx",
+          "frontend/src/components/sections/HeroSection.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/IndustriesPage.tsx",
-          "frontend/src/App.tsx"
+          "frontend/src/components/sections/HeroSlider.tsx",
+          "frontend/src/components/sections/HeroSection.tsx"
         ]
       },
       {
         "id": "REQ-2",
-        "summary": "Add site navigation linking to the new Industries We Serve page: update the top navigation so that \"Industries\" navigates to the new Industries page route (not the homepage #industries anchor), while keeping existing routing behavior for other links (e.g., CONTROL™).",
+        "summary": "Implement the following banner copy as separate slides in the homepage hero slider, ensuring each slide has: Headline, Subheadline, Supporting Line, and one or two CTA buttons exactly as provided (English text). Include the optional 4th banner as an additional slide.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/TopNav.tsx"
+          "frontend/src/components/sections/HeroSlider.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/TopNav.tsx"
+          "frontend/src/components/sections/HeroSlider.tsx"
         ]
       },
       {
         "id": "REQ-3",
-        "summary": "Implement lead capture integration on the Industries page by adding a lead-generation form in the Lead Generation section with these fields: First Name, Last Name, Company Name, Industry (Dropdown), Revenue Range, Biggest Operational Bottleneck, Work Email, Mobile Number; and a submit CTA labeled \"Request Industry Blueprint\". On submit, persist the lead using the existing frontend submission hook and backend addLead API, packaging the additional fields into the lead message payload similarly to the existing Control lead form pattern.",
+        "summary": "Wire the hero slider CTA buttons to existing site behaviors/routes: (1) any \"Book…\"/\"Schedule…\" strategy-call CTA must trigger the existing strategy call behavior (bookStrategyCall). (2) \"Explore the CONTROL™ Framework\" must scroll to the existing homepage section with id=\"framework\". (3) Any non-strategy-call CTAs that are not scroll actions must navigate using the app’s existing client-side routing style (pushState + popstate) to appropriate existing routes (e.g., /process for \"Start Your Transformation\" and \"See How We Work\", /contact for \"Request Founder Blueprint™\" and \"Evaluate Your Systems\").",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/forms/IndustriesLeadGenForm.tsx",
-          "frontend/src/hooks/useLeadSubmission.ts",
-          "frontend/src/components/forms/ControlLeadGenForm.tsx",
-          "frontend/src/pages/IndustriesPage.tsx"
+          "frontend/src/components/sections/HeroSlider.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/forms/IndustriesLeadGenForm.tsx",
-          "frontend/src/hooks/useLeadSubmission.ts",
-          "frontend/src/components/forms/ControlLeadGenForm.tsx",
-          "frontend/src/pages/IndustriesPage.tsx"
+          "frontend/src/components/sections/HeroSlider.tsx"
         ]
       },
       {
         "id": "REQ-4",
-        "summary": "Wire the Industries page CTAs to the appropriate on-page actions: (a) the Hero CTA \"Request Founder Blueprint\" should scroll the user to the Industries page lead-generation form section; (b) the Final CTA \"Book Strategy Call\" should trigger the same strategy call action used elsewhere in the app.",
+        "summary": "Add accessibility and motion-safe behavior to the hero slider: support keyboard navigation (left/right), provide ARIA labeling for slide controls, ensure focus styles are visible, and respect prefers-reduced-motion (disable autoplay/animated transitions if implemented).",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/IndustriesPage.tsx"
+          "frontend/src/hooks/usePrefersReducedMotion.ts",
+          "frontend/src/components/sections/HeroSlider.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/IndustriesPage.tsx"
+          "frontend/src/hooks/usePrefersReducedMotion.ts",
+          "frontend/src/components/sections/HeroSlider.tsx"
         ]
       }
     ]
   },
   "changedFiles": [
-    "backend/main.mo",
-    "backend/migration.mo",
     "build-request.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/App.tsx",
-    "frontend/src/backend.d.ts",
-    "frontend/src/backend.ts",
-    "frontend/src/components/TopNav.tsx",
-    "frontend/src/components/forms/ControlLeadGenForm.tsx",
-    "frontend/src/components/forms/IndustriesLeadGenForm.tsx",
-    "frontend/src/declarations/backend.did.d.ts",
-    "frontend/src/declarations/backend.did.js",
-    "frontend/src/hooks/useLeadSubmission.ts",
-    "frontend/src/pages/IndustriesPage.tsx",
+    "frontend/src/components/sections/HeroSection.tsx",
+    "frontend/src/components/sections/HeroSlider.tsx",
+    "frontend/src/hooks/usePrefersReducedMotion.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

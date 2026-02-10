@@ -1,41 +1,38 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Build INOVICS website pages, starting with an Industries We Serve page featuring industry-specific sections and integrated lead-capture CTAs/forms.",
-  "architectural_notes": [
-    "Industries page should emphasize industry-specific operational chaos via Problem → What We Fix → Outcome blocks for each industry.",
-    "Industries page includes lead-gen form fields: First Name, Last Name, Company Name, Industry (dropdown), Revenue Range, Biggest Operational Bottleneck, Work Email, Mobile Number, with CTAs for blueprint request and strategy call."
-  ],
+  "summary": "Website project to update the homepage main banner into a scrollable banner/slider with multiple distinct marketing messages (Pain/Aspiration/Authority).",
+  "architectural_notes": [],
   "known_issues": [],
   "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-create-a-new-standalone-route-page-for-the-industries-we-serve-page-and-render-the-full-publish-ready-content-provided-by-the-user-using-the-following-section-structure-in-order-1-hero-section-with-headline-subheadline-supporting-line-and-cta-request-founder-blueprint-2-our-focus-section-describing-the-target-business-profile-and-explicitly-stating-you-do-not-serve-early-stage-startups-3-four-industry-blocks-manufacturing-smes-distributors-trading-companies-professional-service-firms-second-generation-leadership-teams-where-each-block-includes-three-clearly-labeled-subparts-common-challenges-what-we-implement-and-outcome-4-what-stays-consistent-across-industries-section-with-the-provided-bullet-points-and-closing-lines-5-is-this-right-for-you-qualifying-statement-section-with-fit-not-fit-messaging-6-lead-generation-section-with-headline-subheadline-and-form-7-final-cta-block-with-headline-and-book-strategy-call-button-and-8-a-short-caffeine-ai-prompt-block-at-the-end-as-requested-by-the-user-presented-as-copyable-text",
-      "title": "Create a new standalone route/page for the Industries We Serve page and render the full publish-ready content provided by the user using the following section structure in order: (1) Hero section with headline, subheadline, supporting line, and CTA \"Request Founder Blueprint\"; (2) \"Our Focus\" section describing the target business profile and explicitly stating you do not serve early-stage startups; (3) Four industry blocks (Manufacturing SMEs, Distributors & Trading Companies, Professional Service Firms, Second-Generation Leadership Teams) where each block includes three clearly labeled subparts: \"Common Challenges\", \"What We Implement\", and \"Outcome\"; (4) \"What stays consistent across industries\" section with the provided bullet points and closing lines; (5) \"Is This Right for You?\" qualifying statement section with fit/not-fit messaging; (6) Lead generation section with headline, subheadline, and form; (7) Final CTA block with headline and \"Book Strategy Call\" button; and (8) a short \"Caffeine AI prompt\" block at the end (as requested by the user) presented as copyable text.",
+      "id": "feature-replace-the-current-single-message-homepage-hero-banner-herosection-with-a-scrollable-banner-slider-that-shows-multiple-distinct-banners-one-per-slide-with-swipe-drag-support-on-touch-devices-and-clickable-navigation-controls-on-desktop",
+      "title": "Replace the current single-message homepage hero banner (HeroSection) with a scrollable banner/slider that shows multiple distinct banners, one per slide, with swipe/drag support on touch devices and clickable navigation controls on desktop.",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-add-site-navigation-linking-to-the-new-industries-we-serve-page-update-the-top-navigation-so-that-industries-navigates-to-the-new-industries-page-route-not-the-homepage-industries-anchor-while-keeping-existing-routing-behavior-for-other-links-e-g-control",
-      "title": "Add site navigation linking to the new Industries We Serve page: update the top navigation so that \"Industries\" navigates to the new Industries page route (not the homepage #industries anchor), while keeping existing routing behavior for other links (e.g., CONTROL™).",
+      "id": "feature-implement-the-following-banner-copy-as-separate-slides-in-the-homepage-hero-slider-ensuring-each-slide-has-headline-subheadline-supporting-line-and-one-or-two-cta-buttons-exactly-as-provided-english-text-include-the-optional-4th-banner-as-an-additional-slide",
+      "title": "Implement the following banner copy as separate slides in the homepage hero slider, ensuring each slide has: Headline, Subheadline, Supporting Line, and one or two CTA buttons exactly as provided (English text). Include the optional 4th banner as an additional slide.",
       "reqIds": [
         "REQ-2"
       ],
       "version": 1
     },
     {
-      "id": "feature-implement-lead-capture-integration-on-the-industries-page-by-adding-a-lead-generation-form-in-the-lead-generation-section-with-these-fields-first-name-last-name-company-name-industry-dropdown-revenue-range-biggest-operational-bottleneck-work-email-mobile-number-and-a-submit-cta-labeled-request-industry-blueprint-on-submit-persist-the-lead-using-the-existing-frontend-submission-hook-and-backend-addlead-api-packaging-the-additional-fields-into-the-lead-message-payload-similarly-to-the-existing-control-lead-form-pattern",
-      "title": "Implement lead capture integration on the Industries page by adding a lead-generation form in the Lead Generation section with these fields: First Name, Last Name, Company Name, Industry (Dropdown), Revenue Range, Biggest Operational Bottleneck, Work Email, Mobile Number; and a submit CTA labeled \"Request Industry Blueprint\". On submit, persist the lead using the existing frontend submission hook and backend addLead API, packaging the additional fields into the lead message payload similarly to the existing Control lead form pattern.",
+      "id": "feature-wire-the-hero-slider-cta-buttons-to-existing-site-behaviors-routes-1-any-book-schedule-strategy-call-cta-must-trigger-the-existing-strategy-call-behavior-bookstrategycall-2-explore-the-control-framework-must-scroll-to-the-existing-homepage-section-with-id-framework-3-any-non-strategy-call-ctas-that-are-not-scroll-actions-must-navigate-using-the-app-s-existing-client-side-routing-style-pushstate-popstate-to-appropriate-existing-routes-e-g-process-for-start-your-transformation-and-see-how-we-work-contact-for-request-founder-blueprint-and-evaluate-your-systems",
+      "title": "Wire the hero slider CTA buttons to existing site behaviors/routes: (1) any \"Book…\"/\"Schedule…\" strategy-call CTA must trigger the existing strategy call behavior (bookStrategyCall). (2) \"Explore the CONTROL™ Framework\" must scroll to the existing homepage section with id=\"framework\". (3) Any non-strategy-call CTAs that are not scroll actions must navigate using the app’s existing client-side routing style (pushState + popstate) to appropriate existing routes (e.g., /process for \"Start Your Transformation\" and \"See How We Work\", /contact for \"Request Founder Blueprint™\" and \"Evaluate Your Systems\").",
       "reqIds": [
         "REQ-3"
       ],
       "version": 1
     },
     {
-      "id": "feature-wire-the-industries-page-ctas-to-the-appropriate-on-page-actions-a-the-hero-cta-request-founder-blueprint-should-scroll-the-user-to-the-industries-page-lead-generation-form-section-b-the-final-cta-book-strategy-call-should-trigger-the-same-strategy-call-action-used-elsewhere-in-the-app",
-      "title": "Wire the Industries page CTAs to the appropriate on-page actions: (a) the Hero CTA \"Request Founder Blueprint\" should scroll the user to the Industries page lead-generation form section; (b) the Final CTA \"Book Strategy Call\" should trigger the same strategy call action used elsewhere in the app.",
+      "id": "feature-add-accessibility-and-motion-safe-behavior-to-the-hero-slider-support-keyboard-navigation-left-right-provide-aria-labeling-for-slide-controls-ensure-focus-styles-are-visible-and-respect-prefers-reduced-motion-disable-autoplay-animated-transitions-if-implemented",
+      "title": "Add accessibility and motion-safe behavior to the hero slider: support keyboard navigation (left/right), provide ARIA labeling for slide controls, ensure focus styles are visible, and respect prefers-reduced-motion (disable autoplay/animated transitions if implemented).",
       "reqIds": [
         "REQ-4"
       ],
@@ -45,19 +42,13 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Build and link the 'Industries We Serve' page with provided structure/content (hero, focus, industry blocks, consistency section, qualifying statement, lead-gen form, final CTA)",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-2",
-      "summary": "Add lead capture integration on Industries page (Founder Blueprint/Industry Blueprint form with specified fields + CTAs: Request Founder Blueprint, Request Industry Blueprint, Book Strategy Call)",
+      "summary": "Change the homepage main banner section into a scrollable banner/slider with multiple banners (Pain/Aspiration/Authority) and provided headline/subheadline/supporting line/CTAs (optional 4th banner).",
       "reqIds": [],
       "status": "pending"
     }
   ],
   "gameProjectType": "none",
-  "projectName": "INOVICS",
+  "projectName": "Inovics",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

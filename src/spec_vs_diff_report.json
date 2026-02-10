@@ -1,92 +1,77 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-10T08:29:34.472Z",
-  "summary": "Diff adds a new /industries standalone page, updates TopNav to route \"Industries\" to /industries, adds an Industries lead-gen form using the existing useLeadSubmission hook, and expands backend lead storage/API to accept additional fields. However, the Industries page copy/structure appears not to match the user-provided verbatim content requirements, and some required Industries-page elements cannot be confirmed due to truncation.",
+  "generatedAt": "2026-02-10T09:21:28.919Z",
+  "summary": "Diff adds a new HeroSlider component and swaps HeroSection to render it inside the existing min-h-screen hero wrapper. Slider slides/CTAs and prefers-reduced-motion hook are implemented, but key acceptance criteria around swipe/drag, visible desktop controls, and accessibility (keyboard + ARIA) cannot be fully verified from the truncated HeroSlider diff. Diff summary also indicates multiple unrelated site-wide/content changes beyond the hero slider request.",
   "missing_requirements": [
     {
       "id": "REQ-1",
-      "requirement": "All headings, subheadings, bullets, and CTA labels match the user-provided content verbatim (English user-facing text) across the Industries We Serve page sections.",
-      "reason": "The IndustriesPage hero headline and supporting copy shown in the diff are newly authored (e.g., \"Industries We Institutionalize\") and there is no evidence the full user-provided publish-ready content was used verbatim.",
+      "requirement": "Users can change slides on mobile via horizontal swipe/drag; users can change slides on desktop via visible navigation controls (e.g., arrows and/or dots).",
+      "reason": "HeroSlider includes state and comments for drag/swipe handling and imports chevron icons, but the relevant event handlers and rendered navigation controls are not present in the visible (truncated) diff, so implementation cannot be confirmed from provided evidence.",
       "evidence": [
-        "frontend/src/pages/IndustriesPage.tsx"
-      ]
-    },
-    {
-      "id": "REQ-1",
-      "requirement": "Render all Industries page sections in the exact specified order, including four industry blocks with labeled subsections (Common Challenges / What We Implement / Outcome), consistency section, qualifying section, lead-gen section, final CTA block, and a short Caffeine AI prompt block.",
-      "reason": "Only the hero and part of the \"Our Focus\" section are visible in the truncated IndustriesPage diff; the presence/order of the remaining required sections (industry blocks, consistency, qualifying, final CTA, and prompt block placement/format) cannot be confirmed from the provided diff excerpt.",
-      "evidence": [
-        "frontend/src/pages/IndustriesPage.tsx (truncated)"
-      ]
-    },
-    {
-      "id": "REQ-1",
-      "requirement": "A final block exists at the bottom containing a short Caffeine AI prompt, displayed as plain text with an obvious copy-to-clipboard interaction.",
-      "reason": "A copy-to-clipboard handler exists, but the prompt text shown is long and appears to be an instruction to generate the page (not clearly the requested 'short' prompt presented as a final page block). The actual on-page rendering of this block at the bottom is not visible in the truncated content.",
-      "evidence": [
-        "frontend/src/pages/IndustriesPage.tsx (truncated)"
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "requirement": "Industries page lead-gen submit CTA label reads exactly \"Request Industry Blueprint\" and the small text \"We partner with a limited number of businesses each quarter.\" is shown below the submit CTA.",
-      "reason": "The IndustriesLeadGenForm file is truncated before the submit button and any below-CTA small text; there is no visible evidence that the button label and the required small text are implemented.",
-      "evidence": [
-        "frontend/src/components/forms/IndustriesLeadGenForm.tsx (truncated)"
+        "frontend/src/components/sections/HeroSlider.tsx (truncated)"
       ]
     },
     {
       "id": "REQ-4",
-      "requirement": "Final CTA \"Book Strategy Call\" exists on the Industries page and triggers the existing strategy call behavior (mailto).",
-      "reason": "IndustriesPage imports bookStrategyCall, but the final CTA block and button wiring are not visible in the truncated IndustriesPage content, so implementation cannot be confirmed.",
+      "requirement": "Add accessibility and motion-safe behavior: support keyboard navigation (left/right), provide ARIA labeling for slide controls, ensure focus styles are visible, and respect prefers-reduced-motion (disable autoplay/animated transitions if implemented).",
+      "reason": "The diff shows prefers-reduced-motion usage for scroll behavior, but does not show any keyboard handlers (e.g., keydown for left/right), ARIA labels for controls/indicators, or focus styling. Autoplay/transition handling is also not visible in the truncated content.",
       "evidence": [
-        "frontend/src/pages/IndustriesPage.tsx (truncated)"
+        "frontend/src/components/sections/HeroSlider.tsx (truncated)",
+        "frontend/src/hooks/usePrefersReducedMotion.ts"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "Implemented a backend state migration (migration.mo) and integrated it into backend/main.mo with a new Lead schema and migration runner.",
-      "reason": "The BuildRequest did not require a state schema migration; it only allowed adding migration.mo if required. The diff introduces migration and modifies backend lead storage regardless.",
+      "description": "Broad, unrelated UI/content changes across many homepage sections (ProblemSection, OutcomesSection, IndustriesSection, ProcessSection, EmotionalBlockSection, InsightsSection, etc.), beyond converting the hero into a slider.",
+      "reason": "BuildRequest is limited to replacing the homepage hero with a multi-banner slider and wiring its CTAs/accessibility; it does not request redesigning other sections.",
       "evidence": [
-        "backend/migration.mo",
-        "backend/main.mo"
+        "frontend-file-summaries.txt (truncated)"
       ]
     },
     {
-      "description": "Modified the CONTROL™ lead generation form to use the expanded lead payload fields and map \"challenge\" to \"operationalBottleneck\".",
-      "reason": "REQ-3 only requests lead capture integration on the Industries page; it does not request changing the Control lead form.",
+      "description": "Navigation changes in TopNav (Contact link routing change) beyond wiring hero CTAs.",
+      "reason": "Non-goals/constraints indicate no navigation structure changes outside wiring the new hero CTAs; TopNav changes are not requested by REQ-1..REQ-4.",
       "evidence": [
-        "frontend/src/components/forms/ControlLeadGenForm.tsx"
+        "frontend-file-summaries.txt (truncated)"
       ]
     },
     {
-      "description": "Introduced/updated a standalone CONTROL™ Framework page and other broad site/page styling/content updates (per repository summary file).",
-      "reason": "The BuildRequest is focused on the Industries page, navigation link change, and Industries lead capture/CTAs; these additional page/content/styling changes are not requested in the requirements.",
+      "description": "Added/changed standalone CONTROL™ Framework page and added a \"Read More\" button in the homepage framework section to navigate to it.",
+      "reason": "REQ-3 only asks that the hero CTA \"Explore the CONTROL™ Framework\" scroll to the existing homepage section with id=\"framework\", not to create/modify a standalone framework page or add new navigation CTAs elsewhere.",
       "evidence": [
-        "frontend-file-summaries.txt"
+        "frontend-file-summaries.txt (truncated)"
       ]
     },
     {
-      "description": "Added informal developer comment text in backend/main.mo about migration instability.",
-      "reason": "Not requested and not part of functional requirements.",
+      "description": "Lead generation form changes and extended lead submission hook/back-end storage field passing.",
+      "reason": "BuildRequest explicitly states non-goals: no backend changes or lead storage logic changes; these modifications are outside the requested hero slider work.",
       "evidence": [
-        "backend/main.mo"
+        "frontend-file-summaries.txt (truncated)"
+      ]
+    },
+    {
+      "description": "Global styling and Tailwind configuration changes (color tokens, utilities) and index.html SEO/font/dark mode updates.",
+      "reason": "Not requested by REQ-1..REQ-4; scope is hero slider behavior/copy/wiring/accessibility.",
+      "evidence": [
+        "frontend-file-summaries.txt (truncated)"
+      ]
+    },
+    {
+      "description": "Footer changes including attribution with UTM tracking.",
+      "reason": "Not requested by the BuildRequest; unrelated to hero slider.",
+      "evidence": [
+        "frontend-file-summaries.txt (truncated)"
       ]
     }
   ],
   "confidence": 0.62,
   "changed_files": [
-    "backend/main.mo",
-    "backend/migration.mo",
     "frontend-file-summaries.txt",
-    "frontend/src/App.tsx",
-    "frontend/src/components/TopNav.tsx",
-    "frontend/src/components/forms/ControlLeadGenForm.tsx",
-    "frontend/src/components/forms/IndustriesLeadGenForm.tsx",
-    "frontend/src/hooks/useLeadSubmission.ts",
-    "frontend/src/pages/IndustriesPage.tsx",
+    "frontend/src/components/sections/HeroSection.tsx",
+    "frontend/src/components/sections/HeroSlider.tsx",
+    "frontend/src/hooks/usePrefersReducedMotion.ts",
     "project_state.json"
   ]
 }
