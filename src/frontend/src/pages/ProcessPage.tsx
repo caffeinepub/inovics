@@ -8,8 +8,11 @@ export function ProcessPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-navy via-charcoal to-navy">
-        <div className="container mx-auto max-w-5xl text-center">
+      <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-navy via-charcoal to-navy opacity-95" />
+        <div className="absolute inset-0 bg-[url('/assets/generated/inovics-data-grid-bg-logo-palette.dim_1920x1080.png')] bg-cover bg-center opacity-10" />
+        
+        <div className="container mx-auto max-w-5xl text-center relative z-10">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
             Our Process
           </h1>
@@ -348,74 +351,81 @@ export function ProcessPage() {
             
             <Card className="p-6 text-center">
               <div className="text-4xl font-bold text-accent-yellow mb-3">Month 6+</div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">Governance & Optimization</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-2">Institutionalization</h3>
             </Card>
           </div>
           
-          <p className="text-lg text-muted-foreground text-center italic">
-            Clear expectations reduce friction.
-          </p>
-        </div>
-      </section>
-
-      {/* Section 5 - Client Responsibility */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
-        <div className="container mx-auto max-w-5xl">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-12 text-center">
-            What We Expect From You
-          </h2>
-          
-          <div className="bg-card border border-border rounded-xl p-8 lg:p-10">
-            <ul className="space-y-4 mb-8">
-              <li className="flex items-start gap-3 text-lg">
-                <CheckCircle2 className="h-6 w-6 text-accent-yellow mt-0.5 flex-shrink-0" />
-                <span className="text-foreground">Founder commitment</span>
-              </li>
-              <li className="flex items-start gap-3 text-lg">
-                <CheckCircle2 className="h-6 w-6 text-accent-yellow mt-0.5 flex-shrink-0" />
-                <span className="text-foreground">Internal decision authority</span>
-              </li>
-              <li className="flex items-start gap-3 text-lg">
-                <CheckCircle2 className="h-6 w-6 text-accent-yellow mt-0.5 flex-shrink-0" />
-                <span className="text-foreground">Team participation</span>
-              </li>
-              <li className="flex items-start gap-3 text-lg">
-                <CheckCircle2 className="h-6 w-6 text-accent-yellow mt-0.5 flex-shrink-0" />
-                <span className="text-foreground">Process transparency</span>
-              </li>
-            </ul>
-            <p className="text-xl font-semibold text-foreground text-center">
-              Transformation is collaborative.
+          <div className="text-center">
+            <p className="text-lg text-muted-foreground mb-2">
+              Timelines vary based on business complexity and readiness.
+            </p>
+            <p className="text-xl font-semibold text-foreground">
+              We prioritize sustainable transformation over rushed deployment.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Section 6 - Lead Section */}
+      {/* Section 5 - What Clients Should Expect */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
+        <div className="container mx-auto max-w-5xl">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-12 text-center">
+            What to Expect When Working with Inovics
+          </h2>
+          
+          <div className="space-y-6">
+            <Card className="p-8 lg:p-10">
+              <h3 className="text-xl font-bold text-foreground mb-4">1. Founder Involvement Is Required</h3>
+              <p className="text-lg text-muted-foreground">
+                We need direct access to the founder during the diagnosis phase. Delegation doesn't work here.
+              </p>
+            </Card>
+            
+            <Card className="p-8 lg:p-10">
+              <h3 className="text-xl font-bold text-foreground mb-4">2. Change Management Is Part of the Process</h3>
+              <p className="text-lg text-muted-foreground">
+                Your team will resist. We plan for it. Adoption is engineered, not assumed.
+              </p>
+            </Card>
+            
+            <Card className="p-8 lg:p-10">
+              <h3 className="text-xl font-bold text-foreground mb-4">3. We Don't Rush</h3>
+              <p className="text-lg text-muted-foreground">
+                Fast implementations fail. We move deliberately to ensure systems stick.
+              </p>
+            </Card>
+            
+            <Card className="p-8 lg:p-10">
+              <h3 className="text-xl font-bold text-foreground mb-4">4. This Is Not a One-Time Project</h3>
+              <p className="text-lg text-muted-foreground">
+                Institutionalization requires ongoing refinement. We stay engaged beyond go-live.
+              </p>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 6 - Lead Generation Form */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-              Ready to Begin the Process?
+              Request Your Founder Blueprint™
             </h2>
             <p className="text-xl text-muted-foreground">
-              Every transformation begins with a structured diagnosis.
+              Let's map your current systems and identify the transformation path.
             </p>
           </div>
           
           <ProcessLeadGenForm />
-          
-          <p className="text-sm text-muted-foreground text-center mt-6 italic">
-            We work with a limited number of businesses per quarter.
-          </p>
         </div>
       </section>
 
-      {/* Final Block */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-navy via-charcoal to-navy">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-8">
-            Structure Precedes Scale.
+      {/* Final CTA Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
+        <div className="container mx-auto max-w-3xl text-center">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-8">
+            Ready to Engineer Your Business Infrastructure?
           </h2>
           <Button
             onClick={bookStrategyCall}

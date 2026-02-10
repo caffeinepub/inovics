@@ -17,6 +17,7 @@ import { IndustriesPage } from './pages/IndustriesPage';
 import { ProcessPage } from './pages/ProcessPage';
 import { InsightsPage } from './pages/InsightsPage';
 import { ContactPage } from './pages/ContactPage';
+import { StrategySessionPage } from './pages/StrategySessionPage';
 
 function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
@@ -24,6 +25,7 @@ function App() {
   useEffect(() => {
     const handlePopState = () => {
       setCurrentPath(window.location.pathname);
+      window.scrollTo({ top: 0, behavior: 'instant' });
     };
 
     window.addEventListener('popstate', handlePopState);
@@ -36,6 +38,7 @@ function App() {
   const isProcessPage = currentPath === '/process';
   const isInsightsPage = currentPath === '/insights';
   const isContactPage = currentPath === '/contact';
+  const isStrategySessionPage = currentPath === '/strategy-session';
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -50,6 +53,8 @@ function App() {
         <InsightsPage />
       ) : isContactPage ? (
         <ContactPage />
+      ) : isStrategySessionPage ? (
+        <StrategySessionPage />
       ) : (
         <main>
           <HeroSection />

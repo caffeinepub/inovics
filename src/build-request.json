@@ -1,111 +1,56 @@
 {
   "kind": "build_request",
-  "title": "Convert homepage hero into scrollable multi-banner slider",
+  "title": "Remove separate Strategy Session nav link and open Strategy Session page from Book Strategy Call CTA",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Replace the current single-message homepage hero banner (HeroSection) with a scrollable banner/slider that shows multiple distinct banners, one per slide, with swipe/drag support on touch devices and clickable navigation controls on desktop.",
+      "text": "Remove the separate \"Strategy Session\" navigation link so users are not presented with a standalone menu entry for the Strategy Session page.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-1"
+          "msg-1"
         ],
         "quotes": [
-          "I want to change the manin banner section on the homepage to a scrollable banners"
+          "do not need a seperate stratergy session link. The page should open on Book Stratergy Call button from all pages"
         ]
       },
       "acceptanceCriteria": [
-        "On route '/' the top section renders as a slider/carousel instead of a single static hero message.",
-        "Users can change slides on mobile via horizontal swipe/drag.",
-        "Users can change slides on desktop via visible navigation controls (e.g., arrows and/or dots).",
-        "The hero section retains its existing full-viewport feel (min-h-screen) and does not break the fixed TopNav behavior."
+        "Top navigation (desktop and mobile) no longer displays a link labeled \"Strategy Session\" that routes to \"/strategy-session\".",
+        "All other existing nav links continue to work as before."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Implement the following banner copy as separate slides in the homepage hero slider, ensuring each slide has: Headline, Subheadline, Supporting Line, and one or two CTA buttons exactly as provided (English text). Include the optional 4th banner as an additional slide.",
+      "text": "Change the \"Book Strategy Call\" button behavior (site-wide) to open the internal Strategy Session page route (\"/strategy-session\") using the existing client-side routing pattern (history.pushState + popstate dispatch), so the Strategy Session page opens from the button on all pages.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-1"
+          "msg-1"
         ],
         "quotes": [
-          "Your homepage banners should not repeat the same message.\nEach banner should hit a different psychological trigger:\n\n1️⃣ Pain (Chaos)\n2️⃣ Aspiration (Control)\n3️⃣ Authority (System & AI)\n\nBelow are 3 strong banner sets — each with headline, subheadline, supporting line, and CTA.\n\n🔵 BANNER 1 – The Problem (Emotional Trigger)\nHeadline\n\nGrowth Is Breaking Your Systems.\n\nSubheadline\n\nExcel sheets. WhatsApp approvals. Manual reporting. Founder bottlenecks.\n\nSupporting Line\n\nYou don’t have a revenue problem.\nYou have a structural problem.\n\nCTA\n\nBook a Founder Strategy Call\nExplore the CONTROL™ Framework\n\n🟡 BANNER 2 – The Aspiration (Vision Trigger)\nHeadline\n\nBuild Beyond the Founder.\n\nSubheadline\n\nTurn your legacy family business into a system-driven enterprise powered by AI.\n\nSupporting Line\n\nReal-time dashboards. Automated workflows. Institutional governance.\n\nControl. Clarity. Continuity.\n\nCTA\n\nStart Your Transformation\nRequest Founder Blueprint™\n\n⚫ BANNER 3 – The Authority (Strategic Trigger)\nHeadline\n\nAI Is Not the Advantage.\nSystem Design Is.\n\nSubheadline\n\nInovics builds AI-powered operating systems for ₹5–50 Cr family businesses ready to scale without chaos.\n\nSupporting Line\n\nWe don’t install tools.\nWe engineer infrastructure.\n\nCTA\n\nSee How We Work\nBook Strategy Call\n\nOptional 4th Banner (If You Want Stronger Impact)\nHeadline\n\nIf You Step Away for 30 Days… What Happens?\n\nSubheadline\n\nDoes your business operate on systems — or on you?\n\nSupporting Line\n\nInstitutional strength begins with structured transformation.\n\nCTA\n\nEvaluate Your Systems\nSchedule Strategy Call"
+          "The page should open on Book Stratergy Call button from all pages"
         ]
       },
       "acceptanceCriteria": [
-        "The slider contains 4 slides (the 3 primary banners plus the optional 4th banner).",
-        "Each slide displays its Headline, Subheadline, Supporting Line, and CTA(s) as provided, without reusing the same overall message across slides.",
-        "Typography and spacing remain consistent with the existing HeroSection style (centered layout, large headline, readable subhead/supporting lines)."
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "text": "Wire the hero slider CTA buttons to existing site behaviors/routes: (1) any \"Book…\"/\"Schedule…\" strategy-call CTA must trigger the existing strategy call behavior (bookStrategyCall). (2) \"Explore the CONTROL™ Framework\" must scroll to the existing homepage section with id=\"framework\". (3) Any non-strategy-call CTAs that are not scroll actions must navigate using the app’s existing client-side routing style (pushState + popstate) to appropriate existing routes (e.g., /process for \"Start Your Transformation\" and \"See How We Work\", /contact for \"Request Founder Blueprint™\" and \"Evaluate Your Systems\").",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-user-1"
-        ],
-        "quotes": [
-          "CTA\n\nBook a Founder Strategy Call\nExplore the CONTROL™ Framework",
-          "CTA\n\nStart Your Transformation\nRequest Founder Blueprint™",
-          "CTA\n\nSee How We Work\nBook Strategy Call",
-          "CTA\n\nEvaluate Your Systems\nSchedule Strategy Call"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Clicking any \"Book…\"/\"Schedule…\" CTA opens the configured strategy call flow (calendar if configured, otherwise mailto).",
-        "Clicking \"Explore the CONTROL™ Framework\" smoothly scrolls to the element with id=\"framework\" on the homepage (accounting for header offset as current HeroSection does).",
-        "Clicking \"Start Your Transformation\" navigates to /process and scrolls to top.",
-        "Clicking \"See How We Work\" navigates to /process and scrolls to top.",
-        "Clicking \"Request Founder Blueprint™\" navigates to /contact and scrolls to top.",
-        "Clicking \"Evaluate Your Systems\" navigates to /contact and scrolls to top."
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "text": "Add accessibility and motion-safe behavior to the hero slider: support keyboard navigation (left/right), provide ARIA labeling for slide controls, ensure focus styles are visible, and respect prefers-reduced-motion (disable autoplay/animated transitions if implemented).",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-user-1"
-        ],
-        "quotes": [
-          "change the manin banner section on the homepage to a scrollable banners"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Slider navigation controls are reachable and operable via keyboard.",
-        "Controls have appropriate accessible names (e.g., aria-label for previous/next and slide indicators).",
-        "When prefers-reduced-motion is enabled, slide transitions avoid motion-heavy animations and any autoplay behavior is disabled (if autoplay exists)."
+        "Clicking \"Book Strategy Call\" in the TopNav (desktop and mobile) navigates to \"/strategy-session\" and renders the StrategySessionPage without a full page reload.",
+        "Clicking other CTAs that use the shared booking handler (e.g., \"Book Call\" in ContactOptionsGrid and CTAs in homepage sections) also navigates to \"/strategy-session\" from any current route.",
+        "After navigation to \"/strategy-session\", the page is scrolled to the top (consistent with other route navigations in the app)."
       ]
     }
   ],
   "constraints": [
-    "Do not modify files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or frontend/src/components/ui (immutable paths).",
-    "Backend remains single-actor Motoko; this change should not require backend changes or state migrations."
+    "Do not edit any files under frontend/src/components/ui (read-only UI components).",
+    "Do not modify frontend/src/hooks/useInternetIdentity.ts(x), frontend/src/hooks/useActor.ts, or frontend/src/main.tsx (immutable paths).",
+    "Keep the existing client-side routing approach used in frontend/src/App.tsx and frontend/src/components/TopNav.tsx (no new router library)."
   ],
   "nonGoals": [
-    "Adding new backend APIs or changing lead storage logic.",
-    "Adding third-party carousel/analytics services or external dependencies that are not already in the project.",
-    "Changing navigation structure outside of wiring the new hero CTAs."
+    "Do not remove the Strategy Session page route (\"/strategy-session\") or its content; only remove the separate navigation link and change CTA behavior.",
+    "Do not add or integrate external scheduling providers (Calendly/Cal.com) as part of this change.",
+    "Do not change backend lead storage, schemas, or submission behavior."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [
-      "Use English for any user-facing text."
-    ],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

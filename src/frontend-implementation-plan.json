@@ -1,83 +1,36 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Convert homepage hero into scrollable multi-banner slider",
+  "title": "Hide Strategy Session nav item and route all Book Strategy Call CTAs to /strategy-session",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Replace the static HeroSection message with a swipe/drag-enabled hero slider/carousel while keeping the full-viewport hero layout and fixed TopNav behavior intact.",
+      "summary": "Remove the standalone \"Strategy Session\" link from top navigation (desktop and mobile) while keeping all other navigation intact.",
       "acceptanceCriteria": [
-        "On route '/' the top section renders as a slider/carousel instead of a single static hero message.",
-        "Users can change slides on mobile via horizontal swipe/drag.",
-        "Users can change slides on desktop via visible navigation controls (e.g., arrows and/or dots).",
-        "The hero section retains its existing full-viewport feel (min-h-screen) and does not break the fixed TopNav behavior."
+        "Top navigation (desktop and mobile) no longer displays a link labeled \"Strategy Session\" that routes to \"/strategy-session\".",
+        "All other existing nav links continue to work as before."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/sections/HeroSlider.tsx",
-          "operation": "create",
-          "description": "Create a reusable hero slider component implementing slide state, drag/swipe gestures (touch + pointer), and desktop navigation controls (prev/next + indicators) without adding new dependencies."
-        },
-        {
-          "path": "frontend/src/components/sections/HeroSection.tsx",
+          "path": "frontend/src/components/TopNav.tsx",
           "operation": "modify",
-          "description": "Refactor HeroSection to render the new HeroSlider inside the existing full-viewport section wrapper, preserving current background visuals, spacing (including pt-20), and min-h-screen layout so TopNav remains unaffected."
+          "description": "Remove the \"Strategy Session\" entry from the navLinks array so it no longer renders in desktop/mobile navigation while preserving existing hash/route navigation behavior for all remaining links."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Populate the hero slider with the 4 provided banner slides, each with the exact Headline, Subheadline, Supporting Line, and CTA button text, maintaining the existing HeroSection typographic style.",
+      "summary": "Update the shared \"Book Strategy Call\" click handler to navigate internally to \"/strategy-session\" using the app’s existing pushState + popstate routing and scroll to top behavior.",
       "acceptanceCriteria": [
-        "The slider contains 4 slides (the 3 primary banners plus the optional 4th banner).",
-        "Each slide displays its Headline, Subheadline, Supporting Line, and CTA(s) as provided, without reusing the same overall message across slides.",
-        "Typography and spacing remain consistent with the existing HeroSection style (centered layout, large headline, readable subhead/supporting lines)."
+        "Clicking \"Book Strategy Call\" in the TopNav (desktop and mobile) navigates to \"/strategy-session\" and renders the StrategySessionPage without a full page reload.",
+        "Clicking other CTAs that use the shared booking handler (e.g., \"Book Call\" in ContactOptionsGrid and CTAs in homepage sections) also navigates to \"/strategy-session\" from any current route.",
+        "After navigation to \"/strategy-session\", the page is scrolled to the top (consistent with other route navigations in the app)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/sections/HeroSlider.tsx",
+          "path": "frontend/src/lib/strategyCall.ts",
           "operation": "modify",
-          "description": "Implement the slide content data (4 slides) with the provided English copy and CTA labels exactly as given; render each slide with HeroSection-consistent centered layout, headline/subheadline/supporting line hierarchy, and 1–2 CTA buttons per slide."
-        }
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "summary": "Wire hero slider CTA buttons to existing strategy call behavior, framework section scrolling, and client-side route navigation (pushState + popstate) with scroll-to-top on route changes.",
-      "acceptanceCriteria": [
-        "Clicking any \"Book…\"/\"Schedule…\" CTA opens the configured strategy call flow (calendar if configured, otherwise mailto).",
-        "Clicking \"Explore the CONTROL™ Framework\" smoothly scrolls to the element with id=\"framework\" on the homepage (accounting for header offset as current HeroSection does).",
-        "Clicking \"Start Your Transformation\" navigates to /process and scrolls to top.",
-        "Clicking \"See How We Work\" navigates to /process and scrolls to top.",
-        "Clicking \"Request Founder Blueprint™\" navigates to /contact and scrolls to top.",
-        "Clicking \"Evaluate Your Systems\" navigates to /contact and scrolls to top."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/sections/HeroSlider.tsx",
-          "operation": "modify",
-          "description": "Connect CTA actions to existing behaviors: use bookStrategyCall for all \"Book…\"/\"Schedule…\" CTAs, reuse the existing HeroSection-style scroll-to-framework behavior for \"Explore the CONTROL™ Framework\" (with header offset), and implement internal navigation using window.history.pushState + PopStateEvent('popstate') for /process and /contact plus scroll-to-top (respecting reduced-motion for scroll behavior)."
-        }
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "summary": "Add accessibility and motion-safe behavior to the hero slider: keyboard navigation, ARIA labeling, visible focus states, and prefers-reduced-motion support for transitions/autoplay.",
-      "acceptanceCriteria": [
-        "Slider navigation controls are reachable and operable via keyboard.",
-        "Controls have appropriate accessible names (e.g., aria-label for previous/next and slide indicators).",
-        "When prefers-reduced-motion is enabled, slide transitions avoid motion-heavy animations and any autoplay behavior is disabled (if autoplay exists)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/hooks/usePrefersReducedMotion.ts",
-          "operation": "create",
-          "description": "Create a small hook that detects prefers-reduced-motion via matchMedia and updates on changes, to be used by the hero slider for motion-safe behavior."
-        },
-        {
-          "path": "frontend/src/components/sections/HeroSlider.tsx",
-          "operation": "modify",
-          "description": "Add a11y and motion-safe behavior: enable left/right keyboard navigation (when the slider region is focused), add ARIA attributes (e.g., aria-roledescription=\"carousel\", aria-labels for prev/next and indicators), ensure controls have visible focus styles (focus-visible ring/outline), and conditionally reduce/disable animated transitions (and ensure no autoplay when reduced motion is preferred)."
+          "description": "Change bookStrategyCall() to perform in-app navigation to \"/strategy-session\" via window.history.pushState followed by dispatching a PopStateEvent(\"popstate\"), then scroll to the top to match the app’s client-side routing pattern (no full page reload)."
         }
       ]
     }

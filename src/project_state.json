@@ -1,40 +1,24 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Website project to update the homepage main banner into a scrollable banner/slider with multiple distinct marketing messages (Pain/Aspiration/Authority).",
+  "summary": "New project",
   "architectural_notes": [],
   "known_issues": [],
   "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-replace-the-current-single-message-homepage-hero-banner-herosection-with-a-scrollable-banner-slider-that-shows-multiple-distinct-banners-one-per-slide-with-swipe-drag-support-on-touch-devices-and-clickable-navigation-controls-on-desktop",
-      "title": "Replace the current single-message homepage hero banner (HeroSection) with a scrollable banner/slider that shows multiple distinct banners, one per slide, with swipe/drag support on touch devices and clickable navigation controls on desktop.",
+      "id": "feature-remove-the-separate-strategy-session-navigation-link-so-users-are-not-presented-with-a-standalone-menu-entry-for-the-strategy-session-page",
+      "title": "Remove the separate \"Strategy Session\" navigation link so users are not presented with a standalone menu entry for the Strategy Session page.",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-implement-the-following-banner-copy-as-separate-slides-in-the-homepage-hero-slider-ensuring-each-slide-has-headline-subheadline-supporting-line-and-one-or-two-cta-buttons-exactly-as-provided-english-text-include-the-optional-4th-banner-as-an-additional-slide",
-      "title": "Implement the following banner copy as separate slides in the homepage hero slider, ensuring each slide has: Headline, Subheadline, Supporting Line, and one or two CTA buttons exactly as provided (English text). Include the optional 4th banner as an additional slide.",
+      "id": "feature-change-the-book-strategy-call-button-behavior-site-wide-to-open-the-internal-strategy-session-page-route-strategy-session-using-the-existing-client-side-routing-pattern-history-pushstate-popstate-dispatch-so-the-strategy-session-page-opens-from-the-button-on-all-pages",
+      "title": "Change the \"Book Strategy Call\" button behavior (site-wide) to open the internal Strategy Session page route (\"/strategy-session\") using the existing client-side routing pattern (history.pushState + popstate dispatch), so the Strategy Session page opens from the button on all pages.",
       "reqIds": [
         "REQ-2"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-wire-the-hero-slider-cta-buttons-to-existing-site-behaviors-routes-1-any-book-schedule-strategy-call-cta-must-trigger-the-existing-strategy-call-behavior-bookstrategycall-2-explore-the-control-framework-must-scroll-to-the-existing-homepage-section-with-id-framework-3-any-non-strategy-call-ctas-that-are-not-scroll-actions-must-navigate-using-the-app-s-existing-client-side-routing-style-pushstate-popstate-to-appropriate-existing-routes-e-g-process-for-start-your-transformation-and-see-how-we-work-contact-for-request-founder-blueprint-and-evaluate-your-systems",
-      "title": "Wire the hero slider CTA buttons to existing site behaviors/routes: (1) any \"Book…\"/\"Schedule…\" strategy-call CTA must trigger the existing strategy call behavior (bookStrategyCall). (2) \"Explore the CONTROL™ Framework\" must scroll to the existing homepage section with id=\"framework\". (3) Any non-strategy-call CTAs that are not scroll actions must navigate using the app’s existing client-side routing style (pushState + popstate) to appropriate existing routes (e.g., /process for \"Start Your Transformation\" and \"See How We Work\", /contact for \"Request Founder Blueprint™\" and \"Evaluate Your Systems\").",
-      "reqIds": [
-        "REQ-3"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-accessibility-and-motion-safe-behavior-to-the-hero-slider-support-keyboard-navigation-left-right-provide-aria-labeling-for-slide-controls-ensure-focus-styles-are-visible-and-respect-prefers-reduced-motion-disable-autoplay-animated-transitions-if-implemented",
-      "title": "Add accessibility and motion-safe behavior to the hero slider: support keyboard navigation (left/right), provide ARIA labeling for slide controls, ensure focus styles are visible, and respect prefers-reduced-motion (disable autoplay/animated transitions if implemented).",
-      "reqIds": [
-        "REQ-4"
       ],
       "version": 1
     }
@@ -42,13 +26,12 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Change the homepage main banner section into a scrollable banner/slider with multiple banners (Pain/Aspiration/Authority) and provided headline/subheadline/supporting line/CTAs (optional 4th banner).",
+      "summary": "Remove separate Strategy Session link; ensure all pages use a 'Book Strategy Call' button that opens the booking page",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "gameProjectType": "none",
-  "projectName": "Inovics",
+  "projectName": "Remove separate Strategy Session nav link and open Strategy Session page from Book Strategy Call CTA",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

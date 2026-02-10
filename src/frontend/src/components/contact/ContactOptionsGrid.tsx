@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Calendar, Download, Mail, MessageCircle } from 'lucide-react';
 import { CompanyProfileDownloadDialog } from './CompanyProfileDownloadDialog';
 import { bookStrategyCall } from '@/lib/strategyCall';
-import { CONTACT_CONFIG } from '@/lib/contactConfig';
+import { CONTACT_CONFIG, CONTACT_EMAIL } from '@/lib/contactConfig';
 
 export function ContactOptionsGrid() {
   const [isDownloadDialogOpen, setIsDownloadDialogOpen] = useState(false);
@@ -69,44 +69,43 @@ export function ContactOptionsGrid() {
             <div className="w-12 h-12 rounded-lg bg-accent-yellow/10 flex items-center justify-center mb-4">
               <Mail className="h-6 w-6 text-accent-yellow" />
             </div>
-            <CardTitle className="text-xl text-foreground">Reach Us Directly</CardTitle>
+            <CardTitle className="text-xl text-foreground">Email Us Directly</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <a
-                href="mailto:contact@inovics.in"
-                className="text-accent-yellow hover:underline font-medium block"
-              >
-                contact@inovics.in
+            <CardDescription className="text-muted-foreground">
+              Send us a detailed message about your business transformation needs.
+            </CardDescription>
+            <Button
+              asChild
+              variant="outline"
+              className="w-full border-accent-yellow text-accent-yellow hover:bg-accent-yellow/10 font-semibold"
+            >
+              <a href={`mailto:${CONTACT_EMAIL}`}>
+                Send Email
               </a>
-              <CardDescription className="text-muted-foreground text-sm">
-                For partnership inquiries, consulting discussions, or strategic conversations.
-              </CardDescription>
-              <p className="text-sm text-muted-foreground/80">Response time: 24–48 hours.</p>
-            </div>
+            </Button>
           </CardContent>
         </Card>
 
-        {/* Option 4: WhatsApp Business */}
+        {/* Option 4: WhatsApp Business Chat */}
         <Card className="bg-background border-border hover:border-accent-yellow/50 transition-colors">
           <CardHeader>
             <div className="w-12 h-12 rounded-lg bg-accent-yellow/10 flex items-center justify-center mb-4">
               <MessageCircle className="h-6 w-6 text-accent-yellow" />
             </div>
-            <CardTitle className="text-xl text-foreground">Chat on WhatsApp</CardTitle>
+            <CardTitle className="text-xl text-foreground">WhatsApp Business Chat</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <CardDescription className="text-muted-foreground">
-              Prefer quick communication? Message us directly for an initial conversation.
+              Quick questions? Connect with us instantly via WhatsApp Business.
             </CardDescription>
             <Button
               onClick={handleWhatsAppClick}
               variant="outline"
               className="w-full border-accent-yellow text-accent-yellow hover:bg-accent-yellow/10 font-semibold"
             >
-              Start WhatsApp Chat
+              Chat on WhatsApp
             </Button>
-            <p className="text-xs text-muted-foreground/70 text-center">Serious inquiries only.</p>
           </CardContent>
         </Card>
       </div>

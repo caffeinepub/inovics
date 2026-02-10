@@ -10,6 +10,11 @@
  */
 export const CONTACT_CONFIG = {
   calendarUrl: '', // e.g., 'https://calendly.com/inovics/strategy-call'
-  whatsappUrl: '', // e.g., 'https://wa.me/919876543210?text=Hi%2C%20I%27d%20like%20to%20discuss%20transformation'
+  whatsappUrl: '', // e.g., 'https://wa.me/919322286441?text=Hi%2C%20I%27d%20like%20to%20discuss%20transformation'
   companyProfileUrl: '', // e.g., 'https://yourdomain.com/inovics-company-profile.pdf'
 };
+
+// Centralized contact information
+export const CONTACT_EMAIL = 'contact@weareinovics.com';
+export const CONTACT_PHONE_DISPLAY = '+ 91-9322286441';
+export const CONTACT_PHONE_TEL = 'tel:+919322286441';

@@ -1,6 +1,7 @@
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { bookStrategyCall } from '@/lib/strategyCall';
+import { CONTACT_EMAIL, CONTACT_PHONE_DISPLAY, CONTACT_PHONE_TEL } from '@/lib/contactConfig';
 
 export function ContactSection() {
   return (
@@ -23,10 +24,10 @@ export function ContactSection() {
               </div>
               <h3 className="font-semibold text-foreground mb-2">Email</h3>
               <a
-                href="mailto:hello@inovics.ai"
+                href={`mailto:${CONTACT_EMAIL}`}
                 className="text-muted-foreground hover:text-accent-yellow transition-colors"
               >
-                hello@inovics.ai
+                {CONTACT_EMAIL}
               </a>
             </div>
 
@@ -36,10 +37,10 @@ export function ContactSection() {
               </div>
               <h3 className="font-semibold text-foreground mb-2">Phone</h3>
               <a
-                href="tel:+911234567890"
+                href={CONTACT_PHONE_TEL}
                 className="text-muted-foreground hover:text-accent-yellow transition-colors"
               >
-                +91 123 456 7890
+                {CONTACT_PHONE_DISPLAY}
               </a>
             </div>
 

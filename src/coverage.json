@@ -1,61 +1,35 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-10T09:21:28.922Z",
+  "generatedAt": "2026-02-10T10:26:20.203Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 4,
-    "implemented": 4,
+    "total": 2,
+    "implemented": 2,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Replace the current single-message homepage hero banner (HeroSection) with a scrollable banner/slider that shows multiple distinct banners, one per slide, with swipe/drag support on touch devices and clickable navigation controls on desktop.",
+        "summary": "Remove the separate \"Strategy Session\" navigation link so users are not presented with a standalone menu entry for the Strategy Session page.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/sections/HeroSlider.tsx",
-          "frontend/src/components/sections/HeroSection.tsx"
+          "frontend/src/components/TopNav.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/sections/HeroSlider.tsx",
-          "frontend/src/components/sections/HeroSection.tsx"
+          "frontend/src/components/TopNav.tsx"
         ]
       },
       {
         "id": "REQ-2",
-        "summary": "Implement the following banner copy as separate slides in the homepage hero slider, ensuring each slide has: Headline, Subheadline, Supporting Line, and one or two CTA buttons exactly as provided (English text). Include the optional 4th banner as an additional slide.",
+        "summary": "Change the \"Book Strategy Call\" button behavior (site-wide) to open the internal Strategy Session page route (\"/strategy-session\") using the existing client-side routing pattern (history.pushState + popstate dispatch), so the Strategy Session page opens from the button on all pages.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/sections/HeroSlider.tsx"
+          "frontend/src/lib/strategyCall.ts"
         ],
         "matchedFiles": [
-          "frontend/src/components/sections/HeroSlider.tsx"
-        ]
-      },
-      {
-        "id": "REQ-3",
-        "summary": "Wire the hero slider CTA buttons to existing site behaviors/routes: (1) any \"Book…\"/\"Schedule…\" strategy-call CTA must trigger the existing strategy call behavior (bookStrategyCall). (2) \"Explore the CONTROL™ Framework\" must scroll to the existing homepage section with id=\"framework\". (3) Any non-strategy-call CTAs that are not scroll actions must navigate using the app’s existing client-side routing style (pushState + popstate) to appropriate existing routes (e.g., /process for \"Start Your Transformation\" and \"See How We Work\", /contact for \"Request Founder Blueprint™\" and \"Evaluate Your Systems\").",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/sections/HeroSlider.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/sections/HeroSlider.tsx"
-        ]
-      },
-      {
-        "id": "REQ-4",
-        "summary": "Add accessibility and motion-safe behavior to the hero slider: support keyboard navigation (left/right), provide ARIA labeling for slide controls, ensure focus styles are visible, and respect prefers-reduced-motion (disable autoplay/animated transitions if implemented).",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/hooks/usePrefersReducedMotion.ts",
-          "frontend/src/components/sections/HeroSlider.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/hooks/usePrefersReducedMotion.ts",
-          "frontend/src/components/sections/HeroSlider.tsx"
+          "frontend/src/lib/strategyCall.ts"
         ]
       }
     ]
@@ -65,9 +39,8 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/components/sections/HeroSection.tsx",
-    "frontend/src/components/sections/HeroSlider.tsx",
-    "frontend/src/hooks/usePrefersReducedMotion.ts",
+    "frontend/src/components/TopNav.tsx",
+    "frontend/src/lib/strategyCall.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

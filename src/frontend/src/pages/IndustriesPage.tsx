@@ -1,13 +1,10 @@
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { IndustriesLeadGenForm } from '@/components/forms/IndustriesLeadGenForm';
 import { bookStrategyCall } from '@/lib/strategyCall';
-import { CheckCircle2, Copy, Check } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 
 export function IndustriesPage() {
-  const [copied, setCopied] = useState(false);
-
   const scrollToLeadGen = () => {
     const element = document.getElementById('lead-generation');
     if (element) {
@@ -19,18 +16,6 @@ export function IndustriesPage() {
         top: offsetPosition,
         behavior: 'smooth',
       });
-    }
-  };
-
-  const handleCopyPrompt = async () => {
-    const prompt = `Create a comprehensive Industries We Serve page for INOVICS that demonstrates deep understanding of industry-specific operational chaos. Include: Hero section with "Industries We Institutionalize" headline, focus section explaining we work with ₹5-50 Cr family-run businesses, detailed industry blocks for Manufacturing SMEs, Distributors & Trading Companies, Professional Service Firms, and Second-Generation Leadership Teams (each with Common Challenges, What We Implement, and Outcome subsections), consistency section showing core transformation elements, qualifying statement, lead generation form with industry-specific fields, and final CTA. Use premium enterprise styling with INOVICS brand colors (navy, charcoal, accent-yellow).`;
-    
-    try {
-      await navigator.clipboard.writeText(prompt);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy:', err);
     }
   };
 
@@ -76,7 +61,7 @@ export function IndustriesPage() {
                 We specialize in ₹5–50 Cr family-run businesses where:
               </p>
               
-              <ul className="space-y-4 mb-8">
+              <ul className="space-y-4">
                 {[
                   'Revenue is growing',
                   'Systems are fragmented',
@@ -90,15 +75,6 @@ export function IndustriesPage() {
                   </li>
                 ))}
               </ul>
-              
-              <div className="border-t border-border pt-6">
-                <p className="text-lg text-foreground font-semibold mb-2">
-                  We do not serve early-stage startups.
-                </p>
-                <p className="text-lg text-foreground font-semibold">
-                  We build infrastructure for serious businesses.
-                </p>
-              </div>
             </Card>
           </div>
         </div>
@@ -361,40 +337,6 @@ export function IndustriesPage() {
             >
               Book Strategy Call
             </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Caffeine AI Prompt Block */}
-      <section className="py-12 bg-card/50 border-t border-border">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <Card className="bg-card border-border p-6">
-              <div className="flex items-start justify-between gap-4 mb-4">
-                <h3 className="text-lg font-semibold text-foreground">Caffeine AI Prompt</h3>
-                <Button
-                  onClick={handleCopyPrompt}
-                  variant="outline"
-                  size="sm"
-                  className="flex items-center gap-2"
-                >
-                  {copied ? (
-                    <>
-                      <Check className="h-4 w-4" />
-                      Copied!
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="h-4 w-4" />
-                      Copy
-                    </>
-                  )}
-                </Button>
-              </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Create a comprehensive Industries We Serve page for INOVICS that demonstrates deep understanding of industry-specific operational chaos. Include: Hero section with "Industries We Institutionalize" headline, focus section explaining we work with ₹5-50 Cr family-run businesses, detailed industry blocks for Manufacturing SMEs, Distributors & Trading Companies, Professional Service Firms, and Second-Generation Leadership Teams (each with Common Challenges, What We Implement, and Outcome subsections), consistency section showing core transformation elements, qualifying statement, lead generation form with industry-specific fields, and final CTA. Use premium enterprise styling with INOVICS brand colors (navy, charcoal, accent-yellow).
-              </p>
-            </Card>
           </div>
         </div>
       </section>

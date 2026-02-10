@@ -2,11 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-replace-the-current-single-message-homepage-hero-banner-herosection-with-a-scrollable-banner-slider-that-shows-multiple-distinct-banners-one-per-slide-with-swipe-drag-support-on-touch-devices-and-clickable-navigation-controls-on-desktop",
-      "featureTitle": "Replace the current single-message homepage hero banner (HeroSection) with a scrollable banner/slider that shows multiple distinct banners, one per slide, with swipe/drag support on touch devices and clickable navigation controls on desktop.",
+      "featureId": "feature-remove-the-separate-strategy-session-navigation-link-so-users-are-not-presented-with-a-standalone-menu-entry-for-the-strategy-session-page",
+      "featureTitle": "Remove the separate \"Strategy Session\" navigation link so users are not presented with a standalone menu entry for the Strategy Session page.",
       "files": [
-        "frontend/src/components/sections/HeroSection.tsx",
-        "frontend/src/components/sections/HeroSlider.tsx"
+        "frontend/src/components/TopNav.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -21,10 +20,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-implement-the-following-banner-copy-as-separate-slides-in-the-homepage-hero-slider-ensuring-each-slide-has-headline-subheadline-supporting-line-and-one-or-two-cta-buttons-exactly-as-provided-english-text-include-the-optional-4th-banner-as-an-additional-slide",
-      "featureTitle": "Implement the following banner copy as separate slides in the homepage hero slider, ensuring each slide has: Headline, Subheadline, Supporting Line, and one or two CTA buttons exactly as provided (English text). Include the optional 4th banner as an additional slide.",
+      "featureId": "feature-change-the-book-strategy-call-button-behavior-site-wide-to-open-the-internal-strategy-session-page-route-strategy-session-using-the-existing-client-side-routing-pattern-history-pushstate-popstate-dispatch-so-the-strategy-session-page-opens-from-the-button-on-all-pages",
+      "featureTitle": "Change the \"Book Strategy Call\" button behavior (site-wide) to open the internal Strategy Session page route (\"/strategy-session\") using the existing client-side routing pattern (history.pushState + popstate dispatch), so the Strategy Session page opens from the button on all pages.",
       "files": [
-        "frontend/src/components/sections/HeroSlider.tsx"
+        "frontend/src/lib/strategyCall.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -35,43 +34,6 @@
       ],
       "testIds": [
         "REQ-2"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-wire-the-hero-slider-cta-buttons-to-existing-site-behaviors-routes-1-any-book-schedule-strategy-call-cta-must-trigger-the-existing-strategy-call-behavior-bookstrategycall-2-explore-the-control-framework-must-scroll-to-the-existing-homepage-section-with-id-framework-3-any-non-strategy-call-ctas-that-are-not-scroll-actions-must-navigate-using-the-app-s-existing-client-side-routing-style-pushstate-popstate-to-appropriate-existing-routes-e-g-process-for-start-your-transformation-and-see-how-we-work-contact-for-request-founder-blueprint-and-evaluate-your-systems",
-      "featureTitle": "Wire the hero slider CTA buttons to existing site behaviors/routes: (1) any \"Book…\"/\"Schedule…\" strategy-call CTA must trigger the existing strategy call behavior (bookStrategyCall). (2) \"Explore the CONTROL™ Framework\" must scroll to the existing homepage section with id=\"framework\". (3) Any non-strategy-call CTAs that are not scroll actions must navigate using the app’s existing client-side routing style (pushState + popstate) to appropriate existing routes (e.g., /process for \"Start Your Transformation\" and \"See How We Work\", /contact for \"Request Founder Blueprint™\" and \"Evaluate Your Systems\").",
-      "files": [
-        "frontend/src/components/sections/HeroSlider.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-3"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-accessibility-and-motion-safe-behavior-to-the-hero-slider-support-keyboard-navigation-left-right-provide-aria-labeling-for-slide-controls-ensure-focus-styles-are-visible-and-respect-prefers-reduced-motion-disable-autoplay-animated-transitions-if-implemented",
-      "featureTitle": "Add accessibility and motion-safe behavior to the hero slider: support keyboard navigation (left/right), provide ARIA labeling for slide controls, ensure focus styles are visible, and respect prefers-reduced-motion (disable autoplay/animated transitions if implemented).",
-      "files": [
-        "frontend/src/components/sections/HeroSlider.tsx",
-        "frontend/src/hooks/usePrefersReducedMotion.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-4"
       ],
       "confidence": "high"
     }
