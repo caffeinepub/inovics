@@ -1,43 +1,22 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Static download for INOVICS corporate presentation deck (Option 1 theme)",
+  "title": "Add INOVICS corporate presentation deck (.pptx) as a repository asset",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Add a 14-slide INOVICS corporate presentation PowerPoint (.pptx) asset matching the provided slide-by-slide content and Option 1 styling.",
+      "summary": "Generate the INOVICS corporate presentation deck as a 12–14 slide PPTX (target 14) matching the specified dark navy + yellow enterprise theme, and commit it into the repository for download via the Files panel.",
       "acceptanceCriteria": [
-        "A .pptx file is produced that contains 14 slides matching the provided titles and body text (Slide 1 through Slide 14).",
-        "The deck uses a dark navy background and yellow accent consistent with the site’s palette (navy/charcoal + accent yellow), with a clean enterprise layout.",
-        "Slides avoid stock handshake imagery, avoid heavy icon usage, and use abstract/data/grid-style visuals where visuals are needed.",
-        "Typography hierarchy is consistent across slides (large bold headings, readable body text, spacing aligned to a coherent grid)."
+        "A .pptx file for the INOVICS deck exists in the project repository (committed as a binary asset) and is visible/downloadable from the Files panel.",
+        "The PPTX opens successfully in PowerPoint/Google Slides without layout breakage or missing fonts/assets.",
+        "The deck contains 12–14 slides (target 14) and uses the exact slide-by-slide content from the prior conversation.",
+        "Visual style matches the specified dark navy + yellow accent theme, with bold headings, minimal bullets, and abstract data/grid visuals; no stock/cheesy imagery or heavy iconography is used."
       ],
       "file_operations": [
         {
-          "path": "frontend/public/assets/inovics-corporate-deck-option-1.pptx",
+          "path": "frontend/public/files/INOVICS-Corporate-Presentation-Deck.pptx",
           "operation": "create",
-          "description": "Create the downloadable PowerPoint deck as a static asset. The file must include 14 slides using the exact slide-by-slide titles/body text provided in the conversation, and apply Option 1 styling (dark navy background, accent yellow, clean enterprise grid, abstract/data/grid visuals; avoid stock/cheesy imagery and heavy icons)."
-        }
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "summary": "Expose the corporate deck as a static download and add a clear UI entry point to download it.",
-      "acceptanceCriteria": [
-        "The .pptx is available as a static file in the frontend (served without requiring backend calls).",
-        "A user can click a “Download Corporate Deck (PPTX)” (or equivalent English label) in the UI and the browser downloads the .pptx successfully.",
-        "The download link works in production build (not only in dev)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/lib/contactConfig.ts",
-          "operation": "modify",
-          "description": "Add an exported constant for the static PPTX URL (pointing to frontend/public/assets/inovics-corporate-deck-option-1.pptx) so UI components can link to the deck consistently."
-        },
-        {
-          "path": "frontend/src/components/contact/ContactOptionsGrid.tsx",
-          "operation": "modify",
-          "description": "Add a clearly labeled download entry point (e.g., a new card/action) that links directly to the static PPTX and triggers a browser download. Use existing shadcn-ui Card/Button styling for consistency with the site theme; verify the component's usage instructions before implementing."
+          "description": "Add the final generated INOVICS corporate presentation deck as a committed binary PPTX asset in the repository (no external links). Ensure the deck uses the exact previously-provided slide-by-slide content, stays within 12–14 slides (target 14), and follows the specified visual styling (dark navy background similar to #0D1B2A, yellow accent in the #FFC300 range, clean enterprise look, bold typography, minimal bullets, abstract data/grid visuals, and no stock/cheesy imagery or heavy icons)."
         }
       ]
     }

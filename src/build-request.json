@@ -1,57 +1,35 @@
 {
   "kind": "build_request",
-  "title": "Add downloadable INOVICS corporate presentation deck (Option 1 theme)",
+  "title": "Generate and add the INOVICS presentation deck (.pptx) to the project files",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Create a 14-slide INOVICS corporate presentation deck as a PowerPoint (.pptx) using the exact slide-by-slide content provided in the conversation, and apply Option 1 styling aligned to the existing website theme (dark navy background + yellow accent, clean enterprise look, bold headings, minimal bullet points, abstract data/grid visuals, and no stock/cheesy imagery or heavy icons).",
+      "text": "Generate the complete INOVICS corporate presentation deck as a PowerPoint (.pptx) and add the resulting file to the repository so it is available from the project’s Files panel (no external links). The deck must follow the project styling notes: dark navy background (similar to #0D1B2A), yellow accent (in the #FFC300 range), clean enterprise look, bold typography, minimal bullet points, abstract data/grid visuals, and no stock/cheesy imagery or heavy icons. Use the exact slide-by-slide content previously provided in the conversation and keep the deck length within 12–14 slides (target 14).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-user-latest"
         ],
         "quotes": [
-          "Can you generate a Powerpoint based on same theme and elements with above content",
-          "keep it similar to the website we generated",
-          "1"
+          "Create the pptx file in the project\n\nand I’ll place the full deck there for you to download."
         ]
       },
       "acceptanceCriteria": [
-        "A .pptx file is produced that contains 14 slides matching the provided titles and body text (Slide 1 through Slide 14).",
-        "The deck uses a dark navy background and yellow accent consistent with the site’s palette (navy/charcoal + accent yellow), with a clean enterprise layout.",
-        "Slides avoid stock handshake imagery, avoid heavy icon usage, and use abstract/data/grid-style visuals where visuals are needed.",
-        "Typography hierarchy is consistent across slides (large bold headings, readable body text, spacing aligned to a coherent grid)."
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "text": "Expose the generated PowerPoint deck as a static downloadable asset from the web app (place the .pptx under the frontend public assets) and add a clearly labeled download entry point in the UI so users can download it directly from the site.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "Can you generate a Powerpoint based on same theme and elements with above content"
-        ]
-      },
-      "acceptanceCriteria": [
-        "The .pptx is available as a static file in the frontend (served without requiring backend calls).",
-        "A user can click a “Download Corporate Deck (PPTX)” (or equivalent English label) in the UI and the browser downloads the .pptx successfully.",
-        "The download link works in production build (not only in dev)."
+        "A .pptx file for the INOVICS deck exists in the project repository (committed as a binary asset) and is visible/downloadable from the Files panel.",
+        "The PPTX opens successfully in PowerPoint/Google Slides without layout breakage or missing fonts/assets.",
+        "The deck contains 12–14 slides (target 14) and uses the exact slide-by-slide content from the prior conversation.",
+        "Visual style matches the specified dark navy + yellow accent theme, with bold headings, minimal bullets, and abstract data/grid visuals; no stock/cheesy imagery or heavy iconography is used."
       ]
     }
   ],
   "constraints": [
-    "Use English for any user-facing text.",
-    "Do not edit any files under frontend/src/components/ui or any paths listed as immutable in SYSTEM_CONTEXT.",
-    "Backend must remain single-actor; do not introduce additional backend services."
+    "Do not modify any files under frontend/src/components/ui or any path listed in frontend.immutablePaths.",
+    "Do not introduce external services, APIs, or databases to generate or store the PPTX."
   ],
   "nonGoals": [
-    "Converting the site’s OKLCH colors to hex codes.",
-    "Adding third-party authentication providers beyond Internet Identity.",
-    "Implementing external integrations (CRM/ERP APIs) referenced in slide content."
+    "Adding a new in-app UI button/link to download the PPTX from the running website (not requested in the latest user message).",
+    "Implementing backend storage or serving logic for the PPTX."
   ],
   "imageRequirements": {
     "required": [],

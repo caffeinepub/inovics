@@ -1,31 +1,21 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-11T07:20:12.899Z",
+  "generatedAt": "2026-02-11T07:29:06.624Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 2,
+    "total": 1,
     "implemented": 0,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Create a 14-slide INOVICS corporate presentation deck as a PowerPoint (.pptx) using the exact slide-by-slide content provided in the conversation, and apply Option 1 styling aligned to the existing website theme (dark navy background + yellow accent, clean enterprise look, bold headings, minimal bullet points, abstract data/grid visuals, and no stock/cheesy imagery or heavy icons).",
+        "summary": "Generate the complete INOVICS corporate presentation deck as a PowerPoint (.pptx) and add the resulting file to the repository so it is available from the project’s Files panel (no external links). The deck must follow the project styling notes: dark navy background (similar to #0D1B2A), yellow accent (in the #FFC300 range), clean enterprise look, bold typography, minimal bullet points, abstract data/grid visuals, and no stock/cheesy imagery or heavy icons. Use the exact slide-by-slide content previously provided in the conversation and keep the deck length within 12–14 slides (target 14).",
         "status": "missing",
         "plannedFiles": [
-          "frontend/public/assets/inovics-corporate-deck-option-1.pptx"
-        ],
-        "matchedFiles": []
-      },
-      {
-        "id": "REQ-2",
-        "summary": "Expose the generated PowerPoint deck as a static downloadable asset from the web app (place the .pptx under the frontend public assets) and add a clearly labeled download entry point in the UI so users can download it directly from the site.",
-        "status": "missing",
-        "plannedFiles": [
-          "frontend/src/lib/contactConfig.ts",
-          "frontend/src/components/contact/ContactOptionsGrid.tsx"
+          "frontend/public/files/INOVICS-Corporate-Presentation-Deck.pptx"
         ],
         "matchedFiles": []
       }

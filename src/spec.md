@@ -1,11 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Provide a downloadable INOVICS corporate presentation deck (Option 1 theme) from within the web app.
+**Goal:** Generate and add the complete INOVICS corporate presentation deck as a downloadable PowerPoint (.pptx) file within the project repository.
 
 **Planned changes:**
-- Create a 14-slide INOVICS corporate presentation deck as a PowerPoint (.pptx) using the provided slide-by-slide titles and body text, styled to match Option 1 (dark navy background, yellow accent, clean enterprise layout, bold headings, minimal bullets, abstract/data/grid visuals).
-- Add the generated .pptx to the frontend as a static public asset.
-- Add a clear UI entry point (e.g., “Download Corporate Deck (PPTX)”) that downloads the .pptx successfully in production builds.
+- Create a 12–14 slide (target 14) INOVICS presentation deck in .pptx format using the exact slide-by-slide content previously provided in the conversation.
+- Apply the specified visual style (dark navy background, yellow accent, clean enterprise look, bold typography, minimal bullets, abstract data/grid visuals) and avoid stock/cheesy imagery or heavy iconography.
+- Commit the resulting .pptx binary to the repository so it is visible and downloadable from the project’s Files panel.
 
-**User-visible outcome:** Users can download the INOVICS corporate deck as a .pptx directly from the site via a clearly labeled download link/button.
+**User-visible outcome:** A finished INOVICS .pptx deck is available directly in the project files and opens correctly in PowerPoint/Google Slides with consistent styling and intact layouts/assets.
