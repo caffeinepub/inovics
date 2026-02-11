@@ -1,39 +1,74 @@
 {
   "kind": "build_request",
-  "title": "Auto-advance main hero banner every 5 seconds",
+  "title": "Replace homepage CONTROL framework images with colourful, text-free visuals",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-5",
-      "text": "Add automatic slide rotation to the main hero banner carousel so the HeroSlider advances to the next banner every 5 seconds and loops back to the first banner after the last banner.",
+      "id": "REQ-1",
+      "text": "Replace the seven homepage CONTROL™ framework step images used in `frontend/src/components/sections/ControlFrameworkSection.tsx` with higher-quality, more colourful images that contain no text and are visually relevant to each step (Clarify, Organize, Normalize, Transform, Report, Optimize, Lead).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-3"
+          "msg-4"
         ],
         "quotes": [
-          "the main banner should have a 5 second auto times. it should change to next banner after every 5 seconds"
+          "The images used in the control framework on the homepage look really bad. Can you update them with more colourful images and not have any text on the images. But still be relevant to the content"
         ]
       },
       "acceptanceCriteria": [
-        "When the homepage hero banner is visible, the slide automatically advances every 5000ms.",
-        "After the final slide, the next auto-advance returns to the first slide.",
-        "The auto-advance interval is cleaned up on component unmount (no timers continue running after navigation).",
-        "If the user has enabled 'prefers-reduced-motion', auto-advance is disabled (the user can still navigate slides manually)."
+        "Each CONTROL™ step card on the homepage displays a new, more colourful image.",
+        "None of the seven images contain embedded text.",
+        "Each image is visually relevant to its step (e.g., clarity/diagnostic, organization/structure, normalization/standards, transformation/automation, reporting/dashboards, optimization/continuous improvement, leadership/governance).",
+        "Images load correctly from the static assets path and do not produce 404s in the browser console."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Update the image asset references in `frontend/src/components/sections/ControlFrameworkSection.tsx` to point to the new/replaced image filenames under `/assets/generated/` (keeping the existing layout, aspect ratio, and hover behavior intact).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "update them with more colourful images and not have any text on the images"
+        ]
+      },
+      "acceptanceCriteria": [
+        "`frameworkSteps` in `ControlFrameworkSection.tsx` references the new image filenames for all seven steps.",
+        "The CONTROL™ framework section layout remains unchanged aside from the updated images (same card grid/scroll behavior, same letter badge overlay, same aspect ratio)."
       ]
     }
   ],
   "constraints": [
-    "Do not modify any files under frontend/src/components/ui (read-only UI component sources).",
-    "Keep changes scoped to the existing hero carousel implementation (frontend/src/components/sections/HeroSlider.tsx) without introducing new routing or backend dependencies."
+    "Do not edit files under `frontend/src/components/ui` (compose them only).",
+    "Do not change unrelated homepage sections or backend behavior; scope is limited to the CONTROL™ framework images on the homepage."
   ],
   "nonGoals": [
-    "Changing slide copy, CTA behavior, or adding/removing slides.",
-    "Changing the hero section background or generating new images.",
-    "Backend changes."
+    "Redesigning the CONTROL™ framework section layout, typography, or copy.",
+    "Changing the CONTROL™ framework content on `/control-framework` page.",
+    "Adding new backend endpoints or modifying lead/admin functionality."
   ],
   "imageRequirements": {
     "required": [],
-    "edits": []
+    "edits": [
+      "Create a more colourful, high-quality, text-free image relevant to \"Clarify\" (inovics-framework-clarify-simple.dim_1200x750.png > inovics-framework-clarify-colourful.dim_1200x750.png)",
+      "Create a more colourful, high-quality, text-free image relevant to \"Organize\" (inovics-framework-organize-simple.dim_1200x750.png > inovics-framework-organize-colourful.dim_1200x750.png)",
+      "Create a more colourful, high-quality, text-free image relevant to \"Normalize\" (inovics-framework-normalize-simple.dim_1200x750.png > inovics-framework-normalize-colourful.dim_1200x750.png)",
+      "Create a more colourful, high-quality, text-free image relevant to \"Transform\" (inovics-framework-transform-simple.dim_1200x750.png > inovics-framework-transform-colourful.dim_1200x750.png)",
+      "Create a more colourful, high-quality, text-free image relevant to \"Report\" (inovics-framework-report-simple.dim_1200x750.png > inovics-framework-report-colourful.dim_1200x750.png)",
+      "Create a more colourful, high-quality, text-free image relevant to \"Optimize\" (inovics-framework-optimize-simple.dim_1200x750.png > inovics-framework-optimize-colourful.dim_1200x750.png)",
+      "Create a more colourful, high-quality, text-free image relevant to \"Lead\" (inovics-framework-lead-simple.dim_1200x750.png > inovics-framework-lead-colourful.dim_1200x750.png)"
+    ]
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }

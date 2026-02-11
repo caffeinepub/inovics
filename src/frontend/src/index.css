@@ -113,6 +113,15 @@
         @apply p-6 bg-accent-yellow/10 border-2 border-accent-yellow/30 rounded-lg space-y-2;
     }
     
+    /* Standardized bullet style - yellow circle with tick mark */
+    .standard-bullet {
+        @apply mt-0.5 w-5 h-5 rounded-full bg-accent-yellow flex items-center justify-center;
+    }
+    
+    .standard-bullet svg {
+        @apply text-navy;
+    }
+    
     /* Reduced motion support */
     @media (prefers-reduced-motion: reduce) {
         *,

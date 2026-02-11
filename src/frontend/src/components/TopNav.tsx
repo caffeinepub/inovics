@@ -8,6 +8,8 @@ const navLinks = [
   { label: 'Framework', href: '#framework', isHash: true },
   { label: 'Industries', href: '/industries', isHash: false },
   { label: 'Process', href: '/process', isHash: false },
+  { label: 'FAQ', href: '/faq', isHash: false },
+  { label: 'Insights', href: '/insights', isHash: false },
   { label: 'Contact', href: '/contact', isHash: false },
   { label: 'CONTROL™', href: '/control-framework', isHash: false },
 ];
@@ -132,8 +134,8 @@ export function TopNav() {
                   className={`
                     px-4 py-2.5 text-sm font-semibold rounded-full transition-all duration-200
                     ${isActive 
-                      ? 'bg-accent-yellow text-navy shadow-md shadow-accent-yellow/20' 
-                      : 'text-white/90 hover:bg-white/10 hover:text-white hover:shadow-sm'
+                      ? 'bg-accent-yellow text-navy shadow-md' 
+                      : 'text-white/90 hover:text-white hover:bg-white/10'
                     }
                   `}
                 >
@@ -143,26 +145,21 @@ export function TopNav() {
             })}
             <Button
               onClick={bookStrategyCall}
-              className="ml-2 bg-accent-yellow text-navy hover:bg-accent-yellow/90 font-bold shadow-lg shadow-accent-yellow/30 hover:shadow-xl hover:shadow-accent-yellow/40 transition-all duration-200"
+              className="ml-2 bg-accent-yellow text-navy hover:bg-accent-yellow/90 font-semibold px-6 py-2.5 h-auto rounded-full shadow-md hover:shadow-lg transition-all"
             >
               Book Strategy Call
             </Button>
           </div>
 
-          {/* Mobile Navigation */}
+          {/* Mobile Menu */}
           <Sheet>
             <SheetTrigger asChild className="lg:hidden">
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                className="text-white hover:bg-white/10 hover:text-white"
-              >
-                <Menu className="h-7 w-7" />
-                <span className="sr-only">Open menu</span>
+              <Button variant="ghost" size="icon" className="text-white hover:bg-white/10">
+                <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-card border-l-2 border-accent-yellow/20">
-              <div className="flex flex-col gap-3 mt-8">
+            <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-navy border-l border-white/10">
+              <nav className="flex flex-col gap-2 mt-8">
                 {navLinks.map((link) => {
                   const isActive = link.isHash 
                     ? activeSection === link.href.substring(1)
@@ -174,10 +171,11 @@ export function TopNav() {
                         href={link.href}
                         onClick={(e) => handleNavClick(e, link)}
                         className={`
-                          px-5 py-4 text-lg font-semibold rounded-lg transition-all duration-200 border-l-4
+                          px-4 py-3 text-base font-semibold rounded-lg transition-all
+                          border-l-4
                           ${isActive 
-                            ? 'bg-accent-yellow/20 text-accent-yellow border-accent-yellow shadow-sm' 
-                            : 'text-foreground border-transparent hover:bg-accent/50 hover:border-accent-yellow/40'
+                            ? 'bg-accent-yellow/10 text-accent-yellow border-accent-yellow' 
+                            : 'text-white/90 hover:text-white hover:bg-white/5 border-transparent'
                           }
                         `}
                       >
@@ -186,16 +184,15 @@ export function TopNav() {
                     </SheetClose>
                   );
                 })}
-                <div className="h-px bg-border my-2" />
                 <SheetClose asChild>
                   <Button
                     onClick={bookStrategyCall}
-                    className="bg-accent-yellow text-navy hover:bg-accent-yellow/90 font-bold w-full py-6 text-lg shadow-lg shadow-accent-yellow/30"
+                    className="mt-4 bg-accent-yellow text-navy hover:bg-accent-yellow/90 font-semibold py-6 text-base"
                   >
                     Book Strategy Call
                   </Button>
                 </SheetClose>
-              </div>
+              </nav>
             </SheetContent>
           </Sheet>
         </div>

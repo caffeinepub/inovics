@@ -53,7 +53,12 @@ export const idlService = IDL.Service({
       [IDL.Opt(UserProfile)],
       ['query'],
     ),
+  'grantAdminPrivileges' : IDL.Func([IDL.Principal], [], []),
+  'healthCheck' : IDL.Func([], [IDL.Text], ['query']),
+  'isAdminInitialized' : IDL.Func([], [IDL.Bool], ['query']),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+  'promoteFirstAdmin' : IDL.Func([IDL.Text], [], []),
+  'renewBootstrapToken' : IDL.Func([], [IDL.Text], []),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
 });
 
@@ -105,7 +110,12 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Opt(UserProfile)],
         ['query'],
       ),
+    'grantAdminPrivileges' : IDL.Func([IDL.Principal], [], []),
+    'healthCheck' : IDL.Func([], [IDL.Text], ['query']),
+    'isAdminInitialized' : IDL.Func([], [IDL.Bool], ['query']),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+    'promoteFirstAdmin' : IDL.Func([IDL.Text], [], []),
+    'renewBootstrapToken' : IDL.Func([], [IDL.Text], []),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
   });
 };

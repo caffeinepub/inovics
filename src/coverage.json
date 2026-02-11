@@ -1,24 +1,47 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-10T12:24:21.072Z",
+  "generatedAt": "2026-02-10T18:23:04.021Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 1,
-    "implemented": 1,
+    "total": 2,
+    "implemented": 2,
     "items": [
       {
-        "id": "REQ-5",
-        "summary": "Add automatic slide rotation to the main hero banner carousel so the HeroSlider advances to the next banner every 5 seconds and loops back to the first banner after the last banner.",
+        "id": "REQ-1",
+        "summary": "Replace the seven homepage CONTROL™ framework step images used in `frontend/src/components/sections/ControlFrameworkSection.tsx` with higher-quality, more colourful images that contain no text and are visually relevant to each step (Clarify, Organize, Normalize, Transform, Report, Optimize, Lead).",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/sections/HeroSlider.tsx"
+          "frontend/public/assets/generated/inovics-framework-clarify-colourful.dim_1200x750.png",
+          "frontend/public/assets/generated/inovics-framework-organize-colourful.dim_1200x750.png",
+          "frontend/public/assets/generated/inovics-framework-normalize-colourful.dim_1200x750.png",
+          "frontend/public/assets/generated/inovics-framework-transform-colourful.dim_1200x750.png",
+          "frontend/public/assets/generated/inovics-framework-report-colourful.dim_1200x750.png",
+          "frontend/public/assets/generated/inovics-framework-optimize-colourful.dim_1200x750.png",
+          "frontend/public/assets/generated/inovics-framework-lead-colourful.dim_1200x750.png"
         ],
         "matchedFiles": [
-          "frontend/src/components/sections/HeroSlider.tsx"
+          "frontend/public/assets/generated/inovics-framework-clarify-colourful.dim_1200x750.png",
+          "frontend/public/assets/generated/inovics-framework-organize-colourful.dim_1200x750.png",
+          "frontend/public/assets/generated/inovics-framework-normalize-colourful.dim_1200x750.png",
+          "frontend/public/assets/generated/inovics-framework-transform-colourful.dim_1200x750.png",
+          "frontend/public/assets/generated/inovics-framework-report-colourful.dim_1200x750.png",
+          "frontend/public/assets/generated/inovics-framework-optimize-colourful.dim_1200x750.png",
+          "frontend/public/assets/generated/inovics-framework-lead-colourful.dim_1200x750.png"
+        ]
+      },
+      {
+        "id": "REQ-2",
+        "summary": "Update the image asset references in `frontend/src/components/sections/ControlFrameworkSection.tsx` to point to the new/replaced image filenames under `/assets/generated/` (keeping the existing layout, aspect ratio, and hover behavior intact).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/sections/ControlFrameworkSection.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/sections/ControlFrameworkSection.tsx"
         ]
       }
     ]
@@ -28,7 +51,14 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/components/sections/HeroSlider.tsx",
+    "frontend/public/assets/generated/inovics-framework-clarify-colourful.dim_1200x750.png",
+    "frontend/public/assets/generated/inovics-framework-lead-colourful.dim_1200x750.png",
+    "frontend/public/assets/generated/inovics-framework-normalize-colourful.dim_1200x750.png",
+    "frontend/public/assets/generated/inovics-framework-optimize-colourful.dim_1200x750.png",
+    "frontend/public/assets/generated/inovics-framework-organize-colourful.dim_1200x750.png",
+    "frontend/public/assets/generated/inovics-framework-report-colourful.dim_1200x750.png",
+    "frontend/public/assets/generated/inovics-framework-transform-colourful.dim_1200x750.png",
+    "frontend/src/components/sections/ControlFrameworkSection.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

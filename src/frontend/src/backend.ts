@@ -117,7 +117,12 @@ export interface backendInterface {
     getCallerUserRole(): Promise<UserRole>;
     getLead(id: bigint): Promise<Lead | null>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
+    grantAdminPrivileges(target: Principal): Promise<void>;
+    healthCheck(): Promise<string>;
+    isAdminInitialized(): Promise<boolean>;
     isCallerAdmin(): Promise<boolean>;
+    promoteFirstAdmin(token: string): Promise<void>;
+    renewBootstrapToken(): Promise<string>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
 }
 import type { Lead as _Lead, UserProfile as _UserProfile, UserRole as _UserRole } from "./declarations/backend.did.d.ts";
@@ -235,6 +240,48 @@ export class Backend implements backendInterface {
             return from_candid_opt_n3(this._uploadFile, this._downloadFile, result);
         }
     }
+    async grantAdminPrivileges(arg0: Principal): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.grantAdminPrivileges(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.grantAdminPrivileges(arg0);
+            return result;
+        }
+    }
+    async healthCheck(): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.healthCheck();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.healthCheck();
+            return result;
+        }
+    }
+    async isAdminInitialized(): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.isAdminInitialized();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.isAdminInitialized();
+            return result;
+        }
+    }
     async isCallerAdmin(): Promise<boolean> {
         if (this.processError) {
             try {
@@ -246,6 +293,34 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.isCallerAdmin();
+            return result;
+        }
+    }
+    async promoteFirstAdmin(arg0: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.promoteFirstAdmin(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.promoteFirstAdmin(arg0);
+            return result;
+        }
+    }
+    async renewBootstrapToken(): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.renewBootstrapToken();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.renewBootstrapToken();
             return result;
         }
     }

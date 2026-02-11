@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useActor } from './useActor';
+import { useBackendHealthCheck } from './useBackendHealthCheck';
 
 interface LeadData {
   firstName: string;
@@ -14,20 +15,36 @@ interface LeadData {
 }
 
 export function useLeadSubmission() {
-  const { actor } = useActor();
+  const { actor, isFetching: actorFetching } = useActor();
+  
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [shouldCheckHealth, setShouldCheckHealth] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
+  
+  const { status: healthStatus, checkHealth } = useBackendHealthCheck(shouldCheckHealth);
 
   const submitLead = async (data: LeadData) => {
+    // Clear previous states
+    setError(null);
+    setIsSuccess(false);
+    setShouldCheckHealth(false);
+
+    // Wait for actor initialization if it's still fetching
+    if (actorFetching) {
+      setError('Connecting to backend, please wait...');
+      return;
+    }
+
+    // If actor is not available after fetching completed
     if (!actor) {
-      setError('Backend connection not available. Please try again.');
+      setError('Backend connection failed. Please click retry or refresh the page.');
+      setShouldCheckHealth(true);
       return;
     }
 
     setIsLoading(true);
-    setError(null);
-    setIsSuccess(false);
 
     try {
       await actor.addLead(
@@ -42,12 +59,28 @@ export function useLeadSubmission() {
         data.message
       );
       setIsSuccess(true);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error submitting lead:', err);
-      setError('Failed to submit your request. Please try again or contact us directly.');
+      
+      // Check backend health to provide better error message
+      setShouldCheckHealth(true);
+      await checkHealth();
+      
+      if (err?.message?.includes('Unauthorized') || err?.message?.includes('trap')) {
+        setError('Failed to submit your request. Please try again or contact us directly.');
+      } else {
+        setError('Failed to submit your request. The backend may be unreachable. Please try again or contact us directly.');
+      }
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const retry = () => {
+    setError(null);
+    setShouldCheckHealth(false);
+    setRetryCount(prev => prev + 1);
+    // Trigger a re-render which will re-evaluate actor availability
   };
 
   return {
@@ -55,5 +88,9 @@ export function useLeadSubmission() {
     isLoading,
     isSuccess,
     error,
+    actorReady: !!actor && !actorFetching,
+    actorInitializing: actorFetching,
+    retry,
+    healthStatus,
   };
 }

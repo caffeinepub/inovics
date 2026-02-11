@@ -3,14 +3,25 @@
   "projectStateVersion": 3,
   "summary": "New project",
   "architectural_notes": [],
-  "known_issues": [],
-  "isFixRequest": false,
+  "known_issues": [
+    "Homepage control framework images look poor quality; need replacement with more colourful, text-free images relevant to content"
+  ],
+  "isFixRequest": true,
+  "imageRequirements": "## Edit Images\n- Create a more colourful, high-quality, text-free image relevant to \"Clarify\" (inovics-framework-clarify-simple.dim_1200x750.png > inovics-framework-clarify-colourful.dim_1200x750.png)\n- Create a more colourful, high-quality, text-free image relevant to \"Organize\" (inovics-framework-organize-simple.dim_1200x750.png > inovics-framework-organize-colourful.dim_1200x750.png)\n- Create a more colourful, high-quality, text-free image relevant to \"Normalize\" (inovics-framework-normalize-simple.dim_1200x750.png > inovics-framework-normalize-colourful.dim_1200x750.png)\n- Create a more colourful, high-quality, text-free image relevant to \"Transform\" (inovics-framework-transform-simple.dim_1200x750.png > inovics-framework-transform-colourful.dim_1200x750.png)\n- Create a more colourful, high-quality, text-free image relevant to \"Report\" (inovics-framework-report-simple.dim_1200x750.png > inovics-framework-report-colourful.dim_1200x750.png)\n- Create a more colourful, high-quality, text-free image relevant to \"Optimize\" (inovics-framework-optimize-simple.dim_1200x750.png > inovics-framework-optimize-colourful.dim_1200x750.png)\n- Create a more colourful, high-quality, text-free image relevant to \"Lead\" (inovics-framework-lead-simple.dim_1200x750.png > inovics-framework-lead-colourful.dim_1200x750.png)",
   "existing_features": [
     {
-      "id": "feature-add-automatic-slide-rotation-to-the-main-hero-banner-carousel-so-the-heroslider-advances-to-the-next-banner-every-5-seconds-and-loops-back-to-the-first-banner-after-the-last-banner",
-      "title": "Add automatic slide rotation to the main hero banner carousel so the HeroSlider advances to the next banner every 5 seconds and loops back to the first banner after the last banner.",
+      "id": "feature-replace-the-seven-homepage-control-framework-step-images-used-in-frontend-src-components-sections-controlframeworksection-tsx-with-higher-quality-more-colourful-images-that-contain-no-text-and-are-visually-relevant-to-each-step-clarify-organize-normalize-transform-report-optimize-lead",
+      "title": "Replace the seven homepage CONTROL™ framework step images used in `frontend/src/components/sections/ControlFrameworkSection.tsx` with higher-quality, more colourful images that contain no text and are visually relevant to each step (Clarify, Organize, Normalize, Transform, Report, Optimize, Lead).",
       "reqIds": [
-        "REQ-5"
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-image-asset-references-in-frontend-src-components-sections-controlframeworksection-tsx-to-point-to-the-new-replaced-image-filenames-under-assets-generated-keeping-the-existing-layout-aspect-ratio-and-hover-behavior-intact",
+      "title": "Update the image asset references in `frontend/src/components/sections/ControlFrameworkSection.tsx` to point to the new/replaced image filenames under `/assets/generated/` (keeping the existing layout, aspect ratio, and hover behavior intact).",
+      "reqIds": [
+        "REQ-2"
       ],
       "version": 1
     }
@@ -18,12 +29,12 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Main banner should auto-advance to the next banner every 5 seconds",
+      "summary": "Update homepage control framework images: replace with more colourful, higher-quality images that contain no text and remain relevant to the content",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "projectName": "Auto-advance main hero banner every 5 seconds",
+  "projectName": "Replace homepage CONTROL framework images with colourful, text-free visuals",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

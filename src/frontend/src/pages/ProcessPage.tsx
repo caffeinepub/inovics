@@ -2,8 +2,8 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ProcessLeadGenForm } from '@/components/forms/ProcessLeadGenForm';
 import { bookStrategyCall } from '@/lib/strategyCall';
-import { CheckCircle2 } from 'lucide-react';
 import { PageHero } from '@/components/sections/PageHero';
+import { StandardBulletList } from '@/components/shared/StandardBulletList';
 
 export function ProcessPage() {
   return (
@@ -36,24 +36,15 @@ export function ProcessPage() {
             <p className="text-lg text-muted-foreground mb-6">
               Most digital projects fail because they:
             </p>
-            <ul className="space-y-3 mb-8">
-              <li className="flex items-start gap-3 text-lg text-muted-foreground">
-                <span className="text-destructive mt-1">•</span>
-                <span>Skip diagnosis</span>
-              </li>
-              <li className="flex items-start gap-3 text-lg text-muted-foreground">
-                <span className="text-destructive mt-1">•</span>
-                <span>Rush into tool implementation</span>
-              </li>
-              <li className="flex items-start gap-3 text-lg text-muted-foreground">
-                <span className="text-destructive mt-1">•</span>
-                <span>Ignore internal resistance</span>
-              </li>
-              <li className="flex items-start gap-3 text-lg text-muted-foreground">
-                <span className="text-destructive mt-1">•</span>
-                <span>Lack governance planning</span>
-              </li>
-            </ul>
+            <StandardBulletList
+              items={[
+                'Skip diagnosis',
+                'Rush into tool implementation',
+                'Ignore internal resistance',
+                'Lack governance planning',
+              ]}
+              className="mb-8"
+            />
             <p className="text-xl font-semibold text-foreground text-center">
               At Inovics, transformation is engineered in phases — not improvised.
             </p>
@@ -83,28 +74,16 @@ export function ProcessPage() {
               
               <div className="ml-16">
                 <h4 className="text-lg font-semibold text-foreground mb-3">What Happens:</h4>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-start gap-3 text-muted-foreground">
-                    <CheckCircle2 className="h-5 w-5 text-accent-yellow mt-0.5 flex-shrink-0" />
-                    <span>Deep founder interview</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-muted-foreground">
-                    <CheckCircle2 className="h-5 w-5 text-accent-yellow mt-0.5 flex-shrink-0" />
-                    <span>Department-level workflow mapping</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-muted-foreground">
-                    <CheckCircle2 className="h-5 w-5 text-accent-yellow mt-0.5 flex-shrink-0" />
-                    <span>Data architecture audit</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-muted-foreground">
-                    <CheckCircle2 className="h-5 w-5 text-accent-yellow mt-0.5 flex-shrink-0" />
-                    <span>Risk & dependency analysis</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-muted-foreground">
-                    <CheckCircle2 className="h-5 w-5 text-accent-yellow mt-0.5 flex-shrink-0" />
-                    <span>Profit leakage identification</span>
-                  </li>
-                </ul>
+                <StandardBulletList
+                  items={[
+                    'Deep founder interview',
+                    'Department-level workflow mapping',
+                    'Data architecture audit',
+                    'Risk & dependency analysis',
+                    'Profit leakage identification',
+                  ]}
+                  className="mb-6"
+                />
                 
                 <div className="grid md:grid-cols-2 gap-6 mb-4">
                   <div>
@@ -137,28 +116,16 @@ export function ProcessPage() {
               
               <div className="ml-16">
                 <h4 className="text-lg font-semibold text-foreground mb-3">Includes:</h4>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-start gap-3 text-muted-foreground">
-                    <CheckCircle2 className="h-5 w-5 text-accent-yellow mt-0.5 flex-shrink-0" />
-                    <span>Centralized data architecture</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-muted-foreground">
-                    <CheckCircle2 className="h-5 w-5 text-accent-yellow mt-0.5 flex-shrink-0" />
-                    <span>CRM & workflow structure</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-muted-foreground">
-                    <CheckCircle2 className="h-5 w-5 text-accent-yellow mt-0.5 flex-shrink-0" />
-                    <span>Access hierarchies</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-muted-foreground">
-                    <CheckCircle2 className="h-5 w-5 text-accent-yellow mt-0.5 flex-shrink-0" />
-                    <span>Dashboard blueprint</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-muted-foreground">
-                    <CheckCircle2 className="h-5 w-5 text-accent-yellow mt-0.5 flex-shrink-0" />
-                    <span>Automation roadmap</span>
-                  </li>
-                </ul>
+                <StandardBulletList
+                  items={[
+                    'Centralized data architecture',
+                    'CRM & workflow structure',
+                    'Access hierarchies',
+                    'Dashboard blueprint',
+                    'Automation roadmap',
+                  ]}
+                  className="mb-6"
+                />
                 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
@@ -187,47 +154,28 @@ export function ProcessPage() {
               
               <div className="ml-16">
                 <h4 className="text-lg font-semibold text-foreground mb-3">Includes:</h4>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-start gap-3 text-muted-foreground">
-                    <CheckCircle2 className="h-5 w-5 text-accent-yellow mt-0.5 flex-shrink-0" />
-                    <span>Workflow automation</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-muted-foreground">
-                    <CheckCircle2 className="h-5 w-5 text-accent-yellow mt-0.5 flex-shrink-0" />
-                    <span>CRM deployment</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-muted-foreground">
-                    <CheckCircle2 className="h-5 w-5 text-accent-yellow mt-0.5 flex-shrink-0" />
-                    <span>Dashboard creation</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-muted-foreground">
-                    <CheckCircle2 className="h-5 w-5 text-accent-yellow mt-0.5 flex-shrink-0" />
-                    <span>Approval routing systems</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-muted-foreground">
-                    <CheckCircle2 className="h-5 w-5 text-accent-yellow mt-0.5 flex-shrink-0" />
-                    <span>SOP digitization</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-muted-foreground">
-                    <CheckCircle2 className="h-5 w-5 text-accent-yellow mt-0.5 flex-shrink-0" />
-                    <span>Internal team onboarding</span>
-                  </li>
-                </ul>
+                <StandardBulletList
+                  items={[
+                    'Workflow automation',
+                    'CRM deployment',
+                    'Dashboard creation',
+                    'Data migration',
+                    'Integration setup',
+                    'AI intelligence layer',
+                  ]}
+                  className="mb-6"
+                />
                 
-                <div className="grid md:grid-cols-2 gap-6 mb-4">
+                <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <p className="text-sm font-semibold text-muted-foreground mb-1">Duration:</p>
-                    <p className="text-lg text-foreground">8–16 weeks</p>
+                    <p className="text-lg text-foreground">8–12 weeks</p>
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-muted-foreground mb-1">Outcome:</p>
-                    <p className="text-lg text-foreground">Live operational systems replacing fragmented processes.</p>
+                    <p className="text-lg text-foreground">A live, operational Business OS with training and adoption support.</p>
                   </div>
                 </div>
-                
-                <p className="text-lg font-semibold text-foreground italic">
-                  We implement in phases to reduce disruption.
-                </p>
               </div>
             </Card>
 
@@ -238,41 +186,33 @@ export function ProcessPage() {
                   <span className="text-2xl font-bold text-accent-yellow">4</span>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-foreground mb-2">Stage 4 — Institutionalize</h3>
-                  <p className="text-lg text-muted-foreground font-semibold mb-4">Where most vendors stop — we don't.</p>
+                  <h3 className="text-2xl font-bold text-foreground mb-2">Stage 4 — Optimize</h3>
+                  <p className="text-lg text-muted-foreground font-semibold mb-4">Continuous governance and growth.</p>
                 </div>
               </div>
               
               <div className="ml-16">
                 <h4 className="text-lg font-semibold text-foreground mb-3">Includes:</h4>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-start gap-3 text-muted-foreground">
-                    <CheckCircle2 className="h-5 w-5 text-accent-yellow mt-0.5 flex-shrink-0" />
-                    <span>Governance structure setup</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-muted-foreground">
-                    <CheckCircle2 className="h-5 w-5 text-accent-yellow mt-0.5 flex-shrink-0" />
-                    <span>Performance review cadence</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-muted-foreground">
-                    <CheckCircle2 className="h-5 w-5 text-accent-yellow mt-0.5 flex-shrink-0" />
-                    <span>Leadership dashboard integration</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-muted-foreground">
-                    <CheckCircle2 className="h-5 w-5 text-accent-yellow mt-0.5 flex-shrink-0" />
-                    <span>AI optimization layer</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-muted-foreground">
-                    <CheckCircle2 className="h-5 w-5 text-accent-yellow mt-0.5 flex-shrink-0" />
-                    <span>Ongoing refinement</span>
-                  </li>
-                </ul>
+                <StandardBulletList
+                  items={[
+                    'Monthly performance reviews',
+                    'AI optimization',
+                    'System upgrades',
+                    'Governance alignment',
+                    'Strategic advisory',
+                  ]}
+                  className="mb-6"
+                />
                 
-                <div>
-                  <p className="text-sm font-semibold text-muted-foreground mb-1">Outcome:</p>
-                  <p className="text-lg text-foreground font-semibold">
-                    A business that runs on systems, not founder intervention.
-                  </p>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <p className="text-sm font-semibold text-muted-foreground mb-1">Duration:</p>
+                    <p className="text-lg text-foreground">Ongoing</p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-muted-foreground mb-1">Outcome:</p>
+                    <p className="text-lg text-foreground">Long-term institutional strength and continuous improvement.</p>
+                  </div>
                 </div>
               </div>
             </Card>
@@ -280,148 +220,133 @@ export function ProcessPage() {
         </div>
       </section>
 
-      {/* Section 3 - What Makes Our Process Different */}
+      {/* Section 3 - What Makes Us Different */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
         <div className="container mx-auto max-w-5xl">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-12 text-center">
-            Why Transformations Fail — And Why Ours Don't
+            What Makes Us Different
           </h2>
           
-          <div className="bg-card border border-border rounded-xl p-8 lg:p-10">
-            <p className="text-lg text-muted-foreground mb-6">We focus on:</p>
-            <ul className="space-y-4 mb-8">
-              <li className="flex items-start gap-3 text-lg">
-                <CheckCircle2 className="h-6 w-6 text-accent-yellow mt-0.5 flex-shrink-0" />
-                <span className="text-foreground">Founder alignment first</span>
-              </li>
-              <li className="flex items-start gap-3 text-lg">
-                <CheckCircle2 className="h-6 w-6 text-accent-yellow mt-0.5 flex-shrink-0" />
-                <span className="text-foreground">Structured rollout</span>
-              </li>
-              <li className="flex items-start gap-3 text-lg">
-                <CheckCircle2 className="h-6 w-6 text-accent-yellow mt-0.5 flex-shrink-0" />
-                <span className="text-foreground">Team adoption management</span>
-              </li>
-              <li className="flex items-start gap-3 text-lg">
-                <CheckCircle2 className="h-6 w-6 text-accent-yellow mt-0.5 flex-shrink-0" />
-                <span className="text-foreground">Clear governance</span>
-              </li>
-              <li className="flex items-start gap-3 text-lg">
-                <CheckCircle2 className="h-6 w-6 text-accent-yellow mt-0.5 flex-shrink-0" />
-                <span className="text-foreground">Measurable KPIs</span>
-              </li>
-            </ul>
-            <p className="text-xl font-semibold text-foreground text-center">
-              We treat transformation as infrastructure — not a tech project.
-            </p>
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card className="p-8 border-2 border-border hover:border-accent-yellow/50 transition-all">
+              <h3 className="text-2xl font-bold text-foreground mb-4">Traditional IT Vendors</h3>
+              <StandardBulletList
+                items={[
+                  'Install software',
+                  'Focus on features',
+                  'One-time project',
+                  'Limited governance',
+                  'Reactive support',
+                ]}
+              />
+            </Card>
+            
+            <Card className="p-8 border-2 border-accent-yellow/50 bg-accent-yellow/5">
+              <h3 className="text-2xl font-bold text-accent-yellow mb-4">Inovics Approach</h3>
+              <StandardBulletList
+                items={[
+                  'Engineer infrastructure',
+                  'Focus on outcomes',
+                  'Long-term partnership',
+                  'Built-in governance',
+                  'Proactive optimization',
+                ]}
+              />
+            </Card>
           </div>
         </div>
       </section>
 
-      {/* Section 4 - Timeline Visual Block */}
+      {/* Section 4 - Timeline Visual */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
-        <div className="container mx-auto max-w-6xl">
+        <div className="container mx-auto max-w-5xl">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-12 text-center">
-            Typical Engagement Timeline
+            Typical Implementation Timeline
           </h2>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <Card className="p-6 text-center">
-              <div className="text-4xl font-bold text-accent-yellow mb-3">Month 1</div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">Diagnosis & Blueprint</h3>
-            </Card>
+          <div className="relative">
+            <div className="absolute left-8 top-0 bottom-0 w-1 bg-accent-yellow/30"></div>
             
-            <Card className="p-6 text-center">
-              <div className="text-4xl font-bold text-accent-yellow mb-3">Month 2</div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">System Architecture</h3>
-            </Card>
-            
-            <Card className="p-6 text-center">
-              <div className="text-4xl font-bold text-accent-yellow mb-3">Months 3–5</div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">Phased Implementation</h3>
-            </Card>
-            
-            <Card className="p-6 text-center">
-              <div className="text-4xl font-bold text-accent-yellow mb-3">Month 6+</div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">Institutionalization</h3>
-            </Card>
-          </div>
-          
-          <div className="bg-card border border-border rounded-xl p-8 text-center">
-            <p className="text-lg text-muted-foreground">
-              <strong className="text-foreground">Timeline varies</strong> based on business complexity, team size, and current system maturity.
-            </p>
+            <div className="space-y-8">
+              <div className="relative pl-20">
+                <div className="absolute left-6 top-2 w-5 h-5 rounded-full bg-accent-yellow border-4 border-background"></div>
+                <Card className="p-6">
+                  <p className="text-sm font-semibold text-accent-yellow mb-1">Weeks 1-4</p>
+                  <h4 className="text-xl font-bold text-foreground mb-2">Diagnose</h4>
+                  <p className="text-muted-foreground">Founder Control Blueprint™ diagnostic</p>
+                </Card>
+              </div>
+              
+              <div className="relative pl-20">
+                <div className="absolute left-6 top-2 w-5 h-5 rounded-full bg-accent-yellow border-4 border-background"></div>
+                <Card className="p-6">
+                  <p className="text-sm font-semibold text-accent-yellow mb-1">Weeks 5-10</p>
+                  <h4 className="text-xl font-bold text-foreground mb-2">Architect</h4>
+                  <p className="text-muted-foreground">Business OS design and planning</p>
+                </Card>
+              </div>
+              
+              <div className="relative pl-20">
+                <div className="absolute left-6 top-2 w-5 h-5 rounded-full bg-accent-yellow border-4 border-background"></div>
+                <Card className="p-6">
+                  <p className="text-sm font-semibold text-accent-yellow mb-1">Weeks 11-22</p>
+                  <h4 className="text-xl font-bold text-foreground mb-2">Implement</h4>
+                  <p className="text-muted-foreground">System deployment and training</p>
+                </Card>
+              </div>
+              
+              <div className="relative pl-20">
+                <div className="absolute left-6 top-2 w-5 h-5 rounded-full bg-accent-yellow border-4 border-background"></div>
+                <Card className="p-6">
+                  <p className="text-sm font-semibold text-accent-yellow mb-1">Week 23+</p>
+                  <h4 className="text-xl font-bold text-foreground mb-2">Optimize</h4>
+                  <p className="text-muted-foreground">Continuous improvement and governance</p>
+                </Card>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Section 5 - What Clients Should Expect */}
+      {/* Section 5 - What We Expect From You */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
         <div className="container mx-auto max-w-5xl">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-12 text-center">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-8 text-center">
             What We Expect From You
           </h2>
+          <p className="text-xl text-muted-foreground mb-12 text-center max-w-3xl mx-auto">
+            Transformation requires partnership. Here's what we need from your team:
+          </p>
           
           <div className="bg-card border border-border rounded-xl p-8 lg:p-10">
-            <p className="text-lg text-muted-foreground mb-6">
-              Transformation is a partnership. For this to work, we need:
-            </p>
-            <ul className="space-y-4 mb-8">
-              <li className="flex items-start gap-3 text-lg">
-                <CheckCircle2 className="h-6 w-6 text-accent-yellow mt-0.5 flex-shrink-0" />
-                <span className="text-foreground"><strong>Founder commitment:</strong> Active participation in diagnosis and decision-making.</span>
-              </li>
-              <li className="flex items-start gap-3 text-lg">
-                <CheckCircle2 className="h-6 w-6 text-accent-yellow mt-0.5 flex-shrink-0" />
-                <span className="text-foreground"><strong>Internal champion:</strong> A designated team member to coordinate implementation.</span>
-              </li>
-              <li className="flex items-start gap-3 text-lg">
-                <CheckCircle2 className="h-6 w-6 text-accent-yellow mt-0.5 flex-shrink-0" />
-                <span className="text-foreground"><strong>Data access:</strong> Transparency into current workflows and systems.</span>
-              </li>
-              <li className="flex items-start gap-3 text-lg">
-                <CheckCircle2 className="h-6 w-6 text-accent-yellow mt-0.5 flex-shrink-0" />
-                <span className="text-foreground"><strong>Change readiness:</strong> Willingness to challenge legacy processes.</span>
-              </li>
-            </ul>
-            <p className="text-xl font-semibold text-foreground text-center">
-              If you're not ready to commit, we're not the right partner yet.
-            </p>
+            <StandardBulletList
+              items={[
+                'Founder commitment to the diagnostic and architecture phases',
+                'Designated internal champion to coordinate with our team',
+                'Access to key stakeholders across departments',
+                'Willingness to challenge existing processes',
+                'Commitment to team training and adoption',
+                'Transparency about operational challenges',
+                'Patience with the structured implementation timeline',
+              ]}
+            />
           </div>
         </div>
       </section>
 
-      {/* Lead Gen Form Section */}
+      {/* Section 6 - Lead Gen Form */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
-        <div className="container mx-auto max-w-4xl">
+        <div className="container mx-auto max-w-3xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
               Request Your Founder Blueprint™
             </h2>
-            <p className="text-lg sm:text-xl text-muted-foreground">
-              Start with a structured diagnostic of your business systems.
+            <p className="text-xl text-muted-foreground">
+              Start with a structured diagnostic. No generic proposals.
             </p>
           </div>
+          
           <ProcessLeadGenForm />
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-20 lg:py-32 px-4 sm:px-6 lg:px-8 bg-background">
-        <div className="container mx-auto max-w-4xl text-center space-y-8">
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground">
-            Structure Precedes Scale.
-          </h2>
-          <p className="text-xl text-muted-foreground">
-            Every institutional business began with a structured decision.
-          </p>
-          <Button
-            onClick={bookStrategyCall}
-            size="lg"
-            className="bg-accent-yellow text-navy hover:bg-accent-yellow/90 font-semibold text-lg px-8 py-6 h-auto"
-          >
-            Book Strategy Call
-          </Button>
         </div>
       </section>
     </div>

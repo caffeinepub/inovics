@@ -1,12 +1,33 @@
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { IndustriesLeadGenForm } from '@/components/forms/IndustriesLeadGenForm';
 import { bookStrategyCall } from '@/lib/strategyCall';
-import { CheckCircle2 } from 'lucide-react';
 import { PageHero } from '@/components/sections/PageHero';
 import { IndustryBlock } from '@/components/industries/IndustryBlock';
+import { CaseStudyDetailsModal } from '@/components/industries/CaseStudyDetailsModal';
 import { industriesContent } from '@/components/industries/industriesContent';
+import { StandardBulletList } from '@/components/shared/StandardBulletList';
+import type { CaseStudy } from '@/components/industries/industriesContent';
 
 export function IndustriesPage() {
+  const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleCaseStudyClick = (caseStudy: CaseStudy) => {
+    if (caseStudy.details) {
+      setSelectedCaseStudy(caseStudy);
+      setModalOpen(true);
+    }
+  };
+
+  const handleModalClose = (open: boolean) => {
+    setModalOpen(open);
+    if (!open) {
+      // Clear selection after modal closes
+      setTimeout(() => setSelectedCaseStudy(null), 200);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -42,7 +63,11 @@ export function IndustriesPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto space-y-16">
             {industriesContent.map((industry) => (
-              <IndustryBlock key={industry.id} industry={industry} />
+              <IndustryBlock
+                key={industry.id}
+                industry={industry}
+                onCaseStudyClick={handleCaseStudyClick}
+              />
             ))}
           </div>
         </div>
@@ -56,28 +81,15 @@ export function IndustriesPage() {
               What's Consistent Across All Industries
             </h2>
             <div className="bg-background border border-border rounded-xl p-8 lg:p-10">
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3 text-lg">
-                  <CheckCircle2 className="h-6 w-6 text-accent-yellow mt-0.5 flex-shrink-0" />
-                  <span className="text-foreground">Founder-dependent decision-making</span>
-                </li>
-                <li className="flex items-start gap-3 text-lg">
-                  <CheckCircle2 className="h-6 w-6 text-accent-yellow mt-0.5 flex-shrink-0" />
-                  <span className="text-foreground">Fragmented data across tools</span>
-                </li>
-                <li className="flex items-start gap-3 text-lg">
-                  <CheckCircle2 className="h-6 w-6 text-accent-yellow mt-0.5 flex-shrink-0" />
-                  <span className="text-foreground">Manual, repetitive workflows</span>
-                </li>
-                <li className="flex items-start gap-3 text-lg">
-                  <CheckCircle2 className="h-6 w-6 text-accent-yellow mt-0.5 flex-shrink-0" />
-                  <span className="text-foreground">Lack of real-time visibility</span>
-                </li>
-                <li className="flex items-start gap-3 text-lg">
-                  <CheckCircle2 className="h-6 w-6 text-accent-yellow mt-0.5 flex-shrink-0" />
-                  <span className="text-foreground">No governance structure</span>
-                </li>
-              </ul>
+              <StandardBulletList
+                items={[
+                  'Founder-dependent decision-making',
+                  'Fragmented data across tools',
+                  'Manual, repetitive workflows',
+                  'Lack of real-time visibility',
+                  'No governance structure',
+                ]}
+              />
               <p className="text-xl font-semibold text-foreground text-center mt-8">
                 We solve structural problems, not industry-specific ones.
               </p>
@@ -119,6 +131,16 @@ export function IndustriesPage() {
           </Button>
         </div>
       </section>
+
+      {/* Case Study Details Modal */}
+      {selectedCaseStudy?.details && (
+        <CaseStudyDetailsModal
+          open={modalOpen}
+          onOpenChange={handleModalClose}
+          title={selectedCaseStudy.title}
+          details={selectedCaseStudy.details}
+        />
+      )}
     </div>
   );
 }

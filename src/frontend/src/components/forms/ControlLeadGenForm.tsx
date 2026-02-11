@@ -4,8 +4,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useLeadSubmission } from '@/hooks/useLeadSubmission';
-import { CheckCircle2, Loader2 } from 'lucide-react';
+import { CheckCircle2, Loader2, WifiOff, RefreshCw } from 'lucide-react';
 
 const industries = [
   'Manufacturing',
@@ -39,7 +40,7 @@ export function ControlLeadGenForm() {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const { submitLead, isLoading, isSuccess, error } = useLeadSubmission();
+  const { submitLead, isLoading, isSuccess, error, actorInitializing, retry } = useLeadSubmission();
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -90,6 +91,10 @@ Challenge: ${formData.challenge}`;
     });
   };
 
+  const handleRetry = async () => {
+    await retry();
+  };
+
   if (isSuccess) {
     return (
       <div className="bg-card border border-border rounded-xl p-8 lg:p-10 text-center">
@@ -113,6 +118,30 @@ Challenge: ${formData.challenge}`;
 
   return (
     <form onSubmit={handleSubmit} className="bg-card border border-border rounded-xl p-8 lg:p-10">
+      {actorInitializing && (
+        <Alert className="mb-6">
+          <Loader2 className="h-4 w-4 animate-spin" />
+          <AlertDescription>
+            Connecting to backend, please wait...
+          </AlertDescription>
+        </Alert>
+      )}
+
+      {error && (
+        <Alert variant="destructive" className="mb-6">
+          <WifiOff className="h-4 w-4" />
+          <AlertDescription className="flex items-center justify-between">
+            <span>{error}</span>
+            {error.includes('retry') && (
+              <Button onClick={handleRetry} variant="outline" size="sm" className="ml-4">
+                <RefreshCw className="mr-2 h-3 w-3" />
+                Retry
+              </Button>
+            )}
+          </AlertDescription>
+        </Alert>
+      )}
+
       <div className="grid md:grid-cols-2 gap-6 mb-6">
         <div>
           <Label htmlFor="firstName" className="text-foreground mb-2 block">
@@ -123,7 +152,7 @@ Challenge: ${formData.challenge}`;
             value={formData.firstName}
             onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
             className={errors.firstName ? 'border-destructive' : ''}
-            disabled={isLoading}
+            disabled={isLoading || actorInitializing}
           />
           {errors.firstName && <p className="text-sm text-destructive mt-1">{errors.firstName}</p>}
         </div>
@@ -137,7 +166,7 @@ Challenge: ${formData.challenge}`;
             value={formData.lastName}
             onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
             className={errors.lastName ? 'border-destructive' : ''}
-            disabled={isLoading}
+            disabled={isLoading || actorInitializing}
           />
           {errors.lastName && <p className="text-sm text-destructive mt-1">{errors.lastName}</p>}
         </div>
@@ -152,7 +181,7 @@ Challenge: ${formData.challenge}`;
           value={formData.companyName}
           onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
           className={errors.companyName ? 'border-destructive' : ''}
-          disabled={isLoading}
+          disabled={isLoading || actorInitializing}
         />
         {errors.companyName && <p className="text-sm text-destructive mt-1">{errors.companyName}</p>}
       </div>
@@ -165,7 +194,7 @@ Challenge: ${formData.challenge}`;
           <Select
             value={formData.industry}
             onValueChange={(value) => setFormData({ ...formData, industry: value })}
-            disabled={isLoading}
+            disabled={isLoading || actorInitializing}
           >
             <SelectTrigger id="industry" className={errors.industry ? 'border-destructive' : ''}>
               <SelectValue placeholder="Select industry" />
@@ -188,7 +217,7 @@ Challenge: ${formData.challenge}`;
           <Select
             value={formData.revenueRange}
             onValueChange={(value) => setFormData({ ...formData, revenueRange: value })}
-            disabled={isLoading}
+            disabled={isLoading || actorInitializing}
           >
             <SelectTrigger id="revenueRange" className={errors.revenueRange ? 'border-destructive' : ''}>
               <SelectValue placeholder="Select range" />
@@ -215,7 +244,7 @@ Challenge: ${formData.challenge}`;
           onChange={(e) => setFormData({ ...formData, challenge: e.target.value })}
           className={errors.challenge ? 'border-destructive' : ''}
           rows={4}
-          disabled={isLoading}
+          disabled={isLoading || actorInitializing}
         />
         {errors.challenge && <p className="text-sm text-destructive mt-1">{errors.challenge}</p>}
       </div>
@@ -231,7 +260,7 @@ Challenge: ${formData.challenge}`;
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             className={errors.email ? 'border-destructive' : ''}
-            disabled={isLoading}
+            disabled={isLoading || actorInitializing}
           />
           {errors.email && <p className="text-sm text-destructive mt-1">{errors.email}</p>}
         </div>
@@ -246,21 +275,15 @@ Challenge: ${formData.challenge}`;
             value={formData.mobile}
             onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
             className={errors.mobile ? 'border-destructive' : ''}
-            disabled={isLoading}
+            disabled={isLoading || actorInitializing}
           />
           {errors.mobile && <p className="text-sm text-destructive mt-1">{errors.mobile}</p>}
         </div>
       </div>
 
-      {error && (
-        <div className="mb-6 p-4 bg-destructive/10 border border-destructive rounded-lg">
-          <p className="text-sm text-destructive">{error}</p>
-        </div>
-      )}
-
       <Button
         type="submit"
-        disabled={isLoading}
+        disabled={isLoading || actorInitializing}
         className="w-full bg-accent-yellow text-navy hover:bg-accent-yellow/90 font-semibold text-lg py-6"
       >
         {isLoading ? (
@@ -268,14 +291,15 @@ Challenge: ${formData.challenge}`;
             <Loader2 className="mr-2 h-5 w-5 animate-spin" />
             Submitting...
           </>
+        ) : actorInitializing ? (
+          <>
+            <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+            Connecting...
+          </>
         ) : (
-          'Request Founder Control Blueprint™'
+          'Request CONTROL™ Framework'
         )}
       </Button>
-
-      <p className="text-sm text-muted-foreground text-center mt-4">
-        We partner with a limited number of businesses each quarter.
-      </p>
     </form>
   );
 }

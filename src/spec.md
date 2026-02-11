@@ -1,12 +1,10 @@
 # Specification
 
 ## Summary
-**Goal:** Automatically rotate the homepage main hero banner carousel every 5 seconds, looping continuously while respecting reduced-motion preferences.
+**Goal:** Improve the homepage CONTROL™ framework step visuals by replacing the seven step images with higher-quality, more colourful, text-free images that remain relevant to each step.
 
 **Planned changes:**
-- Update the existing `HeroSlider` carousel to auto-advance to the next slide every 5000ms when visible.
-- Loop from the last slide back to the first slide on the next auto-advance.
-- Ensure the auto-advance timer is cleaned up on component unmount to prevent lingering intervals after navigation.
-- Disable auto-advance when the user has `prefers-reduced-motion` enabled (manual slide navigation remains available).
+- Create updated, more colourful, text-free versions of the seven CONTROL™ framework step images (Clarify, Organize, Normalize, Transform, Report, Optimize, Lead) under `/assets/generated/`.
+- Update `frontend/src/components/sections/ControlFrameworkSection.tsx` to reference the new image filenames for all seven steps, keeping the existing layout/aspect ratio/hover behavior unchanged.
 
-**User-visible outcome:** On the homepage, the hero banner automatically cycles to the next banner every 5 seconds and loops back to the first banner after the last; users with reduced-motion enabled will not see automatic slide movement.
+**User-visible outcome:** The CONTROL™ framework cards on the homepage display new, vibrant, text-free images that better match each step, with no broken image links.

@@ -6,49 +6,49 @@ const frameworkSteps = [
     title: 'Clarify',
     description:
       "Map current workflows, identify bottlenecks, and define the founder's true role versus operational dependencies.",
-    image: '/assets/generated/inovics-framework-clarify-simple.dim_1200x750.png',
+    image: '/assets/generated/inovics-framework-clarify-colourful.dim_1200x750.png',
   },
   {
     letter: 'O',
     title: 'Organize',
     description:
       'Structure data flows, standardize processes, and establish clear ownership across departments.',
-    image: '/assets/generated/inovics-framework-organize-simple.dim_1200x750.png',
+    image: '/assets/generated/inovics-framework-organize-colourful.dim_1200x750.png',
   },
   {
     letter: 'N',
     title: 'Normalize',
     description:
       'Create consistent protocols, documentation standards, and decision-making frameworks that work without the founder.',
-    image: '/assets/generated/inovics-framework-normalize-simple.dim_1200x750.png',
+    image: '/assets/generated/inovics-framework-normalize-colourful.dim_1200x750.png',
   },
   {
     letter: 'T',
     title: 'Transform',
     description:
       'Implement AI-powered automation, intelligent workflows, and digital infrastructure to replace manual processes.',
-    image: '/assets/generated/inovics-framework-transform-simple.dim_1200x750.png',
+    image: '/assets/generated/inovics-framework-transform-colourful.dim_1200x750.png',
   },
   {
     letter: 'R',
     title: 'Report',
     description:
       'Deploy real-time dashboards, automated reporting systems, and performance metrics visible to leadership.',
-    image: '/assets/generated/inovics-framework-report-simple.dim_1200x750.png',
+    image: '/assets/generated/inovics-framework-report-colourful.dim_1200x750.png',
   },
   {
     letter: 'O',
     title: 'Optimize',
     description:
       'Continuously refine systems using data insights, eliminate inefficiencies, and scale operations intelligently.',
-    image: '/assets/generated/inovics-framework-optimize-simple.dim_1200x750.png',
+    image: '/assets/generated/inovics-framework-optimize-colourful.dim_1200x750.png',
   },
   {
     letter: 'L',
     title: 'Lead',
     description:
       'Transition from operational firefighting to strategic leadership with systems that run independently.',
-    image: '/assets/generated/inovics-framework-lead-simple.dim_1200x750.png',
+    image: '/assets/generated/inovics-framework-lead-colourful.dim_1200x750.png',
   },
 ];
 

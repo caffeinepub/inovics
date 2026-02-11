@@ -2,14 +2,13 @@ import Map "mo:core/Map";
 import Nat "mo:core/Nat";
 import Text "mo:core/Text";
 import Iter "mo:core/Iter";
-import Principal "mo:core/Principal";
 import Runtime "mo:core/Runtime";
+import Principal "mo:core/Principal";
+
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
 
-// No with clause - state is not semantically changed, enabling RBAC is runtime enhancement
 actor {
-  // Secure actor with full RBAC
   let accessControlState = AccessControl.initState();
   include MixinAuthorization(accessControlState);
 
@@ -31,11 +30,26 @@ actor {
 
   let leads = Map.empty<Nat, Lead>();
   let userProfiles = Map.empty<Principal, UserProfile>();
-
   var nextId = 0;
+  var adminBootstrapToken : ?Text = null;
+  var hasAdminBeenInitialized = false; // deprecated, use adminInitialzed instead
+  var adminInitialized = false;
 
-  // Public form submission (guests can submit)
-  public func addLead(firstName : Text, lastName : Text, companyName : Text, industry : Text, revenueRange : Text, operationalBottleneck : Text, email : Text, mobileNumber : Text, message : Text) : async Nat {
+  public query ({ caller }) func healthCheck() : async Text {
+    "Backend is reachable";
+  };
+
+  public func addLead(
+    firstName : Text,
+    lastName : Text,
+    companyName : Text,
+    industry : Text,
+    revenueRange : Text,
+    operationalBottleneck : Text,
+    email : Text,
+    mobileNumber : Text,
+    message : Text,
+  ) : async Nat {
     let lead : Lead = {
       firstName;
       lastName;
@@ -52,7 +66,6 @@ actor {
     nextId - 1;
   };
 
-  // Admin-only: View individual lead
   public query ({ caller }) func getLead(id : Nat) : async ?Lead {
     if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
       Runtime.trap("Unauthorized: Only admins can view leads");
@@ -60,7 +73,6 @@ actor {
     leads.get(id);
   };
 
-  // Admin-only: View all leads
   public query ({ caller }) func getAllLeads() : async [Lead] {
     if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
       Runtime.trap("Unauthorized: Only admins can view leads");
@@ -68,10 +80,9 @@ actor {
     leads.values().toArray();
   };
 
-  // User profile management functions required for admin bootstrap UX
   public query ({ caller }) func getCallerUserProfile() : async ?UserProfile {
     if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only users can access profiles");
+      Runtime.trap("Unauthorized: Only users can save profiles");
     };
     userProfiles.get(caller);
   };
@@ -88,5 +99,53 @@ actor {
       Runtime.trap("Unauthorized: Only users can save profiles");
     };
     userProfiles.add(caller, profile);
+  };
+
+  public shared ({ caller }) func promoteFirstAdmin(token : Text) : async () {
+    // Only allow promotion if no admin has been initialized yet
+    if (adminInitialized) {
+      Runtime.trap("Unauthorized: Admin has already been initialized");
+    };
+
+    if (adminBootstrapToken != ?token) {
+      Runtime.trap("Unauthorized: Invalid admin bootstrap token");
+    };
+
+    switch (adminBootstrapToken) {
+      case (?currentToken) {
+        AccessControl.initialize(accessControlState, caller, currentToken, token);
+      };
+      case (null) {
+        Runtime.trap("Admin bootstrap token is missing (unrecoverable state)");
+      };
+    };
+    adminBootstrapToken := null;
+    adminInitialized := true;
+  };
+
+  public shared ({ caller }) func renewBootstrapToken() : async Text {
+    if (adminInitialized and not AccessControl.isAdmin(accessControlState, caller)) {
+      Runtime.trap("Unauthorized: Only admins can renew the bootstrap token");
+    };
+
+    switch (adminBootstrapToken) {
+      case (null) {
+        let randomToken = "mocked-token";
+        adminBootstrapToken := ?randomToken;
+        randomToken;
+      };
+      case (?existingToken) { existingToken };
+    };
+  };
+
+  public query ({ caller }) func isAdminInitialized() : async Bool {
+    adminInitialized;
+  };
+
+  public shared ({ caller }) func grantAdminPrivileges(target : Principal) : async () {
+    if (not AccessControl.isAdmin(accessControlState, caller)) {
+      Runtime.trap("Unauthorized: Only admins can grant admin privileges");
+    };
+    AccessControl.assignRole(accessControlState, caller, target, #admin);
   };
 };

@@ -2,10 +2,27 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-automatic-slide-rotation-to-the-main-hero-banner-carousel-so-the-heroslider-advances-to-the-next-banner-every-5-seconds-and-loops-back-to-the-first-banner-after-the-last-banner",
-      "featureTitle": "Add automatic slide rotation to the main hero banner carousel so the HeroSlider advances to the next banner every 5 seconds and loops back to the first banner after the last banner.",
+      "featureId": "feature-replace-the-seven-homepage-control-framework-step-images-used-in-frontend-src-components-sections-controlframeworksection-tsx-with-higher-quality-more-colourful-images-that-contain-no-text-and-are-visually-relevant-to-each-step-clarify-organize-normalize-transform-report-optimize-lead",
+      "featureTitle": "Replace the seven homepage CONTROL™ framework step images used in `frontend/src/components/sections/ControlFrameworkSection.tsx` with higher-quality, more colourful images that contain no text and are visually relevant to each step (Clarify, Organize, Normalize, Transform, Report, Optimize, Lead).",
+      "files": [],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-image-asset-references-in-frontend-src-components-sections-controlframeworksection-tsx-to-point-to-the-new-replaced-image-filenames-under-assets-generated-keeping-the-existing-layout-aspect-ratio-and-hover-behavior-intact",
+      "featureTitle": "Update the image asset references in `frontend/src/components/sections/ControlFrameworkSection.tsx` to point to the new/replaced image filenames under `/assets/generated/` (keeping the existing layout, aspect ratio, and hover behavior intact).",
       "files": [
-        "frontend/src/components/sections/HeroSlider.tsx"
+        "frontend/src/components/sections/ControlFrameworkSection.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -16,7 +33,7 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-5"
+        "REQ-2"
       ],
       "confidence": "high"
     }

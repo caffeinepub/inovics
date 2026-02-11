@@ -1,22 +1,67 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Auto-advance homepage HeroSlider every 5 seconds",
+  "title": "Replace CONTROL™ framework homepage step images with colourful, text-free visuals",
   "requirements": [
     {
-      "id": "REQ-5",
-      "summary": "Implement 5-second auto-advance for the homepage HeroSlider that loops, respects prefers-reduced-motion, and cleans up timers on unmount.",
+      "id": "REQ-1",
+      "summary": "Add seven higher-quality, more colourful, text-free static images for each CONTROL™ framework step (Clarify, Organize, Normalize, Transform, Report, Optimize, Lead).",
       "acceptanceCriteria": [
-        "When the homepage hero banner is visible, the slide automatically advances every 5000ms.",
-        "After the final slide, the next auto-advance returns to the first slide.",
-        "The auto-advance interval is cleaned up on component unmount (no timers continue running after navigation).",
-        "If the user has enabled 'prefers-reduced-motion', auto-advance is disabled (the user can still navigate slides manually)."
+        "Each CONTROL™ step card on the homepage displays a new, more colourful image.",
+        "None of the seven images contain embedded text.",
+        "Each image is visually relevant to its step (e.g., clarity/diagnostic, organization/structure, normalization/standards, transformation/automation, reporting/dashboards, optimization/continuous improvement, leadership/governance).",
+        "Images load correctly from the static assets path and do not produce 404s in the browser console."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/sections/HeroSlider.tsx",
+          "path": "frontend/public/assets/generated/inovics-framework-clarify-colourful.dim_1200x750.png",
+          "operation": "create",
+          "description": "Add the new colourful, high-quality, text-free image for the \"Clarify\" step as a static asset at this exact path."
+        },
+        {
+          "path": "frontend/public/assets/generated/inovics-framework-organize-colourful.dim_1200x750.png",
+          "operation": "create",
+          "description": "Add the new colourful, high-quality, text-free image for the \"Organize\" step as a static asset at this exact path."
+        },
+        {
+          "path": "frontend/public/assets/generated/inovics-framework-normalize-colourful.dim_1200x750.png",
+          "operation": "create",
+          "description": "Add the new colourful, high-quality, text-free image for the \"Normalize\" step as a static asset at this exact path."
+        },
+        {
+          "path": "frontend/public/assets/generated/inovics-framework-transform-colourful.dim_1200x750.png",
+          "operation": "create",
+          "description": "Add the new colourful, high-quality, text-free image for the \"Transform\" step as a static asset at this exact path."
+        },
+        {
+          "path": "frontend/public/assets/generated/inovics-framework-report-colourful.dim_1200x750.png",
+          "operation": "create",
+          "description": "Add the new colourful, high-quality, text-free image for the \"Report\" step as a static asset at this exact path."
+        },
+        {
+          "path": "frontend/public/assets/generated/inovics-framework-optimize-colourful.dim_1200x750.png",
+          "operation": "create",
+          "description": "Add the new colourful, high-quality, text-free image for the \"Optimize\" step as a static asset at this exact path."
+        },
+        {
+          "path": "frontend/public/assets/generated/inovics-framework-lead-colourful.dim_1200x750.png",
+          "operation": "create",
+          "description": "Add the new colourful, high-quality, text-free image for the \"Lead\" step as a static asset at this exact path."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Update the homepage ControlFrameworkSection image references to use the new /assets/generated/*-colourful images while keeping layout/aspect/hover behavior unchanged.",
+      "acceptanceCriteria": [
+        "`frameworkSteps` in `ControlFrameworkSection.tsx` references the new image filenames for all seven steps.",
+        "The CONTROL™ framework section layout remains unchanged aside from the updated images (same card grid/scroll behavior, same letter badge overlay, same aspect ratio)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/sections/ControlFrameworkSection.tsx",
           "operation": "modify",
-          "description": "Add an auto-rotation effect to advance slides every 5000ms, looping back to the first slide after the last. Gate auto-advance behind prefers-reduced-motion (disable when true), and ensure the interval is created only when the hero carousel is visible (e.g., via IntersectionObserver on the existing sliderRef) and always cleared on effect cleanup/unmount to prevent lingering timers after navigation. Keep all changes scoped to this file and do not modify any files under frontend/src/components/ui."
+          "description": "Update `frameworkSteps` image paths to reference the new static assets under `/assets/generated/`:\n- `/assets/generated/inovics-framework-clarify-colourful.dim_1200x750.png`\n- `/assets/generated/inovics-framework-organize-colourful.dim_1200x750.png`\n- `/assets/generated/inovics-framework-normalize-colourful.dim_1200x750.png`\n- `/assets/generated/inovics-framework-transform-colourful.dim_1200x750.png`\n- `/assets/generated/inovics-framework-report-colourful.dim_1200x750.png`\n- `/assets/generated/inovics-framework-optimize-colourful.dim_1200x750.png`\n- `/assets/generated/inovics-framework-lead-colourful.dim_1200x750.png`\nKeep all layout, aspect ratio, and hover interactions intact; do not change unrelated homepage sections and do not edit files under `frontend/src/components/ui`."
         }
       ]
     }

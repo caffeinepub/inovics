@@ -34,6 +34,11 @@ export interface backendInterface {
     getCallerUserRole(): Promise<UserRole>;
     getLead(id: bigint): Promise<Lead | null>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
+    grantAdminPrivileges(target: Principal): Promise<void>;
+    healthCheck(): Promise<string>;
+    isAdminInitialized(): Promise<boolean>;
     isCallerAdmin(): Promise<boolean>;
+    promoteFirstAdmin(token: string): Promise<void>;
+    renewBootstrapToken(): Promise<string>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
 }

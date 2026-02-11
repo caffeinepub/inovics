@@ -10,7 +10,7 @@
  */
 export const CONTACT_CONFIG = {
   calendarUrl: '', // e.g., 'https://calendly.com/inovics/strategy-call'
-  whatsappUrl: '', // e.g., 'https://wa.me/919322286441?text=Hi%2C%20I%27d%20like%20to%20discuss%20transformation'
+  whatsappUrl: 'https://wa.me/919322286441', // WhatsApp Business chat link
   companyProfileUrl: '', // e.g., 'https://yourdomain.com/inovics-company-profile.pdf'
 };
 
@@ -19,3 +19,9 @@ export const CONTACT_EMAIL = 'contact@weareinovics.com';
 export const CONTACT_PHONE_DISPLAY = '+ 91-9322286441';
 export const CONTACT_PHONE_TEL = 'tel:+919322286441';
 export const CONTACT_ADDRESS = 'Mahendra Mansion, D.J Road, Vile Parle (West), Mumbai - 400056, Maharashtra';
+
+// Export individual URLs for convenience
+export const CALENDAR_URL = CONTACT_CONFIG.calendarUrl;
+export const WHATSAPP_URL = CONTACT_CONFIG.whatsappUrl;
+export const COMPANY_PROFILE_URL = CONTACT_CONFIG.companyProfileUrl;
+

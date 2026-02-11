@@ -1,13 +1,24 @@
 // Static content model for the Industries page
+
 export interface MajorService {
   label: string;
   imagePath: string;
   altText: string;
 }
 
+export interface CaseStudyDetails {
+  firmDescriptor: string;
+  sections: {
+    title: string;
+    content: string[];
+    isOutcome?: boolean;
+  }[];
+}
+
 export interface CaseStudy {
   title: string;
   pdfUrl?: string; // Optional - when undefined, shows placeholder
+  details?: CaseStudyDetails; // Optional - when present, opens modal instead
 }
 
 export interface IndustryContent {
@@ -61,12 +72,177 @@ export const industriesContent: IndustryContent[] = [
     ],
     caseStudies: [
       {
-        title: 'Manufacturing Case Study 1',
-        pdfUrl: undefined, // Placeholder - add PDF path when available
+        title: '₹22 Cr Engineering Components Firm',
+        details: {
+          firmDescriptor: 'Manufacturing SME (₹22 Cr Engineering Components Firm)',
+          sections: [
+            {
+              title: 'Situation',
+              content: [
+                'Founder managing production approvals manually. Inventory mismatches. Reporting delayed by 5–7 days.',
+              ],
+            },
+            {
+              title: 'Structural Problem',
+              content: [
+                'No centralized visibility',
+                'Excel-based production tracking',
+                'No margin monitoring per batch',
+                'Department silos',
+              ],
+            },
+            {
+              title: 'What Inovics Implemented',
+              content: [
+                'Centralized CRM + production sync',
+                'Inventory tracking automation',
+                'Batch-level margin dashboards',
+                'Approval workflow routing',
+                'Founder real-time dashboard',
+              ],
+            },
+            {
+              title: 'Outcome',
+              content: [
+                '45% reduction in reporting time',
+                '18% reduction in inventory mismatch',
+                'Founder dependency reduced significantly',
+                'Real-time margin visibility',
+              ],
+              isOutcome: true,
+            },
+          ],
+        },
       },
       {
-        title: 'Manufacturing Case Study 2',
-        pdfUrl: undefined, // Placeholder - add PDF path when available
+        title: '₹30 Cr Auto-Components Manufacturer',
+        details: {
+          firmDescriptor: '₹30 Cr Auto-Components Manufacturer',
+          sections: [
+            {
+              title: 'Client Profile',
+              content: [
+                'Industry: Automotive Components Manufacturing',
+                'Revenue: ₹30 Cr',
+                'Employees: 85',
+                'Locations: 2 manufacturing units',
+                'Promoter-led, first-generation founder',
+              ],
+            },
+            {
+              title: 'The Situation',
+              content: [
+                'The company had grown rapidly over 5 years.',
+                'Revenue increased. Orders expanded. Clients scaled.',
+                'But internally:',
+                'Production planning was Excel-driven',
+                'Raw material forecasting was inaccurate',
+                'Dispatch delays were frequent',
+                'Founder approved every major production change',
+                'Margin tracking was delayed by 10–12 days',
+                'Growth was outpacing structure.',
+              ],
+            },
+            {
+              title: 'Structural Gaps Identified',
+              content: [
+                'During the Founder Control Blueprint™, we uncovered:',
+                'No real-time production visibility',
+                'Manual batch tracking',
+                'No integrated sales-to-production workflow',
+                'Fragmented inventory management',
+                'No margin intelligence per SKU',
+                'Founder dependency at approval stage',
+                'The business was functioning — but not systemized.',
+              ],
+            },
+            {
+              title: 'Inovics Intervention',
+              content: [
+                'Business OS Implementation (120 Days)',
+              ],
+            },
+            {
+              title: 'Phase 1 — Architecture',
+              content: [
+                'Mapped production lifecycle end-to-end',
+                'Identified approval bottlenecks',
+                'Designed centralized data architecture',
+                'Defined role-based access hierarchies',
+              ],
+            },
+            {
+              title: 'Phase 2 — System Deployment',
+              content: [
+                'We implemented:',
+                'CRM integrated with production planning',
+                'Automated work order generation',
+                'Real-time raw material tracking',
+                'Approval workflow routing system',
+                'Batch-level cost tracking',
+                'AI-powered margin dashboard',
+                'Multi-unit consolidated reporting',
+              ],
+            },
+            {
+              title: 'Phase 3 — Intelligence Layer',
+              content: [
+                'Demand forecasting based on historical order cycles',
+                'Production load balancing',
+                'Margin variance alerts',
+                'Dispatch performance tracking',
+              ],
+            },
+            {
+              title: 'The Outcome (Within 6 Months)',
+              content: [
+                '35% reduction in production planning delays',
+                '22% improvement in raw material utilization',
+                '50% reduction in founder approval dependency',
+                'Real-time margin visibility per SKU',
+                '60% faster reporting cycles',
+                'Structured weekly performance reviews',
+                'Founder transitioned from operational firefighting to strategic oversight.',
+              ],
+              isOutcome: true,
+            },
+            {
+              title: 'Strategic Impact',
+              content: [
+                'Before Inovics:',
+                'Reactive decision-making',
+                'Manual oversight',
+                'Reporting lag',
+                'Department silos',
+                '',
+                'After Business OS:',
+                'Centralized visibility',
+                'Automated production workflows',
+                'Institutional dashboards',
+                'Structured governance',
+                '',
+                'The company moved from promoter-led operations to system-led infrastructure.',
+              ],
+            },
+            {
+              title: 'Engagement Details',
+              content: [
+                'Duration: 120 Days',
+                'Implementation Model: Milestone-Based',
+                'Investment Range: ₹18L',
+                'Ongoing Governance Council engagement initiated',
+              ],
+            },
+            {
+              title: 'Key Insight',
+              content: [
+                'Manufacturing scale does not break businesses.',
+                'Unstructured growth does.',
+                'Inovics engineered architecture that allowed the business to scale without increasing founder dependency.',
+              ],
+            },
+          ],
+        },
       },
     ],
   },
@@ -170,49 +346,49 @@ export const industriesContent: IndustryContent[] = [
   },
   {
     id: 'trading',
-    title: 'Trading & Import-Export',
-    revenueRange: '₹10–50 Cr Revenue',
+    title: 'Trading & Distribution',
+    revenueRange: '₹10–40 Cr Revenue',
     challenges: [
-      'Shipment tracking done manually',
-      'No centralized vendor or supplier database',
-      'Payment reconciliation takes weeks',
-      'Compliance documentation scattered',
+      'Order management done via phone calls and WhatsApp',
+      'No visibility into stock levels across warehouses',
+      'Manual invoicing and payment tracking',
+      'Vendor management scattered across multiple systems',
     ],
     solutions: [
-      'Shipment tracking & logistics dashboard',
-      'Vendor management system',
-      'Automated payment reconciliation',
-      'Compliance document repository with alerts',
+      'Centralized order management system',
+      'Multi-warehouse inventory tracking',
+      'Automated invoicing & payment reconciliation',
+      'Vendor portal with performance tracking',
     ],
     majorServices: [
       {
-        label: 'Shipment tracking & logistics dashboard',
+        label: 'Centralized order management system',
         imagePath: '/assets/generated/industry-trading-ops-dashboard.dim_512x512.png',
-        altText: 'Trading and import-export shipment tracking and logistics dashboard',
+        altText: 'Trading and distribution centralized order management system',
       },
       {
-        label: 'Vendor management system',
+        label: 'Multi-warehouse inventory tracking',
         imagePath: '/assets/generated/industry-trading-inventory-supply.dim_512x512.png',
-        altText: 'Trading and import-export vendor management system',
+        altText: 'Trading and distribution multi-warehouse inventory tracking',
       },
       {
-        label: 'Automated payment reconciliation',
+        label: 'Automated invoicing & payment reconciliation',
         imagePath: '/assets/generated/industry-trading-workflow-automation.dim_512x512.png',
-        altText: 'Trading and import-export automated payment reconciliation',
+        altText: 'Trading and distribution automated invoicing and payment reconciliation',
       },
       {
-        label: 'Compliance document repository with alerts',
-        imagePath: '/assets/generated/services-governance-approvals.dim_512x512.png',
-        altText: 'Trading and import-export compliance document repository with alerts',
+        label: 'Vendor portal with performance tracking',
+        imagePath: '/assets/generated/industry-trading-workflow-automation.dim_512x512.png',
+        altText: 'Trading and distribution vendor portal with performance tracking',
       },
     ],
     caseStudies: [
       {
-        title: 'Trading & Import-Export Case Study 1',
+        title: 'Trading & Distribution Case Study 1',
         pdfUrl: undefined, // Placeholder - add PDF path when available
       },
       {
-        title: 'Trading & Import-Export Case Study 2',
+        title: 'Trading & Distribution Case Study 2',
         pdfUrl: undefined, // Placeholder - add PDF path when available
       },
     ],
