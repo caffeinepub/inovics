@@ -1,38 +1,29 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-10T18:23:04.018Z",
-  "summary": "The diff updates `frameworkSteps` image paths in `ControlFrameworkSection.tsx` to the new `-colourful` filenames under `/assets/generated/` for all seven steps. However, the diff does not show the actual new image assets being added/replaced, and it includes extra visual/navigation-related changes in the section that were not requested and may violate the 'layout unchanged' constraint.",
+  "generatedAt": "2026-02-11T07:20:12.895Z",
+  "summary": "The diff only updates project_state.json to record pending feature requests; it does not add the .pptx deck asset or any frontend UI/download link implementation, so both REQ-1 and REQ-2 remain unimplemented.",
   "missing_requirements": [
     {
       "id": "REQ-1",
-      "requirement": "Replace the seven homepage CONTROL™ framework step images with higher-quality, more colourful images that contain no text and are visually relevant to each step (Clarify, Organize, Normalize, Transform, Report, Optimize, Lead).",
-      "reason": "Only the code references were updated; the diff summary does not show any new or replaced image assets being added under `/assets/generated/`, so the actual image replacement (and text-free/visual relevance aspects) cannot be verified from the diff.",
+      "requirement": "Create a 14-slide INOVICS corporate presentation deck as a PowerPoint (.pptx) using the exact slide-by-slide content provided, with Option 1 styling (dark navy + yellow accent) and consistent typography/visual guidelines.",
+      "reason": "No .pptx file or slide-generation implementation is added/modified; the only change is a project_state.json status/summary update marking the work as pending.",
       "evidence": [
-        "frontend/src/components/sections/ControlFrameworkSection.tsx (shows new filenames referenced, but no asset files shown as added/modified in diff summary)"
-      ]
-    }
-  ],
-  "hallucinated_features": [
-    {
-      "description": "Added/changed visual layout elements in the CONTROL™ framework section (e.g., gradient backdrop overlay and possibly updated section/container styling), beyond just swapping image references.",
-      "reason": "BuildRequest explicitly scopes changes to replacing the CONTROL™ framework images and keeping the existing layout/behavior intact; the diff shows additional visual wrapper elements and styling comments that suggest layout/appearance modifications.",
-      "evidence": [
-        "frontend/src/components/sections/ControlFrameworkSection.tsx (adds an absolute inset gradient backdrop div and related comments/classes)"
+        "project_state.json"
       ]
     },
     {
-      "description": "Changed/implemented custom client-side navigation behavior for the \"Read More\" action using `window.history.pushState`, `PopStateEvent`, and `scrollTo`.",
-      "reason": "BuildRequest does not request changes to navigation behavior; scope is limited to image updates for the homepage CONTROL™ framework section.",
+      "id": "REQ-2",
+      "requirement": "Expose the generated PowerPoint deck as a static downloadable asset under frontend public assets and add a clearly labeled UI entry point to download it.",
+      "reason": "No static .pptx asset is added under frontend public assets and no UI files are modified to add a download link; only project_state.json is changed.",
       "evidence": [
-        "frontend/src/components/sections/ControlFrameworkSection.tsx (handleReadMore implementation using pushState/PopStateEvent/scrollTo)"
+        "project_state.json"
       ]
     }
   ],
-  "confidence": 0.72,
+  "hallucinated_features": [],
+  "confidence": 0.92,
   "changed_files": [
-    "frontend-file-summaries.txt",
-    "frontend/src/components/sections/ControlFrameworkSection.tsx",
     "project_state.json"
   ]
 }

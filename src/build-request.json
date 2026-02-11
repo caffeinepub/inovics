@@ -1,65 +1,61 @@
 {
   "kind": "build_request",
-  "title": "Replace homepage CONTROL framework images with colourful, text-free visuals",
+  "title": "Add downloadable INOVICS corporate presentation deck (Option 1 theme)",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Replace the seven homepage CONTROL™ framework step images used in `frontend/src/components/sections/ControlFrameworkSection.tsx` with higher-quality, more colourful images that contain no text and are visually relevant to each step (Clarify, Organize, Normalize, Transform, Report, Optimize, Lead).",
+      "text": "Create a 14-slide INOVICS corporate presentation deck as a PowerPoint (.pptx) using the exact slide-by-slide content provided in the conversation, and apply Option 1 styling aligned to the existing website theme (dark navy background + yellow accent, clean enterprise look, bold headings, minimal bullet points, abstract data/grid visuals, and no stock/cheesy imagery or heavy icons).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-1"
         ],
         "quotes": [
-          "The images used in the control framework on the homepage look really bad. Can you update them with more colourful images and not have any text on the images. But still be relevant to the content"
+          "Can you generate a Powerpoint based on same theme and elements with above content",
+          "keep it similar to the website we generated",
+          "1"
         ]
       },
       "acceptanceCriteria": [
-        "Each CONTROL™ step card on the homepage displays a new, more colourful image.",
-        "None of the seven images contain embedded text.",
-        "Each image is visually relevant to its step (e.g., clarity/diagnostic, organization/structure, normalization/standards, transformation/automation, reporting/dashboards, optimization/continuous improvement, leadership/governance).",
-        "Images load correctly from the static assets path and do not produce 404s in the browser console."
+        "A .pptx file is produced that contains 14 slides matching the provided titles and body text (Slide 1 through Slide 14).",
+        "The deck uses a dark navy background and yellow accent consistent with the site’s palette (navy/charcoal + accent yellow), with a clean enterprise layout.",
+        "Slides avoid stock handshake imagery, avoid heavy icon usage, and use abstract/data/grid-style visuals where visuals are needed.",
+        "Typography hierarchy is consistent across slides (large bold headings, readable body text, spacing aligned to a coherent grid)."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Update the image asset references in `frontend/src/components/sections/ControlFrameworkSection.tsx` to point to the new/replaced image filenames under `/assets/generated/` (keeping the existing layout, aspect ratio, and hover behavior intact).",
+      "text": "Expose the generated PowerPoint deck as a static downloadable asset from the web app (place the .pptx under the frontend public assets) and add a clearly labeled download entry point in the UI so users can download it directly from the site.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-1"
         ],
         "quotes": [
-          "update them with more colourful images and not have any text on the images"
+          "Can you generate a Powerpoint based on same theme and elements with above content"
         ]
       },
       "acceptanceCriteria": [
-        "`frameworkSteps` in `ControlFrameworkSection.tsx` references the new image filenames for all seven steps.",
-        "The CONTROL™ framework section layout remains unchanged aside from the updated images (same card grid/scroll behavior, same letter badge overlay, same aspect ratio)."
+        "The .pptx is available as a static file in the frontend (served without requiring backend calls).",
+        "A user can click a “Download Corporate Deck (PPTX)” (or equivalent English label) in the UI and the browser downloads the .pptx successfully.",
+        "The download link works in production build (not only in dev)."
       ]
     }
   ],
   "constraints": [
-    "Do not edit files under `frontend/src/components/ui` (compose them only).",
-    "Do not change unrelated homepage sections or backend behavior; scope is limited to the CONTROL™ framework images on the homepage."
+    "Use English for any user-facing text.",
+    "Do not edit any files under frontend/src/components/ui or any paths listed as immutable in SYSTEM_CONTEXT.",
+    "Backend must remain single-actor; do not introduce additional backend services."
   ],
   "nonGoals": [
-    "Redesigning the CONTROL™ framework section layout, typography, or copy.",
-    "Changing the CONTROL™ framework content on `/control-framework` page.",
-    "Adding new backend endpoints or modifying lead/admin functionality."
+    "Converting the site’s OKLCH colors to hex codes.",
+    "Adding third-party authentication providers beyond Internet Identity.",
+    "Implementing external integrations (CRM/ERP APIs) referenced in slide content."
   ],
   "imageRequirements": {
     "required": [],
-    "edits": [
-      "Create a more colourful, high-quality, text-free image relevant to \"Clarify\" (inovics-framework-clarify-simple.dim_1200x750.png > inovics-framework-clarify-colourful.dim_1200x750.png)",
-      "Create a more colourful, high-quality, text-free image relevant to \"Organize\" (inovics-framework-organize-simple.dim_1200x750.png > inovics-framework-organize-colourful.dim_1200x750.png)",
-      "Create a more colourful, high-quality, text-free image relevant to \"Normalize\" (inovics-framework-normalize-simple.dim_1200x750.png > inovics-framework-normalize-colourful.dim_1200x750.png)",
-      "Create a more colourful, high-quality, text-free image relevant to \"Transform\" (inovics-framework-transform-simple.dim_1200x750.png > inovics-framework-transform-colourful.dim_1200x750.png)",
-      "Create a more colourful, high-quality, text-free image relevant to \"Report\" (inovics-framework-report-simple.dim_1200x750.png > inovics-framework-report-colourful.dim_1200x750.png)",
-      "Create a more colourful, high-quality, text-free image relevant to \"Optimize\" (inovics-framework-optimize-simple.dim_1200x750.png > inovics-framework-optimize-colourful.dim_1200x750.png)",
-      "Create a more colourful, high-quality, text-free image relevant to \"Lead\" (inovics-framework-lead-simple.dim_1200x750.png > inovics-framework-lead-colourful.dim_1200x750.png)"
-    ]
+    "edits": []
   },
   "userProfileUpdate": {
     "goalsToAdd": [],

@@ -1,64 +1,40 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-10T18:23:04.021Z",
+  "generatedAt": "2026-02-11T07:20:12.899Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
     "total": 2,
-    "implemented": 2,
+    "implemented": 0,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Replace the seven homepage CONTROL™ framework step images used in `frontend/src/components/sections/ControlFrameworkSection.tsx` with higher-quality, more colourful images that contain no text and are visually relevant to each step (Clarify, Organize, Normalize, Transform, Report, Optimize, Lead).",
-        "status": "implemented",
+        "summary": "Create a 14-slide INOVICS corporate presentation deck as a PowerPoint (.pptx) using the exact slide-by-slide content provided in the conversation, and apply Option 1 styling aligned to the existing website theme (dark navy background + yellow accent, clean enterprise look, bold headings, minimal bullet points, abstract data/grid visuals, and no stock/cheesy imagery or heavy icons).",
+        "status": "missing",
         "plannedFiles": [
-          "frontend/public/assets/generated/inovics-framework-clarify-colourful.dim_1200x750.png",
-          "frontend/public/assets/generated/inovics-framework-organize-colourful.dim_1200x750.png",
-          "frontend/public/assets/generated/inovics-framework-normalize-colourful.dim_1200x750.png",
-          "frontend/public/assets/generated/inovics-framework-transform-colourful.dim_1200x750.png",
-          "frontend/public/assets/generated/inovics-framework-report-colourful.dim_1200x750.png",
-          "frontend/public/assets/generated/inovics-framework-optimize-colourful.dim_1200x750.png",
-          "frontend/public/assets/generated/inovics-framework-lead-colourful.dim_1200x750.png"
+          "frontend/public/assets/inovics-corporate-deck-option-1.pptx"
         ],
-        "matchedFiles": [
-          "frontend/public/assets/generated/inovics-framework-clarify-colourful.dim_1200x750.png",
-          "frontend/public/assets/generated/inovics-framework-organize-colourful.dim_1200x750.png",
-          "frontend/public/assets/generated/inovics-framework-normalize-colourful.dim_1200x750.png",
-          "frontend/public/assets/generated/inovics-framework-transform-colourful.dim_1200x750.png",
-          "frontend/public/assets/generated/inovics-framework-report-colourful.dim_1200x750.png",
-          "frontend/public/assets/generated/inovics-framework-optimize-colourful.dim_1200x750.png",
-          "frontend/public/assets/generated/inovics-framework-lead-colourful.dim_1200x750.png"
-        ]
+        "matchedFiles": []
       },
       {
         "id": "REQ-2",
-        "summary": "Update the image asset references in `frontend/src/components/sections/ControlFrameworkSection.tsx` to point to the new/replaced image filenames under `/assets/generated/` (keeping the existing layout, aspect ratio, and hover behavior intact).",
-        "status": "implemented",
+        "summary": "Expose the generated PowerPoint deck as a static downloadable asset from the web app (place the .pptx under the frontend public assets) and add a clearly labeled download entry point in the UI so users can download it directly from the site.",
+        "status": "missing",
         "plannedFiles": [
-          "frontend/src/components/sections/ControlFrameworkSection.tsx"
+          "frontend/src/lib/contactConfig.ts",
+          "frontend/src/components/contact/ContactOptionsGrid.tsx"
         ],
-        "matchedFiles": [
-          "frontend/src/components/sections/ControlFrameworkSection.tsx"
-        ]
+        "matchedFiles": []
       }
     ]
   },
   "changedFiles": [
     "build-request.json",
     "feature_evidence.json",
-    "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/public/assets/generated/inovics-framework-clarify-colourful.dim_1200x750.png",
-    "frontend/public/assets/generated/inovics-framework-lead-colourful.dim_1200x750.png",
-    "frontend/public/assets/generated/inovics-framework-normalize-colourful.dim_1200x750.png",
-    "frontend/public/assets/generated/inovics-framework-optimize-colourful.dim_1200x750.png",
-    "frontend/public/assets/generated/inovics-framework-organize-colourful.dim_1200x750.png",
-    "frontend/public/assets/generated/inovics-framework-report-colourful.dim_1200x750.png",
-    "frontend/public/assets/generated/inovics-framework-transform-colourful.dim_1200x750.png",
-    "frontend/src/components/sections/ControlFrameworkSection.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

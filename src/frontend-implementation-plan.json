@@ -1,67 +1,43 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Replace CONTROL™ framework homepage step images with colourful, text-free visuals",
+  "title": "Static download for INOVICS corporate presentation deck (Option 1 theme)",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Add seven higher-quality, more colourful, text-free static images for each CONTROL™ framework step (Clarify, Organize, Normalize, Transform, Report, Optimize, Lead).",
+      "summary": "Add a 14-slide INOVICS corporate presentation PowerPoint (.pptx) asset matching the provided slide-by-slide content and Option 1 styling.",
       "acceptanceCriteria": [
-        "Each CONTROL™ step card on the homepage displays a new, more colourful image.",
-        "None of the seven images contain embedded text.",
-        "Each image is visually relevant to its step (e.g., clarity/diagnostic, organization/structure, normalization/standards, transformation/automation, reporting/dashboards, optimization/continuous improvement, leadership/governance).",
-        "Images load correctly from the static assets path and do not produce 404s in the browser console."
+        "A .pptx file is produced that contains 14 slides matching the provided titles and body text (Slide 1 through Slide 14).",
+        "The deck uses a dark navy background and yellow accent consistent with the site’s palette (navy/charcoal + accent yellow), with a clean enterprise layout.",
+        "Slides avoid stock handshake imagery, avoid heavy icon usage, and use abstract/data/grid-style visuals where visuals are needed.",
+        "Typography hierarchy is consistent across slides (large bold headings, readable body text, spacing aligned to a coherent grid)."
       ],
       "file_operations": [
         {
-          "path": "frontend/public/assets/generated/inovics-framework-clarify-colourful.dim_1200x750.png",
+          "path": "frontend/public/assets/inovics-corporate-deck-option-1.pptx",
           "operation": "create",
-          "description": "Add the new colourful, high-quality, text-free image for the \"Clarify\" step as a static asset at this exact path."
-        },
-        {
-          "path": "frontend/public/assets/generated/inovics-framework-organize-colourful.dim_1200x750.png",
-          "operation": "create",
-          "description": "Add the new colourful, high-quality, text-free image for the \"Organize\" step as a static asset at this exact path."
-        },
-        {
-          "path": "frontend/public/assets/generated/inovics-framework-normalize-colourful.dim_1200x750.png",
-          "operation": "create",
-          "description": "Add the new colourful, high-quality, text-free image for the \"Normalize\" step as a static asset at this exact path."
-        },
-        {
-          "path": "frontend/public/assets/generated/inovics-framework-transform-colourful.dim_1200x750.png",
-          "operation": "create",
-          "description": "Add the new colourful, high-quality, text-free image for the \"Transform\" step as a static asset at this exact path."
-        },
-        {
-          "path": "frontend/public/assets/generated/inovics-framework-report-colourful.dim_1200x750.png",
-          "operation": "create",
-          "description": "Add the new colourful, high-quality, text-free image for the \"Report\" step as a static asset at this exact path."
-        },
-        {
-          "path": "frontend/public/assets/generated/inovics-framework-optimize-colourful.dim_1200x750.png",
-          "operation": "create",
-          "description": "Add the new colourful, high-quality, text-free image for the \"Optimize\" step as a static asset at this exact path."
-        },
-        {
-          "path": "frontend/public/assets/generated/inovics-framework-lead-colourful.dim_1200x750.png",
-          "operation": "create",
-          "description": "Add the new colourful, high-quality, text-free image for the \"Lead\" step as a static asset at this exact path."
+          "description": "Create the downloadable PowerPoint deck as a static asset. The file must include 14 slides using the exact slide-by-slide titles/body text provided in the conversation, and apply Option 1 styling (dark navy background, accent yellow, clean enterprise grid, abstract/data/grid visuals; avoid stock/cheesy imagery and heavy icons)."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Update the homepage ControlFrameworkSection image references to use the new /assets/generated/*-colourful images while keeping layout/aspect/hover behavior unchanged.",
+      "summary": "Expose the corporate deck as a static download and add a clear UI entry point to download it.",
       "acceptanceCriteria": [
-        "`frameworkSteps` in `ControlFrameworkSection.tsx` references the new image filenames for all seven steps.",
-        "The CONTROL™ framework section layout remains unchanged aside from the updated images (same card grid/scroll behavior, same letter badge overlay, same aspect ratio)."
+        "The .pptx is available as a static file in the frontend (served without requiring backend calls).",
+        "A user can click a “Download Corporate Deck (PPTX)” (or equivalent English label) in the UI and the browser downloads the .pptx successfully.",
+        "The download link works in production build (not only in dev)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/sections/ControlFrameworkSection.tsx",
+          "path": "frontend/src/lib/contactConfig.ts",
           "operation": "modify",
-          "description": "Update `frameworkSteps` image paths to reference the new static assets under `/assets/generated/`:\n- `/assets/generated/inovics-framework-clarify-colourful.dim_1200x750.png`\n- `/assets/generated/inovics-framework-organize-colourful.dim_1200x750.png`\n- `/assets/generated/inovics-framework-normalize-colourful.dim_1200x750.png`\n- `/assets/generated/inovics-framework-transform-colourful.dim_1200x750.png`\n- `/assets/generated/inovics-framework-report-colourful.dim_1200x750.png`\n- `/assets/generated/inovics-framework-optimize-colourful.dim_1200x750.png`\n- `/assets/generated/inovics-framework-lead-colourful.dim_1200x750.png`\nKeep all layout, aspect ratio, and hover interactions intact; do not change unrelated homepage sections and do not edit files under `frontend/src/components/ui`."
+          "description": "Add an exported constant for the static PPTX URL (pointing to frontend/public/assets/inovics-corporate-deck-option-1.pptx) so UI components can link to the deck consistently."
+        },
+        {
+          "path": "frontend/src/components/contact/ContactOptionsGrid.tsx",
+          "operation": "modify",
+          "description": "Add a clearly labeled download entry point (e.g., a new card/action) that links directly to the static PPTX and triggers a browser download. Use existing shadcn-ui Card/Button styling for consistency with the site theme; verify the component's usage instructions before implementing."
         }
       ]
     }

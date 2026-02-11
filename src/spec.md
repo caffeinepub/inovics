@@ -1,10 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Improve the homepage CONTROL™ framework step visuals by replacing the seven step images with higher-quality, more colourful, text-free images that remain relevant to each step.
+**Goal:** Provide a downloadable INOVICS corporate presentation deck (Option 1 theme) from within the web app.
 
 **Planned changes:**
-- Create updated, more colourful, text-free versions of the seven CONTROL™ framework step images (Clarify, Organize, Normalize, Transform, Report, Optimize, Lead) under `/assets/generated/`.
-- Update `frontend/src/components/sections/ControlFrameworkSection.tsx` to reference the new image filenames for all seven steps, keeping the existing layout/aspect ratio/hover behavior unchanged.
+- Create a 14-slide INOVICS corporate presentation deck as a PowerPoint (.pptx) using the provided slide-by-slide titles and body text, styled to match Option 1 (dark navy background, yellow accent, clean enterprise layout, bold headings, minimal bullets, abstract/data/grid visuals).
+- Add the generated .pptx to the frontend as a static public asset.
+- Add a clear UI entry point (e.g., “Download Corporate Deck (PPTX)”) that downloads the .pptx successfully in production builds.
 
-**User-visible outcome:** The CONTROL™ framework cards on the homepage display new, vibrant, text-free images that better match each step, with no broken image links.
+**User-visible outcome:** Users can download the INOVICS corporate deck as a .pptx directly from the site via a clearly labeled download link/button.
