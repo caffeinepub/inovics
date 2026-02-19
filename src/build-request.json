@@ -1,35 +1,54 @@
 {
   "kind": "build_request",
-  "title": "Generate and add the INOVICS presentation deck (.pptx) to the project files",
+  "title": "Add logout/sign-out to clear current principal session on /admin",
+  "projectName": "Inovics Admin Recovery",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Generate the complete INOVICS corporate presentation deck as a PowerPoint (.pptx) and add the resulting file to the repository so it is available from the project’s Files panel (no external links). The deck must follow the project styling notes: dark navy background (similar to #0D1B2A), yellow accent (in the #FFC300 range), clean enterprise look, bold typography, minimal bullet points, abstract data/grid visuals, and no stock/cheesy imagery or heavy icons. Use the exact slide-by-slide content previously provided in the conversation and keep the deck length within 12–14 slides (target 14).",
+      "text": "Add a visible “Sign out” control on the /admin page that logs the current Internet Identity principal out by calling the existing Internet Identity context clear/logout function, returning the user to the admin sign-in screen.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-latest"
+          "msg-1"
         ],
         "quotes": [
-          "Create the pptx file in the project\n\nand I’ll place the full deck there for you to download."
+          "can you logout the principal"
         ]
       },
       "acceptanceCriteria": [
-        "A .pptx file for the INOVICS deck exists in the project repository (committed as a binary asset) and is visible/downloadable from the Files panel.",
-        "The PPTX opens successfully in PowerPoint/Google Slides without layout breakage or missing fonts/assets.",
-        "The deck contains 12–14 slides (target 14) and uses the exact slide-by-slide content from the prior conversation.",
-        "Visual style matches the specified dark navy + yellow accent theme, with bold headings, minimal bullets, and abstract data/grid visuals; no stock/cheesy imagery or heavy iconography is used."
+        "When an Internet Identity-authenticated user clicks “Sign out” on /admin, their session is cleared and the page returns to the “Admin Access” sign-in UI (the state where “Sign In with Internet Identity” is shown).",
+        "After signing out, admin-scoped React Query data is not shown for the previous identity, and admin status/leads queries re-run only after a new sign-in occurs.",
+        "User-facing button text is in English and clearly indicates signing out (e.g., “Sign out”)."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "When the user is authenticated via the credential-login mode on /admin, provide a “Sign out” control that clears only the credential-authenticated session state (username/password inputs, credential error/loading flags, and isCredentialAuthenticated) and returns the user to the admin sign-in options screen.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "can you logout the principal"
+        ]
+      },
+      "acceptanceCriteria": [
+        "When a credential-authenticated user clicks “Sign out”, the UI returns to the sign-in options screen and no longer displays privileged/admin-only UI.",
+        "Credential state (username/password and error messages) is cleared after sign out.",
+        "Admin-scoped React Query data is invalidated/cleared so it does not remain visible after signing out."
       ]
     }
   ],
   "constraints": [
-    "Do not modify any files under frontend/src/components/ui or any path listed in frontend.immutablePaths.",
-    "Do not introduce external services, APIs, or databases to generate or store the PPTX."
+    "Do not edit files in frontend immutable paths (including frontend/src/hooks/useInternetIdentity.ts); use its existing exported API from consumer components instead.",
+    "Keep all backend logic within the existing single-actor architecture; no new backend services."
   ],
   "nonGoals": [
-    "Adding a new in-app UI button/link to download the PPTX from the running website (not requested in the latest user message).",
-    "Implementing backend storage or serving logic for the PPTX."
+    "Changing admin permissions or automatically granting admin to the current principal.",
+    "Implementing a backend-driven ‘force logout’ for other users.",
+    "Adding third-party authentication providers beyond Internet Identity."
   ],
   "imageRequirements": {
     "required": [],

@@ -1,11 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Generate and add the complete INOVICS corporate presentation deck as a downloadable PowerPoint (.pptx) file within the project repository.
+**Goal:** Add a clear “Sign out” action on `/admin` that logs the current user out for both Internet Identity and credential-based admin login modes, returning to the admin sign-in UI.
 
 **Planned changes:**
-- Create a 12–14 slide (target 14) INOVICS presentation deck in .pptx format using the exact slide-by-slide content previously provided in the conversation.
-- Apply the specified visual style (dark navy background, yellow accent, clean enterprise look, bold typography, minimal bullets, abstract data/grid visuals) and avoid stock/cheesy imagery or heavy iconography.
-- Commit the resulting .pptx binary to the repository so it is visible and downloadable from the project’s Files panel.
+- Add a visible “Sign out” control on `/admin` for Internet Identity-authenticated users that calls the existing Internet Identity context clear/logout function and returns the UI to the “Admin Access” sign-in screen.
+- Add a visible “Sign out” control on `/admin` for credential-authenticated users that clears credential session state (username/password inputs, error/loading flags, and `isCredentialAuthenticated`) and returns to the sign-in options screen.
+- Ensure admin-scoped React Query data is cleared/invalidated on sign out so privileged data from the prior identity/session is not shown, and admin queries only re-run after a new sign-in.
 
-**User-visible outcome:** A finished INOVICS .pptx deck is available directly in the project files and opens correctly in PowerPoint/Google Slides with consistent styling and intact layouts/assets.
+**User-visible outcome:** Admin users on `/admin` can click “Sign out” to end their current session and return to the “Admin Access” sign-in UI; previously loaded admin data is no longer visible after signing out.

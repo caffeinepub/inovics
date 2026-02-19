@@ -11,7 +11,7 @@
 export const CONTACT_CONFIG = {
   calendarUrl: '', // e.g., 'https://calendly.com/inovics/strategy-call'
   whatsappUrl: 'https://wa.me/919322286441', // WhatsApp Business chat link
-  companyProfileUrl: '', // e.g., 'https://yourdomain.com/inovics-company-profile.pdf'
+  companyProfileUrl: 'https://210.16.112.168/Ebandhan_2025/INOVICS%20%E2%80%93%20Corporate%20Presentation.pdf', // Company profile PDF file
 };
 
 // Centralized contact information
@@ -24,4 +24,3 @@ export const CONTACT_ADDRESS = 'Mahendra Mansion, D.J Road, Vile Parle (West), M
 export const CALENDAR_URL = CONTACT_CONFIG.calendarUrl;
 export const WHATSAPP_URL = CONTACT_CONFIG.whatsappUrl;
 export const COMPANY_PROFILE_URL = CONTACT_CONFIG.companyProfileUrl;
-

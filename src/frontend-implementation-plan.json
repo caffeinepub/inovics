@@ -1,22 +1,37 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add INOVICS corporate presentation deck (.pptx) as a repository asset",
+  "title": "Add sign-out controls for Internet Identity and credential admin sessions",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Generate the INOVICS corporate presentation deck as a 12–14 slide PPTX (target 14) matching the specified dark navy + yellow enterprise theme, and commit it into the repository for download via the Files panel.",
+      "summary": "Add a “Sign out” control on /admin for Internet Identity-authenticated users that clears the Internet Identity session and admin-scoped cached data, returning to the Admin Access sign-in UI.",
       "acceptanceCriteria": [
-        "A .pptx file for the INOVICS deck exists in the project repository (committed as a binary asset) and is visible/downloadable from the Files panel.",
-        "The PPTX opens successfully in PowerPoint/Google Slides without layout breakage or missing fonts/assets.",
-        "The deck contains 12–14 slides (target 14) and uses the exact slide-by-slide content from the prior conversation.",
-        "Visual style matches the specified dark navy + yellow accent theme, with bold headings, minimal bullets, and abstract data/grid visuals; no stock/cheesy imagery or heavy iconography is used."
+        "When an Internet Identity-authenticated user clicks “Sign out” on /admin, their session is cleared and the page returns to the “Admin Access” sign-in UI (the state where “Sign In with Internet Identity” is shown).",
+        "After signing out, admin-scoped React Query data is not shown for the previous identity, and admin status/leads queries re-run only after a new sign-in occurs.",
+        "User-facing button text is in English and clearly indicates signing out (e.g., “Sign out”)."
       ],
       "file_operations": [
         {
-          "path": "frontend/public/files/INOVICS-Corporate-Presentation-Deck.pptx",
-          "operation": "create",
-          "description": "Add the final generated INOVICS corporate presentation deck as a committed binary PPTX asset in the repository (no external links). Ensure the deck uses the exact previously-provided slide-by-slide content, stays within 12–14 slides (target 14), and follows the specified visual styling (dark navy background similar to #0D1B2A, yellow accent in the #FFC300 range, clean enterprise look, bold typography, minimal bullets, abstract data/grid visuals, and no stock/cheesy imagery or heavy icons)."
+          "path": "frontend/src/pages/AdminPage.tsx",
+          "operation": "modify",
+          "description": "Add a visible “Sign out” control (use the shadcn-ui Button component to ensure consistent styling; verify the component's usage instructions before implementing) that is rendered when the user is authenticated via Internet Identity. Wire it to call the existing useInternetIdentity().clear() function from the page (do not modify useInternetIdentity.ts), then clear/invalidate React Query cached data related to admin (at minimum adminStatus/adminLeads/adminInitialized and any other identity-scoped queries) so prior identity data is not displayed after logout, and ensure the page returns to the Admin Access sign-in UI state."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Add a “Sign out” control on /admin for credential-authenticated users that clears credential session state and admin-scoped cached data, returning to the sign-in options UI.",
+      "acceptanceCriteria": [
+        "When a credential-authenticated user clicks “Sign out”, the UI returns to the sign-in options screen and no longer displays privileged/admin-only UI.",
+        "Credential state (username/password and error messages) is cleared after sign out.",
+        "Admin-scoped React Query data is invalidated/cleared so it does not remain visible after signing out."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/AdminPage.tsx",
+          "operation": "modify",
+          "description": "Implement credential-mode sign out behavior alongside the new Sign out control (use the shadcn-ui Button component; verify the component's usage instructions before implementing): when credential-authenticated, clicking “Sign out” must reset all credential session state (username/password values, credentialMode, credential error/loading flags, and isCredentialAuthenticated=false) and clear/invalidate admin-scoped React Query cache (at minimum adminStatus/adminLeads/adminInitialized for the credential-user key) so privileged UI and previous data are removed and the page returns to the Admin Access sign-in options screen."
         }
       ]
     }

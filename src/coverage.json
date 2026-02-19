@@ -1,30 +1,45 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-11T07:29:06.624Z",
+  "generatedAt": "2026-02-18T12:49:14.016Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 1,
-    "implemented": 0,
+    "total": 2,
+    "implemented": 2,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Generate the complete INOVICS corporate presentation deck as a PowerPoint (.pptx) and add the resulting file to the repository so it is available from the project’s Files panel (no external links). The deck must follow the project styling notes: dark navy background (similar to #0D1B2A), yellow accent (in the #FFC300 range), clean enterprise look, bold typography, minimal bullet points, abstract data/grid visuals, and no stock/cheesy imagery or heavy icons. Use the exact slide-by-slide content previously provided in the conversation and keep the deck length within 12–14 slides (target 14).",
-        "status": "missing",
+        "summary": "Add a visible “Sign out” control on the /admin page that logs the current Internet Identity principal out by calling the existing Internet Identity context clear/logout function, returning the user to the admin sign-in screen.",
+        "status": "implemented",
         "plannedFiles": [
-          "frontend/public/files/INOVICS-Corporate-Presentation-Deck.pptx"
+          "frontend/src/pages/AdminPage.tsx"
         ],
-        "matchedFiles": []
+        "matchedFiles": [
+          "frontend/src/pages/AdminPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-2",
+        "summary": "When the user is authenticated via the credential-login mode on /admin, provide a “Sign out” control that clears only the credential-authenticated session state (username/password inputs, credential error/loading flags, and isCredentialAuthenticated) and returns the user to the admin sign-in options screen.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/AdminPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/AdminPage.tsx"
+        ]
       }
     ]
   },
   "changedFiles": [
     "build-request.json",
     "feature_evidence.json",
+    "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
+    "frontend/src/pages/AdminPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

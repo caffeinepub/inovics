@@ -18,6 +18,10 @@ export interface Lead {
     industry: string;
     firstName: string;
 }
+export interface AuthenticationResult {
+    message: string;
+    success: boolean;
+}
 export interface UserProfile {
     name: string;
 }
@@ -28,7 +32,9 @@ export enum UserRole {
 }
 export interface backendInterface {
     addLead(firstName: string, lastName: string, companyName: string, industry: string, revenueRange: string, operationalBottleneck: string, email: string, mobileNumber: string, message: string): Promise<bigint>;
+    adminReset(): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
+    authenticateAdminCredentials(username: string, password: string): Promise<AuthenticationResult>;
     getAllLeads(): Promise<Array<Lead>>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;

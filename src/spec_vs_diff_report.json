@@ -1,22 +1,31 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-11T07:29:06.620Z",
-  "summary": "The diff only updates project_state.json to record pending feature requests; it does not add the required .pptx deck file or implement any generation/export output in the repository.",
+  "generatedAt": "2026-02-18T12:49:14.012Z",
+  "summary": "The diff shows partial updates to `frontend/src/pages/AdminPage.tsx` around authentication state and query invalidation on credential login, but it does not provide evidence of any implemented “Sign out” controls or logout/clear flows for either Internet Identity or credential mode, nor evidence of clearing/invalidation behavior on sign-out.",
   "missing_requirements": [
     {
       "id": "REQ-1",
-      "requirement": "Generate the complete INOVICS corporate presentation deck as a PowerPoint (.pptx) and add the resulting file to the repository (12–14 slides, target 14) using the exact previously provided slide-by-slide content and specified dark navy + yellow enterprise styling; ensure it opens in PowerPoint/Google Slides without layout/font issues.",
-      "reason": "No .pptx file was added to the repo (no added files) and the only change is a project_state.json entry marking the request as pending, with no evidence of deck generation or committed binary asset.",
+      "requirement": "Add a visible “Sign out” control on the /admin page that logs the current Internet Identity principal out by calling the existing Internet Identity context clear/logout function, returning the user to the admin sign-in screen.",
+      "reason": "Although `useInternetIdentity()` is destructured to include `clear`, the provided diff snippet contains no sign-out UI control and no handler invoking `clear()` or returning the UI to the Admin Access sign-in screen. No evidence is shown of clearing admin-scoped React Query data on sign-out either.",
       "evidence": [
-        "project_state.json (status: pending; no .pptx added)",
-        "Diff summary shows Added: 0 files"
+        "frontend/src/pages/AdminPage.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "requirement": "When authenticated via credential-login mode on /admin, provide a “Sign out” control that clears only the credential-authenticated session state (username/password inputs, credential error/loading flags, and isCredentialAuthenticated) and returns the user to the admin sign-in options screen, with admin-scoped React Query data invalidated/cleared.",
+      "reason": "The diff shows credential-login state variables and query invalidation on successful credential login, but no sign-out control or sign-out handler is shown that resets credential state (username/password/error/loading/authenticated flag) and invalidates/clears admin-scoped React Query data upon sign-out.",
+      "evidence": [
+        "frontend/src/pages/AdminPage.tsx (truncated)"
       ]
     }
   ],
   "hallucinated_features": [],
-  "confidence": 0.93,
+  "confidence": 0.66,
   "changed_files": [
+    "frontend-file-summaries.txt",
+    "frontend/src/pages/AdminPage.tsx",
     "project_state.json"
   ]
 }

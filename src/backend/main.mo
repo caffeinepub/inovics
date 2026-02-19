@@ -4,7 +4,6 @@ import Text "mo:core/Text";
 import Iter "mo:core/Iter";
 import Runtime "mo:core/Runtime";
 import Principal "mo:core/Principal";
-
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
 
@@ -28,12 +27,19 @@ actor {
     name : Text;
   };
 
+  public type AuthenticationResult = {
+    success : Bool;
+    message : Text;
+  };
+
   let leads = Map.empty<Nat, Lead>();
   let userProfiles = Map.empty<Principal, UserProfile>();
   var nextId = 0;
   var adminBootstrapToken : ?Text = null;
-  var hasAdminBeenInitialized = false; // deprecated, use adminInitialzed instead
   var adminInitialized = false;
+
+  let ADMIN_USERNAME = "dreamznet@gmail.com";
+  let ADMIN_PASSWORD = "prodigy#123";
 
   public query ({ caller }) func healthCheck() : async Text {
     "Backend is reachable";
@@ -102,30 +108,30 @@ actor {
   };
 
   public shared ({ caller }) func promoteFirstAdmin(token : Text) : async () {
-    // Only allow promotion if no admin has been initialized yet
     if (adminInitialized) {
       Runtime.trap("Unauthorized: Admin has already been initialized");
     };
 
-    if (adminBootstrapToken != ?token) {
-      Runtime.trap("Unauthorized: Invalid admin bootstrap token");
-    };
-
     switch (adminBootstrapToken) {
       case (?currentToken) {
+        if (currentToken != token) {
+          Runtime.trap("Unauthorized: Invalid admin bootstrap token");
+        };
         AccessControl.initialize(accessControlState, caller, currentToken, token);
+        adminBootstrapToken := null;
+        adminInitialized := true;
       };
       case (null) {
-        Runtime.trap("Admin bootstrap token is missing (unrecoverable state)");
+        Runtime.trap("Admin bootstrap token is missing");
       };
     };
-    adminBootstrapToken := null;
-    adminInitialized := true;
   };
 
   public shared ({ caller }) func renewBootstrapToken() : async Text {
-    if (adminInitialized and not AccessControl.isAdmin(accessControlState, caller)) {
-      Runtime.trap("Unauthorized: Only admins can renew the bootstrap token");
+    if (adminInitialized) {
+      if (not AccessControl.isAdmin(accessControlState, caller)) {
+        Runtime.trap("Unauthorized: Only admins can renew the bootstrap token");
+      };
     };
 
     switch (adminBootstrapToken) {
@@ -138,6 +144,35 @@ actor {
     };
   };
 
+  public shared ({ caller }) func authenticateAdminCredentials(username : Text, password : Text) : async AuthenticationResult {
+    if (username == ADMIN_USERNAME and password == ADMIN_PASSWORD) {
+      // Grant admin role to the caller
+      if (not adminInitialized) {
+        // First admin - initialize the system
+        AccessControl.initialize(accessControlState, caller, "mockToken", "mockToken");
+        adminInitialized := true;
+      } else {
+        // Subsequent admins - check if caller is already admin, if not, this should fail
+        // or we need an existing admin to grant the role
+        if (not AccessControl.isAdmin(accessControlState, caller)) {
+          // For credential-based auth, we allow self-promotion with correct credentials
+          // This is a special case for the hardcoded admin credentials
+          AccessControl.assignRole(accessControlState, caller, caller, #admin);
+        };
+      };
+
+      {
+        success = true;
+        message = "Authentication successful - admin privileges granted";
+      };
+    } else {
+      {
+        success = false;
+        message = "Invalid credentials";
+      };
+    };
+  };
+
   public query ({ caller }) func isAdminInitialized() : async Bool {
     adminInitialized;
   };
@@ -147,5 +182,15 @@ actor {
       Runtime.trap("Unauthorized: Only admins can grant admin privileges");
     };
     AccessControl.assignRole(accessControlState, caller, target, #admin);
+  };
+
+  public shared ({ caller }) func adminReset() : async () {
+    // SECURITY: Only existing admins can reset the admin initialization state
+    // This allows recovery when an admin needs to reinitialize the system
+    if (not AccessControl.isAdmin(accessControlState, caller)) {
+      Runtime.trap("Unauthorized: Only admins can reset admin initialization");
+    };
+    adminInitialized := false;
+    adminBootstrapToken := null;
   };
 };

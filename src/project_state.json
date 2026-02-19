@@ -1,28 +1,39 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Project to generate a downloadable PPTX deck by creating the .pptx file within the project files.",
+  "summary": "New project",
   "architectural_notes": [],
-  "known_issues": [],
+  "known_issues": [
+    "User cannot reset admin initialization because their current principal is not recognized as an existing admin (blocked by permissions)."
+  ],
   "isFixRequest": false,
-  "existing_features": [],
-  "new_feature_requests": [
+  "existing_features": [
     {
-      "id": "AR-1",
-      "summary": "Create/export the full presentation as a .pptx file inside the project so the user can download it from the Files panel.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-2",
-      "summary": "Generate the complete INOVICS corporate presentation deck as a PowerPoint (.pptx) and add the resulting file to the repository so it is available from the project’s Files panel (no external links). The deck must follow the project styling notes: dark navy background (similar to #0D1B2A), yellow accent (in the #FFC300 range), clean enterprise look, bold typography, minimal bullet points, abstract data/grid visuals, and no stock/cheesy imagery or heavy icons. Use the exact slide-by-slide content previously provided in the conversation and keep the deck length within 12–14 slides (target 14).",
+      "id": "feature-add-a-visible-sign-out-control-on-the-admin-page-that-logs-the-current-internet-identity-principal-out-by-calling-the-existing-internet-identity-context-clear-logout-function-returning-the-user-to-the-admin-sign-in-screen",
+      "title": "Add a visible “Sign out” control on the /admin page that logs the current Internet Identity principal out by calling the existing Internet Identity context clear/logout function, returning the user to the admin sign-in screen.",
       "reqIds": [
         "REQ-1"
       ],
+      "version": 1
+    },
+    {
+      "id": "feature-when-the-user-is-authenticated-via-the-credential-login-mode-on-admin-provide-a-sign-out-control-that-clears-only-the-credential-authenticated-session-state-username-password-inputs-credential-error-loading-flags-and-iscredentialauthenticated-and-returns-the-user-to-the-admin-sign-in-options-screen",
+      "title": "When the user is authenticated via the credential-login mode on /admin, provide a “Sign out” control that clears only the credential-authenticated session state (username/password inputs, credential error/loading flags, and isCredentialAuthenticated) and returns the user to the admin sign-in options screen.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Add ability for a logged-in user to log out / clear the current principal session on the admin page",
+      "reqIds": [],
       "status": "pending"
     }
   ],
-  "projectName": "Generate and add the INOVICS presentation deck (.pptx) to the project files",
+  "projectName": "Inovics Admin Recovery",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

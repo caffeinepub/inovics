@@ -25,7 +25,7 @@ export function useLeadSubmission() {
   
   const { status: healthStatus, checkHealth } = useBackendHealthCheck(shouldCheckHealth);
 
-  const submitLead = async (data: LeadData) => {
+  const submitLead = async (data: LeadData): Promise<boolean> => {
     // Clear previous states
     setError(null);
     setIsSuccess(false);
@@ -34,14 +34,14 @@ export function useLeadSubmission() {
     // Wait for actor initialization if it's still fetching
     if (actorFetching) {
       setError('Connecting to backend, please wait...');
-      return;
+      return false;
     }
 
     // If actor is not available after fetching completed
     if (!actor) {
       setError('Backend connection failed. Please click retry or refresh the page.');
       setShouldCheckHealth(true);
-      return;
+      return false;
     }
 
     setIsLoading(true);
@@ -59,6 +59,8 @@ export function useLeadSubmission() {
         data.message
       );
       setIsSuccess(true);
+      setIsLoading(false);
+      return true;
     } catch (err: any) {
       console.error('Error submitting lead:', err);
       
@@ -71,8 +73,8 @@ export function useLeadSubmission() {
       } else {
         setError('Failed to submit your request. The backend may be unreachable. Please try again or contact us directly.');
       }
-    } finally {
       setIsLoading(false);
+      return false;
     }
   };
 

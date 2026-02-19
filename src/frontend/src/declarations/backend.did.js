@@ -13,6 +13,10 @@ export const UserRole = IDL.Variant({
   'user' : IDL.Null,
   'guest' : IDL.Null,
 });
+export const AuthenticationResult = IDL.Record({
+  'message' : IDL.Text,
+  'success' : IDL.Bool,
+});
 export const Lead = IDL.Record({
   'mobileNumber' : IDL.Text,
   'revenueRange' : IDL.Text,
@@ -43,7 +47,13 @@ export const idlService = IDL.Service({
       [IDL.Nat],
       [],
     ),
+  'adminReset' : IDL.Func([], [], []),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+  'authenticateAdminCredentials' : IDL.Func(
+      [IDL.Text, IDL.Text],
+      [AuthenticationResult],
+      [],
+    ),
   'getAllLeads' : IDL.Func([], [IDL.Vec(Lead)], ['query']),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
@@ -69,6 +79,10 @@ export const idlFactory = ({ IDL }) => {
     'admin' : IDL.Null,
     'user' : IDL.Null,
     'guest' : IDL.Null,
+  });
+  const AuthenticationResult = IDL.Record({
+    'message' : IDL.Text,
+    'success' : IDL.Bool,
   });
   const Lead = IDL.Record({
     'mobileNumber' : IDL.Text,
@@ -100,7 +114,13 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Nat],
         [],
       ),
+    'adminReset' : IDL.Func([], [], []),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+    'authenticateAdminCredentials' : IDL.Func(
+        [IDL.Text, IDL.Text],
+        [AuthenticationResult],
+        [],
+      ),
     'getAllLeads' : IDL.Func([], [IDL.Vec(Lead)], ['query']),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),

@@ -10,16 +10,28 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
-import { RefreshCw, ShieldAlert, LogIn, Shield, WifiOff, User, Copy, CheckCircle2, Info } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { RefreshCw, ShieldAlert, LogIn, Shield, WifiOff, User, Copy, CheckCircle2, Info, LogOut } from 'lucide-react';
 import { AdminTokenRestoreCard } from '../components/admin/AdminTokenRestoreCard';
 import { AdminManagementCard } from '../components/admin/AdminManagementCard';
+import { AdminResetRecoveryCard } from '../components/admin/AdminResetRecoveryCard';
 
 export function AdminPage() {
-  const { identity, login, loginStatus } = useInternetIdentity();
+  const { identity, login, loginStatus, clear } = useInternetIdentity();
   const { actor } = useActor();
   const queryClient = useQueryClient();
   const isAuthenticated = !!identity;
   const isLoggingIn = loginStatus === 'logging-in';
+  
+  // Credential login state
+  const [credentialMode, setCredentialMode] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [isCredentialLoading, setIsCredentialLoading] = useState(false);
+  const [credentialError, setCredentialError] = useState<string | null>(null);
+  const [isCredentialAuthenticated, setIsCredentialAuthenticated] = useState(false);
+  
   const [isSubmittingToken, setIsSubmittingToken] = useState(false);
   const [isGeneratingToken, setIsGeneratingToken] = useState(false);
   const [generatedToken, setGeneratedToken] = useState<string | null>(null);
@@ -32,16 +44,17 @@ export function AdminPage() {
   const {
     isInitialized: adminInitialized,
     isLoading: initStatusLoading,
+    refetch: refetchInitStatus,
   } = useAdminInitializationStatus();
 
-  // Only fetch admin status if authenticated
+  // Only fetch admin status if authenticated (either II or credential)
   const {
     isAdmin,
     isLoading: statusLoading,
     error: statusError,
     refetch: refetchStatus,
     retryConnection: retryStatusConnection,
-  } = useAdminStatus(isAuthenticated);
+  } = useAdminStatus(isAuthenticated || isCredentialAuthenticated);
 
   // Only fetch leads if user is admin
   const {
@@ -60,8 +73,69 @@ export function AdminPage() {
     }
   };
 
+  const handleCredentialLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!actor) {
+      setCredentialError('Backend connection not available. Please retry connection.');
+      return;
+    }
+
+    setIsCredentialLoading(true);
+    setCredentialError(null);
+
+    try {
+      const result = await actor.authenticateAdminCredentials(username, password);
+      
+      if (result.success) {
+        setIsCredentialAuthenticated(true);
+        // Invalidate queries to fetch fresh admin status
+        await queryClient.invalidateQueries({ queryKey: ['adminStatus'] });
+        await queryClient.invalidateQueries({ queryKey: ['adminLeads'] });
+        // Trigger refetch
+        await refetchStatus();
+      } else {
+        setCredentialError(result.message || 'Invalid credentials');
+      }
+    } catch (error: any) {
+      console.error('Credential login error:', error);
+      setCredentialError(error.message || 'Failed to authenticate. Please try again.');
+    } finally {
+      setIsCredentialLoading(false);
+    }
+  };
+
+  const handleSignOut = async () => {
+    if (isAuthenticated) {
+      // Internet Identity sign out
+      const principalId = identity?.getPrincipal().toString() || 'anonymous';
+      
+      // Clear Internet Identity session
+      await clear();
+      
+      // Invalidate admin-scoped queries
+      await queryClient.invalidateQueries({ queryKey: ['adminStatus', principalId] });
+      await queryClient.invalidateQueries({ queryKey: ['adminLeads', principalId] });
+      await queryClient.invalidateQueries({ queryKey: ['adminInitialized', principalId] });
+    } else if (isCredentialAuthenticated) {
+      // Credential sign out
+      // Clear credential state
+      setIsCredentialAuthenticated(false);
+      setUsername('');
+      setPassword('');
+      setCredentialError(null);
+      setCredentialMode(false);
+      
+      // Invalidate admin-scoped queries for credential user
+      await queryClient.invalidateQueries({ queryKey: ['adminStatus', 'credential-user'] });
+      await queryClient.invalidateQueries({ queryKey: ['adminLeads', 'credential-user'] });
+      await queryClient.invalidateQueries({ queryKey: ['adminInitialized', 'credential-user'] });
+    }
+  };
+
   const handleRefresh = () => {
     refetchStatus();
+    refetchInitStatus();
     if (isAdmin) {
       refetchLeads();
     }
@@ -158,6 +232,27 @@ export function AdminPage() {
     }
   };
 
+  const handleResetSuccess = async () => {
+    // Clear all state
+    setGeneratedToken(null);
+    setTokenError(null);
+    setTokenCopied(false);
+    setVerificationState('idle');
+    setVerificationAttempts(0);
+    
+    // Get principal for identity-scoped invalidation
+    const principalId = identity?.getPrincipal().toString() || 'credential-user';
+    
+    // Invalidate all admin-related queries
+    await queryClient.invalidateQueries({ queryKey: ['adminStatus', principalId] });
+    await queryClient.invalidateQueries({ queryKey: ['adminLeads', principalId] });
+    await queryClient.invalidateQueries({ queryKey: ['adminInitialized', principalId] });
+    
+    // Refetch initialization status to show bootstrap UI
+    await refetchInitStatus();
+    await refetchStatus();
+  };
+
   // Verification polling effect
   useEffect(() => {
     if (verificationState === 'verifying' && verificationAttempts < 10) {
@@ -190,8 +285,8 @@ export function AdminPage() {
     await refetchStatus();
   };
 
-  // Not logged in - show login prompt
-  if (!isAuthenticated) {
+  // Not logged in - show login options (Internet Identity or Credentials)
+  if (!isAuthenticated && !isCredentialAuthenticated) {
     return (
       <div className="min-h-screen bg-background pt-20">
         <div className="container mx-auto px-4 py-16">
@@ -202,28 +297,124 @@ export function AdminPage() {
               </div>
               <CardTitle className="text-2xl">Admin Access</CardTitle>
               <CardDescription>
-                Sign in with Internet Identity to access the admin dashboard
+                {credentialMode 
+                  ? 'Sign in with your admin credentials'
+                  : 'Choose your sign-in method'}
               </CardDescription>
             </CardHeader>
-            <CardContent className="flex justify-center">
-              <Button
-                onClick={handleLogin}
-                disabled={isLoggingIn}
-                size="lg"
-                className="w-full"
-              >
-                {isLoggingIn ? (
-                  <>
-                    <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                    Signing in...
-                  </>
-                ) : (
-                  <>
-                    <LogIn className="mr-2 h-4 w-4" />
-                    Sign In
-                  </>
-                )}
-              </Button>
+            <CardContent className="space-y-4">
+              {!credentialMode ? (
+                <>
+                  <Button
+                    onClick={handleLogin}
+                    disabled={isLoggingIn}
+                    size="lg"
+                    className="w-full"
+                  >
+                    {isLoggingIn ? (
+                      <>
+                        <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                        Signing in...
+                      </>
+                    ) : (
+                      <>
+                        <LogIn className="mr-2 h-4 w-4" />
+                        Sign In with Internet Identity
+                      </>
+                    )}
+                  </Button>
+                  
+                  <div className="relative">
+                    <div className="absolute inset-0 flex items-center">
+                      <span className="w-full border-t" />
+                    </div>
+                    <div className="relative flex justify-center text-xs uppercase">
+                      <span className="bg-background px-2 text-muted-foreground">
+                        Or
+                      </span>
+                    </div>
+                  </div>
+
+                  <Button
+                    onClick={() => setCredentialMode(true)}
+                    variant="outline"
+                    size="lg"
+                    className="w-full"
+                  >
+                    <User className="mr-2 h-4 w-4" />
+                    Sign In with Credentials
+                  </Button>
+                </>
+              ) : (
+                <form onSubmit={handleCredentialLogin} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="username">Username</Label>
+                    <Input
+                      id="username"
+                      type="email"
+                      placeholder="Enter your username"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      required
+                      disabled={isCredentialLoading}
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="password">Password</Label>
+                    <Input
+                      id="password"
+                      type="password"
+                      placeholder="Enter your password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                      disabled={isCredentialLoading}
+                    />
+                  </div>
+
+                  {credentialError && (
+                    <Alert variant="destructive">
+                      <ShieldAlert className="h-4 w-4" />
+                      <AlertDescription>{credentialError}</AlertDescription>
+                    </Alert>
+                  )}
+
+                  <Button
+                    type="submit"
+                    disabled={isCredentialLoading}
+                    size="lg"
+                    className="w-full"
+                  >
+                    {isCredentialLoading ? (
+                      <>
+                        <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                        Signing in...
+                      </>
+                    ) : (
+                      <>
+                        <LogIn className="mr-2 h-4 w-4" />
+                        Sign In
+                      </>
+                    )}
+                  </Button>
+
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      setCredentialMode(false);
+                      setCredentialError(null);
+                      setUsername('');
+                      setPassword('');
+                    }}
+                    variant="ghost"
+                    size="sm"
+                    className="w-full"
+                  >
+                    Back to sign-in options
+                  </Button>
+                </form>
+              )}
             </CardContent>
           </Card>
         </div>
@@ -232,7 +423,7 @@ export function AdminPage() {
   }
 
   // Get principal for display
-  const principalId = identity?.getPrincipal().toString() || 'Unknown';
+  const principalId = identity?.getPrincipal().toString() || 'Credential User';
 
   // Loading admin status
   if (statusLoading || initStatusLoading) {
@@ -295,7 +486,7 @@ export function AdminPage() {
     );
   }
 
-  // Not admin - show access denied with conditional bootstrap initialization option
+  // Not admin - show access denied with conditional bootstrap initialization or reset option
   if (!isAdmin) {
     return (
       <div className="min-h-screen bg-background pt-20">
@@ -311,65 +502,48 @@ export function AdminPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-center gap-2 p-3 bg-muted rounded-md">
-                <User className="h-4 w-4 text-muted-foreground" />
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs text-muted-foreground">Your Principal ID:</p>
-                  <p className="text-sm font-mono truncate" title={principalId}>
-                    {principalId}
-                  </p>
+              {!isCredentialAuthenticated && (
+                <div className="flex items-center gap-2 p-3 bg-muted rounded-md">
+                  <User className="h-4 w-4 text-muted-foreground" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs text-muted-foreground mb-1">Your Principal ID</p>
+                    <p className="text-sm font-mono break-all">{principalId}</p>
+                  </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              )}
 
-          {/* Verification failed alert */}
-          {verificationState === 'failed' && (
-            <Alert variant="destructive" className="max-w-lg mx-auto mt-6">
-              <ShieldAlert className="h-4 w-4" />
-              <AlertTitle>Admin Status Not Confirmed</AlertTitle>
-              <AlertDescription className="space-y-3">
-                <p>
-                  The admin token was submitted successfully, but we could not confirm your admin status yet. 
-                  This may be due to a temporary backend delay.
-                </p>
-                <Button onClick={handleRetryVerification} variant="outline" size="sm" className="w-full">
-                  <RefreshCw className="mr-2 h-3 w-3" />
-                  Retry Admin Status Check
-                </Button>
-              </AlertDescription>
-            </Alert>
-          )}
+              {adminInitialized ? (
+                <AdminResetRecoveryCard onResetSuccess={handleResetSuccess} />
+              ) : (
+                <>
+                  <Alert>
+                    <Info className="h-4 w-4" />
+                    <AlertTitle>Admin Setup Required</AlertTitle>
+                    <AlertDescription>
+                      No admin has been configured yet. Use the bootstrap token to become the first administrator.
+                    </AlertDescription>
+                  </Alert>
 
-          {/* Show bootstrap initialization UI only if admin has NOT been initialized */}
-          {!adminInitialized ? (
-            <>
-              {/* Bootstrap Token Generation Card */}
-              <Card className="max-w-lg mx-auto mt-6">
-                <CardHeader>
-                  <CardTitle>Initialize Admin Access</CardTitle>
-                  <CardDescription>
-                    If this is the first time setting up admin access, generate a bootstrap token below.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {!generatedToken ? (
-                    <>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
                       <Button
                         onClick={handleGenerateToken}
-                        disabled={isGeneratingToken}
+                        disabled={isGeneratingToken || !!generatedToken}
                         className="w-full"
+                        variant="outline"
                       >
                         {isGeneratingToken ? (
                           <>
                             <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
                             Generating Token...
                           </>
-                        ) : (
+                        ) : generatedToken ? (
                           <>
-                            <Shield className="mr-2 h-4 w-4" />
-                            Generate Bootstrap Token
+                            <CheckCircle2 className="mr-2 h-4 w-4" />
+                            Token Generated
                           </>
+                        ) : (
+                          'Generate Bootstrap Token'
                         )}
                       </Button>
 
@@ -379,133 +553,101 @@ export function AdminPage() {
                           <AlertDescription>{tokenError}</AlertDescription>
                         </Alert>
                       )}
-                    </>
-                  ) : (
-                    <>
-                      <Alert className="border-yellow-500 bg-yellow-50 text-yellow-900 dark:bg-yellow-950 dark:text-yellow-100">
-                        <ShieldAlert className="h-4 w-4 text-yellow-600 dark:text-yellow-400" />
-                        <AlertTitle>Important: Save This Token</AlertTitle>
-                        <AlertDescription>
-                          This bootstrap token will only be shown once. Copy it now and paste it in the form below to become the first admin.
-                        </AlertDescription>
-                      </Alert>
 
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2">
-                          <div className="flex-1 p-3 bg-muted rounded-md font-mono text-sm break-all">
-                            {generatedToken}
+                      {generatedToken && (
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-2">
+                            <Input
+                              value={generatedToken}
+                              readOnly
+                              className="font-mono text-sm"
+                            />
+                            <Button
+                              onClick={handleCopyToken}
+                              variant="outline"
+                              size="icon"
+                            >
+                              {tokenCopied ? (
+                                <CheckCircle2 className="h-4 w-4 text-green-600" />
+                              ) : (
+                                <Copy className="h-4 w-4" />
+                              )}
+                            </Button>
                           </div>
-                          <Button
-                            onClick={handleCopyToken}
-                            variant="outline"
-                            size="icon"
-                            className="shrink-0"
-                          >
-                            {tokenCopied ? (
-                              <CheckCircle2 className="h-4 w-4 text-green-600" />
-                            ) : (
-                              <Copy className="h-4 w-4" />
-                            )}
-                          </Button>
-                        </div>
-                        {tokenCopied && (
-                          <p className="text-sm text-green-600 dark:text-green-400">
-                            Token copied to clipboard!
+                          <p className="text-xs text-muted-foreground">
+                            Copy this token and use it below to initialize admin access.
                           </p>
-                        )}
-                      </div>
-                    </>
-                  )}
-                </CardContent>
-              </Card>
+                        </div>
+                      )}
+                    </div>
 
-              {/* Token Submission Card */}
-              <AdminTokenRestoreCard 
-                onTokenSubmit={handleTokenSubmit}
-                isSubmitting={isSubmittingToken || verificationState === 'verifying'}
-              />
-            </>
-          ) : (
-            /* Admin already initialized - show informational message */
-            <Alert className="max-w-lg mx-auto mt-6">
-              <Info className="h-4 w-4" />
-              <AlertTitle>Admin Already Initialized</AlertTitle>
-              <AlertDescription>
-                This system already has an admin. Bootstrap token initialization is no longer available. 
-                To gain admin access, please contact an existing administrator and provide them with your Principal ID shown above. 
-                They can grant you admin privileges from their admin dashboard.
-              </AlertDescription>
-            </Alert>
-          )}
+                    <AdminTokenRestoreCard
+                      onTokenSubmit={handleTokenSubmit}
+                      isSubmitting={isSubmittingToken}
+                    />
+                  </div>
+                </>
+              )}
 
-          {/* Verifying status */}
-          {verificationState === 'verifying' && (
-            <Alert className="max-w-lg mx-auto mt-6">
-              <RefreshCw className="h-4 w-4 animate-spin" />
-              <AlertTitle>Verifying Admin Status</AlertTitle>
-              <AlertDescription>
-                Please wait while we confirm your admin privileges...
-              </AlertDescription>
-            </Alert>
-          )}
+              <Button
+                onClick={handleSignOut}
+                variant="ghost"
+                className="w-full"
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                Sign out
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </div>
     );
   }
 
-  // Admin view - show submissions and admin management
+  // Admin view - show dashboard with leads
   return (
     <div className="min-h-screen bg-background pt-20">
       <div className="container mx-auto px-4 py-8">
-        <div className="mb-8 flex items-center justify-between">
+        <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">Admin Dashboard</h1>
-            <p className="text-muted-foreground mt-2">
-              View and manage all form submissions
+            <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+            <p className="text-muted-foreground mt-1">
+              Manage form submissions and admin access
             </p>
-            <div className="flex items-center gap-2 mt-2 text-sm text-muted-foreground">
-              <User className="h-3 w-3" />
-              <span className="font-mono">{principalId}</span>
-            </div>
           </div>
-          <Button onClick={handleRefresh} variant="outline" disabled={leadsLoading}>
-            <RefreshCw className={`mr-2 h-4 w-4 ${leadsLoading ? 'animate-spin' : ''}`} />
-            Refresh
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button onClick={handleRefresh} variant="outline" size="sm">
+              <RefreshCw className="mr-2 h-4 w-4" />
+              Refresh
+            </Button>
+            <Button onClick={handleSignOut} variant="outline" size="sm">
+              <LogOut className="mr-2 h-4 w-4" />
+              Sign out
+            </Button>
+          </div>
         </div>
 
-        {/* Admin Management Section */}
-        <div className="mb-8">
+        {!isCredentialAuthenticated && (
+          <div className="mb-6">
+            <Alert>
+              <User className="h-4 w-4" />
+              <AlertTitle>Signed in as</AlertTitle>
+              <AlertDescription className="font-mono text-xs break-all">
+                {principalId}
+              </AlertDescription>
+            </Alert>
+          </div>
+        )}
+
+        <div className="grid gap-6 mb-8">
           <AdminManagementCard />
         </div>
-
-        {leadsError && (
-          <Alert variant="destructive" className="mb-6">
-            <ShieldAlert className="h-4 w-4" />
-            <AlertTitle>Error Loading Submissions</AlertTitle>
-            <AlertDescription className="flex items-center justify-between">
-              <span>
-                {leadsError.message?.includes('Backend connection failed')
-                  ? 'Unable to connect to the backend. Please retry the connection.'
-                  : 'Failed to load form submissions. Please try refreshing the page.'}
-              </span>
-              {leadsError.message?.includes('Backend connection failed') && (
-                <Button onClick={handleRetryConnection} variant="outline" size="sm" className="ml-4">
-                  <RefreshCw className="mr-2 h-3 w-3" />
-                  Retry
-                </Button>
-              )}
-            </AlertDescription>
-          </Alert>
-        )}
 
         <Card>
           <CardHeader>
             <CardTitle>Form Submissions</CardTitle>
             <CardDescription>
-              {leads.length === 0 
-                ? 'No submissions yet' 
-                : `${leads.length} submission${leads.length === 1 ? '' : 's'}`}
+              All lead submissions from your website forms
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -515,10 +657,17 @@ export function AdminPage() {
                 <Skeleton className="h-12 w-full" />
                 <Skeleton className="h-12 w-full" />
               </div>
+            ) : leadsError ? (
+              <Alert variant="destructive">
+                <ShieldAlert className="h-4 w-4" />
+                <AlertTitle>Error Loading Leads</AlertTitle>
+                <AlertDescription>
+                  {leadsError.message || 'Failed to load form submissions. Please try again.'}
+                </AlertDescription>
+              </Alert>
             ) : leads.length === 0 ? (
-              <div className="text-center py-12 text-muted-foreground">
-                <p>No form submissions yet.</p>
-                <p className="text-sm mt-2">Submissions will appear here once users fill out forms on your site.</p>
+              <div className="text-center py-12">
+                <p className="text-muted-foreground">No form submissions yet</p>
               </div>
             ) : (
               <div className="overflow-x-auto">

@@ -1,4 +1,43 @@
 {
   "kind": "feature_evidence_report",
-  "features": []
+  "features": [
+    {
+      "featureId": "feature-add-a-visible-sign-out-control-on-the-admin-page-that-logs-the-current-internet-identity-principal-out-by-calling-the-existing-internet-identity-context-clear-logout-function-returning-the-user-to-the-admin-sign-in-screen",
+      "featureTitle": "Add a visible “Sign out” control on the /admin page that logs the current Internet Identity principal out by calling the existing Internet Identity context clear/logout function, returning the user to the admin sign-in screen.",
+      "files": [
+        "frontend/src/pages/AdminPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-when-the-user-is-authenticated-via-the-credential-login-mode-on-admin-provide-a-sign-out-control-that-clears-only-the-credential-authenticated-session-state-username-password-inputs-credential-error-loading-flags-and-iscredentialauthenticated-and-returns-the-user-to-the-admin-sign-in-options-screen",
+      "featureTitle": "When the user is authenticated via the credential-login mode on /admin, provide a “Sign out” control that clears only the credential-authenticated session state (username/password inputs, credential error/loading flags, and isCredentialAuthenticated) and returns the user to the admin sign-in options screen.",
+      "files": [
+        "frontend/src/pages/AdminPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    }
+  ]
 }

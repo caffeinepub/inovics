@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { ContactOptionsGrid } from '@/components/contact/ContactOptionsGrid';
+import { ContactAddressBlock } from '@/components/contact/ContactAddressBlock';
 import { FounderControlBlueprintInquiryForm } from '@/components/forms/FounderControlBlueprintInquiryForm';
 import { Check } from 'lucide-react';
 import { bookStrategyCall } from '@/lib/strategyCall';
@@ -37,6 +38,11 @@ export function ContactPage() {
               Choose How You'd Like to Connect
             </h2>
             <ContactOptionsGrid />
+            
+            {/* Address Block */}
+            <div className="mt-12">
+              <ContactAddressBlock />
+            </div>
           </div>
         </div>
       </section>

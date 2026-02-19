@@ -10,7 +10,8 @@ export function useAdminStatus(enabled: boolean = true) {
   const queryClient = useQueryClient();
 
   // Include principal in query key to prevent cross-identity cache reuse
-  const principalId = identity?.getPrincipal().toString() || 'anonymous';
+  // For credential users, use a generic key since they don't have a principal
+  const principalId = identity?.getPrincipal().toString() || 'credential-user';
 
   const query = useQuery<{ isAdmin: boolean }>({
     queryKey: ['adminStatus', principalId],

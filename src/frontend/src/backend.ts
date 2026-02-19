@@ -100,6 +100,10 @@ export interface Lead {
     industry: string;
     firstName: string;
 }
+export interface AuthenticationResult {
+    message: string;
+    success: boolean;
+}
 export interface UserProfile {
     name: string;
 }
@@ -111,7 +115,9 @@ export enum UserRole {
 export interface backendInterface {
     _initializeAccessControlWithSecret(userSecret: string): Promise<void>;
     addLead(firstName: string, lastName: string, companyName: string, industry: string, revenueRange: string, operationalBottleneck: string, email: string, mobileNumber: string, message: string): Promise<bigint>;
+    adminReset(): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
+    authenticateAdminCredentials(username: string, password: string): Promise<AuthenticationResult>;
     getAllLeads(): Promise<Array<Lead>>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
@@ -156,6 +162,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async adminReset(): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.adminReset();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.adminReset();
+            return result;
+        }
+    }
     async assignCallerUserRole(arg0: Principal, arg1: UserRole): Promise<void> {
         if (this.processError) {
             try {
@@ -167,6 +187,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n1(this._uploadFile, this._downloadFile, arg1));
+            return result;
+        }
+    }
+    async authenticateAdminCredentials(arg0: string, arg1: string): Promise<AuthenticationResult> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.authenticateAdminCredentials(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.authenticateAdminCredentials(arg0, arg1);
             return result;
         }
     }
