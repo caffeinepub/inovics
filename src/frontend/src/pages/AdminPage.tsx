@@ -1,53 +1,77 @@
-import { useState, useEffect } from 'react';
-import { useInternetIdentity } from '../hooks/useInternetIdentity';
-import { useAdminStatus } from '../hooks/useAdminStatus';
-import { useAdminLeads } from '../hooks/useAdminLeads';
-import { useAdminInitializationStatus } from '../hooks/useAdminInitializationStatus';
-import { useActor } from '../hooks/useActor';
-import { useQueryClient } from '@tanstack/react-query';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { RefreshCw, ShieldAlert, LogIn, Shield, WifiOff, User, Copy, CheckCircle2, Info, LogOut } from 'lucide-react';
-import { AdminTokenRestoreCard } from '../components/admin/AdminTokenRestoreCard';
-import { AdminManagementCard } from '../components/admin/AdminManagementCard';
-import { AdminResetRecoveryCard } from '../components/admin/AdminResetRecoveryCard';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { useQueryClient } from "@tanstack/react-query";
+import {
+  CheckCircle2,
+  Copy,
+  Info,
+  LogIn,
+  LogOut,
+  RefreshCw,
+  Shield,
+  ShieldAlert,
+  User,
+  WifiOff,
+} from "lucide-react";
+import { useState } from "react";
+import { AdminManagementCard } from "../components/admin/AdminManagementCard";
+import { AdminResetRecoveryCard } from "../components/admin/AdminResetRecoveryCard";
+import { AdminSystemResetCard } from "../components/admin/AdminSystemResetCard";
+import { AdminTokenRestoreCard } from "../components/admin/AdminTokenRestoreCard";
+import { useActor } from "../hooks/useActor";
+import { useAdminInitializationStatus } from "../hooks/useAdminInitializationStatus";
+import { useAdminLeads } from "../hooks/useAdminLeads";
+import { useAdminStatus } from "../hooks/useAdminStatus";
+import { useInternetIdentity } from "../hooks/useInternetIdentity";
+
+// Suppress unused import warning - used in JSX via component reference
+void AdminResetRecoveryCard;
 
 export function AdminPage() {
   const { identity, login, loginStatus, clear } = useInternetIdentity();
   const { actor } = useActor();
   const queryClient = useQueryClient();
   const isAuthenticated = !!identity;
-  const isLoggingIn = loginStatus === 'logging-in';
-  
-  // Credential login state
+  const isLoggingIn = loginStatus === "logging-in";
+
   const [credentialMode, setCredentialMode] = useState(false);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [isCredentialLoading, setIsCredentialLoading] = useState(false);
   const [credentialError, setCredentialError] = useState<string | null>(null);
-  const [isCredentialAuthenticated, setIsCredentialAuthenticated] = useState(false);
-  
+  const [isCredentialAuthenticated, setIsCredentialAuthenticated] =
+    useState(false);
+
   const [isSubmittingToken, setIsSubmittingToken] = useState(false);
   const [isGeneratingToken, setIsGeneratingToken] = useState(false);
   const [generatedToken, setGeneratedToken] = useState<string | null>(null);
   const [tokenCopied, setTokenCopied] = useState(false);
   const [tokenError, setTokenError] = useState<string | null>(null);
-  const [verificationState, setVerificationState] = useState<'idle' | 'verifying' | 'failed'>('idle');
-  const [verificationAttempts, setVerificationAttempts] = useState(0);
 
-  // Check if admin has been initialized
   const {
     isInitialized: adminInitialized,
     isLoading: initStatusLoading,
     refetch: refetchInitStatus,
   } = useAdminInitializationStatus();
 
-  // Only fetch admin status if authenticated (either II or credential)
   const {
     isAdmin,
     isLoading: statusLoading,
@@ -56,7 +80,6 @@ export function AdminPage() {
     retryConnection: retryStatusConnection,
   } = useAdminStatus(isAuthenticated || isCredentialAuthenticated);
 
-  // Only fetch leads if user is admin
   const {
     leads,
     isLoading: leadsLoading,
@@ -68,38 +91,41 @@ export function AdminPage() {
   const handleLogin = async () => {
     try {
       await login();
-    } catch (error: any) {
-      console.error('Login error:', error);
+    } catch (error: unknown) {
+      console.error("Login error:", error);
     }
   };
 
   const handleCredentialLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    
     if (!actor) {
-      setCredentialError('Backend connection not available. Please retry connection.');
+      setCredentialError(
+        "Backend connection not available. Please retry connection.",
+      );
       return;
     }
-
     setIsCredentialLoading(true);
     setCredentialError(null);
-
     try {
-      const result = await actor.authenticateAdminCredentials(username, password);
-      
+      const result = await actor.authenticateAdminCredentials(
+        username,
+        password,
+      );
       if (result.success) {
         setIsCredentialAuthenticated(true);
-        // Invalidate queries to fetch fresh admin status
-        await queryClient.invalidateQueries({ queryKey: ['adminStatus'] });
-        await queryClient.invalidateQueries({ queryKey: ['adminLeads'] });
-        // Trigger refetch
+        await queryClient.invalidateQueries({ queryKey: ["adminStatus"] });
+        await queryClient.invalidateQueries({ queryKey: ["adminLeads"] });
         await refetchStatus();
       } else {
-        setCredentialError(result.message || 'Invalid credentials');
+        setCredentialError(result.message || "Invalid credentials");
       }
-    } catch (error: any) {
-      console.error('Credential login error:', error);
-      setCredentialError(error.message || 'Failed to authenticate. Please try again.');
+    } catch (error: unknown) {
+      console.error("Credential login error:", error);
+      setCredentialError(
+        error instanceof Error
+          ? error.message
+          : "Failed to authenticate. Please try again.",
+      );
     } finally {
       setIsCredentialLoading(false);
     }
@@ -107,69 +133,75 @@ export function AdminPage() {
 
   const handleSignOut = async () => {
     if (isAuthenticated) {
-      // Internet Identity sign out
-      const principalId = identity?.getPrincipal().toString() || 'anonymous';
-      
-      // Clear Internet Identity session
+      const principalId = identity?.getPrincipal().toString() || "anonymous";
       await clear();
-      
-      // Invalidate admin-scoped queries
-      await queryClient.invalidateQueries({ queryKey: ['adminStatus', principalId] });
-      await queryClient.invalidateQueries({ queryKey: ['adminLeads', principalId] });
-      await queryClient.invalidateQueries({ queryKey: ['adminInitialized', principalId] });
+      await queryClient.invalidateQueries({
+        queryKey: ["adminStatus", principalId],
+      });
+      await queryClient.invalidateQueries({
+        queryKey: ["adminLeads", principalId],
+      });
+      await queryClient.invalidateQueries({
+        queryKey: ["adminInitialized", principalId],
+      });
     } else if (isCredentialAuthenticated) {
-      // Credential sign out
-      // Clear credential state
       setIsCredentialAuthenticated(false);
-      setUsername('');
-      setPassword('');
+      setUsername("");
+      setPassword("");
       setCredentialError(null);
       setCredentialMode(false);
-      
-      // Invalidate admin-scoped queries for credential user
-      await queryClient.invalidateQueries({ queryKey: ['adminStatus', 'credential-user'] });
-      await queryClient.invalidateQueries({ queryKey: ['adminLeads', 'credential-user'] });
-      await queryClient.invalidateQueries({ queryKey: ['adminInitialized', 'credential-user'] });
+      await queryClient.invalidateQueries({
+        queryKey: ["adminStatus", "credential-user"],
+      });
+      await queryClient.invalidateQueries({
+        queryKey: ["adminLeads", "credential-user"],
+      });
+      await queryClient.invalidateQueries({
+        queryKey: ["adminInitialized", "credential-user"],
+      });
     }
   };
 
   const handleRefresh = () => {
     refetchStatus();
     refetchInitStatus();
-    if (isAdmin) {
-      refetchLeads();
-    }
+    if (isAdmin) refetchLeads();
   };
 
   const handleRetryConnection = async () => {
     await retryStatusConnection();
-    if (isAdmin) {
-      await retryLeadsConnection();
-    }
+    if (isAdmin) await retryLeadsConnection();
   };
 
   const handleGenerateToken = async () => {
     if (!actor) {
-      setTokenError('Backend connection not available. Please retry connection.');
+      setTokenError(
+        "Backend connection not available. Please retry connection.",
+      );
       return;
     }
-
     setIsGeneratingToken(true);
     setTokenError(null);
     setGeneratedToken(null);
     setTokenCopied(false);
-
     try {
       const token = await actor.renewBootstrapToken();
       setGeneratedToken(token);
-    } catch (error: any) {
-      console.error('Token generation error:', error);
-      if (error.message?.includes('already been initialized')) {
-        setTokenError('Admin has already been initialized. This system already has an admin.');
-      } else if (error.message?.includes('Unauthorized')) {
-        setTokenError('You do not have permission to generate a bootstrap token.');
+    } catch (error: unknown) {
+      console.error("Token generation error:", error);
+      const msg = error instanceof Error ? error.message : "";
+      if (msg.includes("already been initialized")) {
+        setTokenError(
+          "Admin has already been initialized. This system already has an admin.",
+        );
+      } else if (msg.includes("Unauthorized")) {
+        setTokenError(
+          "You do not have permission to generate a bootstrap token.",
+        );
       } else {
-        setTokenError(error.message || 'Failed to generate bootstrap token. Please try again.');
+        setTokenError(
+          msg || "Failed to generate bootstrap token. Please try again.",
+        );
       }
     } finally {
       setIsGeneratingToken(false);
@@ -183,109 +215,48 @@ export function AdminPage() {
         setTokenCopied(true);
         setTimeout(() => setTokenCopied(false), 3000);
       } catch (error) {
-        console.error('Failed to copy token:', error);
+        console.error("Failed to copy token:", error);
       }
     }
   };
 
   const handleTokenSubmit = async (token: string) => {
-    if (!actor) {
-      throw new Error('Backend connection not available. Please retry connection.');
-    }
-
+    if (!actor)
+      throw new Error(
+        "Backend connection not available. Please retry connection.",
+      );
     setIsSubmittingToken(true);
-    setVerificationState('idle');
-    
     try {
-      // Call the backend initialization method with the token
       await actor.promoteFirstAdmin(token);
-      
-      // Get principal for identity-scoped invalidation
-      const principalId = identity?.getPrincipal().toString() || 'anonymous';
-      
-      // Invalidate identity-scoped queries immediately
-      await queryClient.invalidateQueries({ queryKey: ['adminStatus', principalId] });
-      await queryClient.invalidateQueries({ queryKey: ['adminLeads', principalId] });
-      await queryClient.invalidateQueries({ queryKey: ['adminInitialized', principalId] });
-      
-      // Start verification process
-      setVerificationState('verifying');
-      setVerificationAttempts(0);
-      
-      // Clear generated token after successful use
+      const principalId = identity?.getPrincipal().toString() || "anonymous";
+      await queryClient.invalidateQueries({
+        queryKey: ["adminStatus", principalId],
+      });
+      await queryClient.invalidateQueries({
+        queryKey: ["adminLeads", principalId],
+      });
+      await queryClient.invalidateQueries({
+        queryKey: ["adminInitialized", principalId],
+      });
       setGeneratedToken(null);
-      
-      // Trigger immediate refetch
       await refetchStatus();
-    } catch (error: any) {
-      console.error('Token submission error:', error);
-      setVerificationState('idle');
-      if (error.message?.includes('already been initialized')) {
-        throw new Error('Admin has already been initialized. This token is no longer valid.');
-      } else if (error.message?.includes('Invalid admin bootstrap token')) {
-        throw new Error('Invalid or expired bootstrap token. Please generate a new one.');
-      } else {
-        throw new Error(error.message || 'Failed to verify admin token');
-      }
+      await refetchLeads();
+    } catch (error: unknown) {
+      const msg = error instanceof Error ? error.message : "";
+      if (msg.includes("already been initialized"))
+        throw new Error(
+          "Admin has already been initialized. This token is no longer valid.",
+        );
+      if (msg.includes("Invalid admin bootstrap token"))
+        throw new Error(
+          "Invalid or expired bootstrap token. Please generate a new one.",
+        );
+      throw new Error(msg || "Failed to verify admin token");
     } finally {
       setIsSubmittingToken(false);
     }
   };
 
-  const handleResetSuccess = async () => {
-    // Clear all state
-    setGeneratedToken(null);
-    setTokenError(null);
-    setTokenCopied(false);
-    setVerificationState('idle');
-    setVerificationAttempts(0);
-    
-    // Get principal for identity-scoped invalidation
-    const principalId = identity?.getPrincipal().toString() || 'credential-user';
-    
-    // Invalidate all admin-related queries
-    await queryClient.invalidateQueries({ queryKey: ['adminStatus', principalId] });
-    await queryClient.invalidateQueries({ queryKey: ['adminLeads', principalId] });
-    await queryClient.invalidateQueries({ queryKey: ['adminInitialized', principalId] });
-    
-    // Refetch initialization status to show bootstrap UI
-    await refetchInitStatus();
-    await refetchStatus();
-  };
-
-  // Verification polling effect
-  useEffect(() => {
-    if (verificationState === 'verifying' && verificationAttempts < 10) {
-      const timer = setTimeout(async () => {
-        const result = await refetchStatus();
-        setVerificationAttempts(prev => prev + 1);
-        
-        if (result.data?.isAdmin) {
-          // Success! Admin status confirmed
-          setVerificationState('idle');
-          // Fetch leads now that we're admin
-          await refetchLeads();
-        } else if (verificationAttempts >= 9) {
-          // Failed after max attempts
-          setVerificationState('failed');
-        }
-      }, 500);
-      
-      return () => clearTimeout(timer);
-    }
-  }, [verificationState, verificationAttempts, refetchStatus, refetchLeads]);
-
-  const handleRetryVerification = async () => {
-    setVerificationState('verifying');
-    setVerificationAttempts(0);
-    
-    const principalId = identity?.getPrincipal().toString() || 'anonymous';
-    await queryClient.invalidateQueries({ queryKey: ['adminStatus', principalId] });
-    await queryClient.invalidateQueries({ queryKey: ['adminLeads', principalId] });
-    await refetchStatus();
-  };
-
-  // Not logged in - show login options (Internet Identity or Credentials)
   if (!isAuthenticated && !isCredentialAuthenticated) {
     return (
       <div className="min-h-screen bg-background pt-20">
@@ -297,9 +268,9 @@ export function AdminPage() {
               </div>
               <CardTitle className="text-2xl">Admin Access</CardTitle>
               <CardDescription>
-                {credentialMode 
-                  ? 'Sign in with your admin credentials'
-                  : 'Choose your sign-in method'}
+                {credentialMode
+                  ? "Sign in with your admin credentials"
+                  : "Choose your sign-in method"}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -323,7 +294,6 @@ export function AdminPage() {
                       </>
                     )}
                   </Button>
-                  
                   <div className="relative">
                     <div className="absolute inset-0 flex items-center">
                       <span className="w-full border-t" />
@@ -334,7 +304,6 @@ export function AdminPage() {
                       </span>
                     </div>
                   </div>
-
                   <Button
                     onClick={() => setCredentialMode(true)}
                     variant="outline"
@@ -359,7 +328,6 @@ export function AdminPage() {
                       disabled={isCredentialLoading}
                     />
                   </div>
-                  
                   <div className="space-y-2">
                     <Label htmlFor="password">Password</Label>
                     <Input
@@ -372,14 +340,12 @@ export function AdminPage() {
                       disabled={isCredentialLoading}
                     />
                   </div>
-
                   {credentialError && (
                     <Alert variant="destructive">
                       <ShieldAlert className="h-4 w-4" />
                       <AlertDescription>{credentialError}</AlertDescription>
                     </Alert>
                   )}
-
                   <Button
                     type="submit"
                     disabled={isCredentialLoading}
@@ -398,14 +364,13 @@ export function AdminPage() {
                       </>
                     )}
                   </Button>
-
                   <Button
                     type="button"
                     onClick={() => {
                       setCredentialMode(false);
                       setCredentialError(null);
-                      setUsername('');
-                      setPassword('');
+                      setUsername("");
+                      setPassword("");
                     }}
                     variant="ghost"
                     size="sm"
@@ -422,10 +387,8 @@ export function AdminPage() {
     );
   }
 
-  // Get principal for display
-  const principalId = identity?.getPrincipal().toString() || 'Credential User';
+  const principalId = identity?.getPrincipal().toString() || "Credential User";
 
-  // Loading admin status
   if (statusLoading || initStatusLoading) {
     return (
       <div className="min-h-screen bg-background pt-20">
@@ -448,11 +411,10 @@ export function AdminPage() {
     );
   }
 
-  // Error checking admin status or backend connection
   if (statusError) {
-    const isConnectionError = statusError.message?.includes('Backend connection failed') || 
-                              statusError.message?.includes('Actor not available');
-    
+    const isConnectionError =
+      statusError.message?.includes("Backend connection failed") ||
+      statusError.message?.includes("Actor not available");
     return (
       <div className="min-h-screen bg-background pt-20">
         <div className="container mx-auto px-4 py-16">
@@ -463,12 +425,12 @@ export function AdminPage() {
               <ShieldAlert className="h-4 w-4" />
             )}
             <AlertTitle>
-              {isConnectionError ? 'Connection Error' : 'Error'}
+              {isConnectionError ? "Connection Error" : "Error"}
             </AlertTitle>
             <AlertDescription>
-              {isConnectionError 
-                ? 'Unable to connect to the backend. The backend may be unreachable or still initializing. Please try again.'
-                : 'Failed to verify admin status. Please try again.'}
+              {isConnectionError
+                ? "Unable to connect to the backend. Please try again."
+                : "Failed to verify admin status. Please try again."}
             </AlertDescription>
           </Alert>
           <div className="flex justify-center gap-4 mt-4">
@@ -486,77 +448,93 @@ export function AdminPage() {
     );
   }
 
-  // Not admin - show access denied with conditional bootstrap initialization or reset option
   if (!isAdmin) {
     return (
       <div className="min-h-screen bg-background pt-20">
         <div className="container mx-auto px-4 py-16">
-          <Card className="max-w-md mx-auto border-destructive">
-            <CardHeader className="text-center">
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-destructive/10">
-                <ShieldAlert className="h-6 w-6 text-destructive" />
-              </div>
-              <CardTitle className="text-2xl">Access Denied</CardTitle>
-              <CardDescription>
-                You do not have permission to access this page. Only administrators can view form submissions.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {!isCredentialAuthenticated && (
-                <div className="flex items-center gap-2 p-3 bg-muted rounded-md">
-                  <User className="h-4 w-4 text-muted-foreground" />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs text-muted-foreground mb-1">Your Principal ID</p>
-                    <p className="text-sm font-mono break-all">{principalId}</p>
-                  </div>
+          <div className="max-w-2xl mx-auto space-y-6">
+            <Card>
+              <CardHeader className="text-center">
+                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+                  <Shield className="h-6 w-6 text-primary" />
                 </div>
-              )}
-
-              {adminInitialized ? (
-                <AdminResetRecoveryCard onResetSuccess={handleResetSuccess} />
-              ) : (
-                <>
-                  <Alert>
-                    <Info className="h-4 w-4" />
-                    <AlertTitle>Admin Setup Required</AlertTitle>
-                    <AlertDescription>
-                      No admin has been configured yet. Use the bootstrap token to become the first administrator.
-                    </AlertDescription>
-                  </Alert>
-
-                  <div className="space-y-4">
-                    <div className="space-y-2">
-                      <Button
-                        onClick={handleGenerateToken}
-                        disabled={isGeneratingToken || !!generatedToken}
-                        className="w-full"
-                        variant="outline"
-                      >
-                        {isGeneratingToken ? (
-                          <>
-                            <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                            Generating Token...
-                          </>
-                        ) : generatedToken ? (
-                          <>
-                            <CheckCircle2 className="mr-2 h-4 w-4" />
-                            Token Generated
-                          </>
-                        ) : (
-                          'Generate Bootstrap Token'
-                        )}
-                      </Button>
-
-                      {tokenError && (
-                        <Alert variant="destructive">
-                          <ShieldAlert className="h-4 w-4" />
-                          <AlertDescription>{tokenError}</AlertDescription>
+                <CardTitle className="text-2xl">
+                  Admin Access Required
+                </CardTitle>
+                <CardDescription>
+                  You are signed in as:{" "}
+                  <span className="font-mono text-xs block mt-1">
+                    {principalId}
+                  </span>
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <Alert>
+                  <Info className="h-4 w-4" />
+                  <AlertTitle>Not an Admin</AlertTitle>
+                  <AlertDescription>
+                    Your account does not have admin privileges.
+                  </AlertDescription>
+                </Alert>
+                <div className="flex justify-center">
+                  <Button onClick={handleSignOut} variant="outline">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Sign Out
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+            {!adminInitialized && (
+              <>
+                <Card>
+                  <CardHeader>
+                    <CardTitle>First Admin Setup</CardTitle>
+                    <CardDescription>
+                      No admin has been set up yet.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {!generatedToken ? (
+                      <>
+                        <Alert>
+                          <Info className="h-4 w-4" />
+                          <AlertDescription>
+                            Click below to generate a one-time bootstrap token.
+                          </AlertDescription>
                         </Alert>
-                      )}
-
-                      {generatedToken && (
+                        {tokenError && (
+                          <Alert variant="destructive">
+                            <ShieldAlert className="h-4 w-4" />
+                            <AlertDescription>{tokenError}</AlertDescription>
+                          </Alert>
+                        )}
+                        <Button
+                          onClick={handleGenerateToken}
+                          disabled={isGeneratingToken}
+                          className="w-full"
+                        >
+                          {isGeneratingToken ? (
+                            <>
+                              <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                              Generating Token...
+                            </>
+                          ) : (
+                            "Generate Bootstrap Token"
+                          )}
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                        <Alert className="border-success bg-success/10">
+                          <CheckCircle2 className="h-4 w-4 text-success" />
+                          <AlertTitle>Token Generated</AlertTitle>
+                          <AlertDescription>
+                            Copy this token and submit it below.
+                          </AlertDescription>
+                        </Alert>
                         <div className="space-y-2">
-                          <div className="flex items-center gap-2">
+                          <Label>Bootstrap Token</Label>
+                          <div className="flex gap-2">
                             <Input
                               value={generatedToken}
                               readOnly
@@ -568,147 +546,151 @@ export function AdminPage() {
                               size="icon"
                             >
                               {tokenCopied ? (
-                                <CheckCircle2 className="h-4 w-4 text-green-600" />
+                                <CheckCircle2 className="h-4 w-4 text-success" />
                               ) : (
                                 <Copy className="h-4 w-4" />
                               )}
                             </Button>
                           </div>
-                          <p className="text-xs text-muted-foreground">
-                            Copy this token and use it below to initialize admin access.
-                          </p>
                         </div>
-                      )}
-                    </div>
-
-                    <AdminTokenRestoreCard
-                      onTokenSubmit={handleTokenSubmit}
-                      isSubmitting={isSubmittingToken}
-                    />
-                  </div>
-                </>
-              )}
-
-              <Button
-                onClick={handleSignOut}
-                variant="ghost"
-                className="w-full"
-              >
-                <LogOut className="mr-2 h-4 w-4" />
-                Sign out
-              </Button>
-            </CardContent>
-          </Card>
+                      </>
+                    )}
+                  </CardContent>
+                </Card>
+                {generatedToken && (
+                  <AdminTokenRestoreCard
+                    onTokenSubmit={handleTokenSubmit}
+                    isSubmitting={isSubmittingToken}
+                  />
+                )}
+              </>
+            )}
+            <AdminSystemResetCard />
+          </div>
         </div>
       </div>
     );
   }
 
-  // Admin view - show dashboard with leads
   return (
     <div className="min-h-screen bg-background pt-20">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-            <p className="text-muted-foreground mt-1">
-              Manage form submissions and admin access
-            </p>
-          </div>
-          <div className="flex items-center gap-2">
-            <Button onClick={handleRefresh} variant="outline" size="sm">
-              <RefreshCw className="mr-2 h-4 w-4" />
-              Refresh
-            </Button>
-            <Button onClick={handleSignOut} variant="outline" size="sm">
-              <LogOut className="mr-2 h-4 w-4" />
-              Sign out
-            </Button>
-          </div>
-        </div>
-
-        {!isCredentialAuthenticated && (
-          <div className="mb-6">
-            <Alert>
-              <User className="h-4 w-4" />
-              <AlertTitle>Signed in as</AlertTitle>
-              <AlertDescription className="font-mono text-xs break-all">
-                {principalId}
-              </AlertDescription>
-            </Alert>
-          </div>
-        )}
-
-        <div className="grid gap-6 mb-8">
-          <AdminManagementCard />
-        </div>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Form Submissions</CardTitle>
-            <CardDescription>
-              All lead submissions from your website forms
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            {leadsLoading ? (
-              <div className="space-y-4">
-                <Skeleton className="h-12 w-full" />
-                <Skeleton className="h-12 w-full" />
-                <Skeleton className="h-12 w-full" />
+      <div className="container mx-auto px-4 py-16">
+        <div className="max-w-6xl mx-auto space-y-6">
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="text-2xl flex items-center gap-2">
+                    <Shield className="h-6 w-6 text-primary" />
+                    Admin Dashboard
+                  </CardTitle>
+                  <CardDescription className="mt-2">
+                    Signed in as:{" "}
+                    <span className="font-mono text-xs">{principalId}</span>
+                  </CardDescription>
+                </div>
+                <div className="flex gap-2">
+                  <Button onClick={handleRefresh} variant="outline" size="sm">
+                    <RefreshCw className="mr-2 h-4 w-4" />
+                    Refresh
+                  </Button>
+                  <Button onClick={handleSignOut} variant="outline" size="sm">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Sign Out
+                  </Button>
+                </div>
               </div>
-            ) : leadsError ? (
-              <Alert variant="destructive">
-                <ShieldAlert className="h-4 w-4" />
-                <AlertTitle>Error Loading Leads</AlertTitle>
+            </CardHeader>
+            <CardContent>
+              <Alert className="border-success bg-success/10">
+                <CheckCircle2 className="h-4 w-4 text-success" />
+                <AlertTitle>Admin Access Confirmed</AlertTitle>
                 <AlertDescription>
-                  {leadsError.message || 'Failed to load form submissions. Please try again.'}
+                  You have full admin privileges.
                 </AlertDescription>
               </Alert>
-            ) : leads.length === 0 ? (
-              <div className="text-center py-12">
-                <p className="text-muted-foreground">No form submissions yet</p>
-              </div>
-            ) : (
-              <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Name</TableHead>
-                      <TableHead>Company</TableHead>
-                      <TableHead>Industry</TableHead>
-                      <TableHead>Revenue Range</TableHead>
-                      <TableHead>Email</TableHead>
-                      <TableHead>Mobile</TableHead>
-                      <TableHead>Bottleneck</TableHead>
-                      <TableHead>Message</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {leads.map((lead, index) => (
-                      <TableRow key={index}>
-                        <TableCell className="font-medium">
-                          {lead.firstName} {lead.lastName}
-                        </TableCell>
-                        <TableCell>{lead.companyName}</TableCell>
-                        <TableCell>{lead.industry}</TableCell>
-                        <TableCell>{lead.revenueRange}</TableCell>
-                        <TableCell>{lead.email}</TableCell>
-                        <TableCell>{lead.mobileNumber}</TableCell>
-                        <TableCell className="max-w-xs truncate">
-                          {lead.operationalBottleneck}
-                        </TableCell>
-                        <TableCell className="max-w-xs truncate">
-                          {lead.message}
-                        </TableCell>
+            </CardContent>
+          </Card>
+          <AdminSystemResetCard />
+          <AdminManagementCard />
+          <Card>
+            <CardHeader>
+              <CardTitle>Lead Submissions</CardTitle>
+              <CardDescription>
+                All leads submitted through the website forms
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {leadsLoading ? (
+                <div className="space-y-4">
+                  <Skeleton className="h-12 w-full" />
+                  <Skeleton className="h-12 w-full" />
+                  <Skeleton className="h-12 w-full" />
+                </div>
+              ) : leadsError ? (
+                <>
+                  <Alert variant="destructive">
+                    <ShieldAlert className="h-4 w-4" />
+                    <AlertTitle>Error Loading Leads</AlertTitle>
+                    <AlertDescription>
+                      {leadsError.message || "Failed to load leads."}
+                    </AlertDescription>
+                  </Alert>
+                  <div className="flex justify-center mt-4">
+                    <Button onClick={() => refetchLeads()} variant="outline">
+                      <RefreshCw className="mr-2 h-4 w-4" />
+                      Retry
+                    </Button>
+                  </div>
+                </>
+              ) : leads && leads.length > 0 ? (
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Name</TableHead>
+                        <TableHead>Company</TableHead>
+                        <TableHead>Industry</TableHead>
+                        <TableHead>Revenue Range</TableHead>
+                        <TableHead>Email</TableHead>
+                        <TableHead>Mobile</TableHead>
+                        <TableHead>Bottleneck</TableHead>
+                        <TableHead>Message</TableHead>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-            )}
-          </CardContent>
-        </Card>
+                    </TableHeader>
+                    <TableBody>
+                      {leads.map((lead) => (
+                        <TableRow key={`${lead.email}-${lead.companyName}`}>
+                          <TableCell className="font-medium">
+                            {lead.firstName} {lead.lastName}
+                          </TableCell>
+                          <TableCell>{lead.companyName}</TableCell>
+                          <TableCell>{lead.industry}</TableCell>
+                          <TableCell>{lead.revenueRange}</TableCell>
+                          <TableCell>{lead.email}</TableCell>
+                          <TableCell>{lead.mobileNumber}</TableCell>
+                          <TableCell className="max-w-xs truncate">
+                            {lead.operationalBottleneck}
+                          </TableCell>
+                          <TableCell className="max-w-xs truncate">
+                            {lead.message}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              ) : (
+                <Alert>
+                  <Info className="h-4 w-4" />
+                  <AlertDescription>
+                    No leads have been submitted yet.
+                  </AlertDescription>
+                </Alert>
+              )}
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );

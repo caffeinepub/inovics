@@ -47,7 +47,6 @@ export const idlService = IDL.Service({
       [IDL.Nat],
       [],
     ),
-  'adminReset' : IDL.Func([], [], []),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
   'authenticateAdminCredentials' : IDL.Func(
       [IDL.Text, IDL.Text],
@@ -69,6 +68,7 @@ export const idlService = IDL.Service({
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'promoteFirstAdmin' : IDL.Func([IDL.Text], [], []),
   'renewBootstrapToken' : IDL.Func([], [IDL.Text], []),
+  'resetAdminSystem' : IDL.Func([], [], []),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
 });
 
@@ -114,7 +114,6 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Nat],
         [],
       ),
-    'adminReset' : IDL.Func([], [], []),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
     'authenticateAdminCredentials' : IDL.Func(
         [IDL.Text, IDL.Text],
@@ -136,6 +135,7 @@ export const idlFactory = ({ IDL }) => {
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'promoteFirstAdmin' : IDL.Func([IDL.Text], [], []),
     'renewBootstrapToken' : IDL.Func([], [IDL.Text], []),
+    'resetAdminSystem' : IDL.Func([], [], []),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
   });
 };

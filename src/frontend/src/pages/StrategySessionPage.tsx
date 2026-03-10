@@ -1,12 +1,12 @@
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Check, X, Clock, Target, TrendingUp, Shield } from 'lucide-react';
-import { StrategySessionApplicationForm } from '@/components/forms/StrategySessionApplicationForm';
-import { PageHero } from '@/components/sections/PageHero';
+import { StrategySessionApplicationForm } from "@/components/forms/StrategySessionApplicationForm";
+import { PageHero } from "@/components/sections/PageHero";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Check, Clock, Shield, Target, TrendingUp, X } from "lucide-react";
 
 export function StrategySessionPage() {
   const scrollToForm = () => {
-    const formElement = document.getElementById('application-form');
+    const formElement = document.getElementById("application-form");
     if (formElement) {
       const offset = 80;
       const elementPosition = formElement.getBoundingClientRect().top;
@@ -14,12 +14,12 @@ export function StrategySessionPage() {
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth',
+        behavior: "smooth",
       });
 
       // Focus first input after scroll
       setTimeout(() => {
-        const firstInput = formElement.querySelector('input');
+        const firstInput = formElement.querySelector("input");
         if (firstInput) {
           firstInput.focus();
         }
@@ -35,7 +35,8 @@ export function StrategySessionPage() {
         subtitle="A structured 60-minute diagnostic designed to identify system gaps, founder dependency risks, and AI transformation opportunities in your business."
       >
         <p className="text-lg text-accent-yellow font-semibold">
-          This is not a sales call.<br />
+          This is not a sales call.
+          <br />
           It is a strategic evaluation.
         </p>
         <Button
@@ -64,7 +65,9 @@ export function StrategySessionPage() {
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
                     <Check className="h-5 w-5 text-accent-yellow shrink-0 mt-0.5" />
-                    <p className="text-base text-foreground">₹5–50 Cr family-run businesses</p>
+                    <p className="text-base text-foreground">
+                      ₹5–50 Cr family-run businesses
+                    </p>
                   </div>
                   <div className="flex items-start gap-3">
                     <Check className="h-5 w-5 text-accent-yellow shrink-0 mt-0.5" />
@@ -72,15 +75,21 @@ export function StrategySessionPage() {
                   </div>
                   <div className="flex items-start gap-3">
                     <Check className="h-5 w-5 text-accent-yellow shrink-0 mt-0.5" />
-                    <p className="text-base text-foreground">Growing but operationally strained</p>
+                    <p className="text-base text-foreground">
+                      Growing but operationally strained
+                    </p>
                   </div>
                   <div className="flex items-start gap-3">
                     <Check className="h-5 w-5 text-accent-yellow shrink-0 mt-0.5" />
-                    <p className="text-base text-foreground">Founder-dependent systems</p>
+                    <p className="text-base text-foreground">
+                      Founder-dependent systems
+                    </p>
                   </div>
                   <div className="flex items-start gap-3">
                     <Check className="h-5 w-5 text-accent-yellow shrink-0 mt-0.5" />
-                    <p className="text-base text-foreground">Excel-heavy workflows</p>
+                    <p className="text-base text-foreground">
+                      Excel-heavy workflows
+                    </p>
                   </div>
                 </div>
               </Card>
@@ -94,19 +103,27 @@ export function StrategySessionPage() {
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
                     <X className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
-                    <p className="text-base text-muted-foreground">Early-stage startups</p>
+                    <p className="text-base text-muted-foreground">
+                      Early-stage startups
+                    </p>
                   </div>
                   <div className="flex items-start gap-3">
                     <X className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
-                    <p className="text-base text-muted-foreground">Businesses seeking website development</p>
+                    <p className="text-base text-muted-foreground">
+                      Businesses seeking website development
+                    </p>
                   </div>
                   <div className="flex items-start gap-3">
                     <X className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
-                    <p className="text-base text-muted-foreground">Marketing-only inquiries</p>
+                    <p className="text-base text-muted-foreground">
+                      Marketing-only inquiries
+                    </p>
                   </div>
                   <div className="flex items-start gap-3">
                     <X className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
-                    <p className="text-base text-muted-foreground">Casual exploration</p>
+                    <p className="text-base text-muted-foreground">
+                      Casual exploration
+                    </p>
                   </div>
                 </div>
               </Card>
@@ -125,9 +142,13 @@ export function StrategySessionPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <Card className="bg-card border-border p-6">
                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent-yellow/10 mb-4">
-                  <span className="text-2xl font-bold text-accent-yellow">1</span>
+                  <span className="text-2xl font-bold text-accent-yellow">
+                    1
+                  </span>
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-3">Current System Diagnosis</h3>
+                <h3 className="text-xl font-bold text-foreground mb-3">
+                  Current System Diagnosis
+                </h3>
                 <p className="text-base text-muted-foreground">
                   We identify operational bottlenecks and structural risks.
                 </p>
@@ -135,9 +156,13 @@ export function StrategySessionPage() {
 
               <Card className="bg-card border-border p-6">
                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent-yellow/10 mb-4">
-                  <span className="text-2xl font-bold text-accent-yellow">2</span>
+                  <span className="text-2xl font-bold text-accent-yellow">
+                    2
+                  </span>
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-3">Founder Dependency Mapping</h3>
+                <h3 className="text-xl font-bold text-foreground mb-3">
+                  Founder Dependency Mapping
+                </h3>
                 <p className="text-base text-muted-foreground">
                   Where is your business reliant on manual oversight?
                 </p>
@@ -145,9 +170,13 @@ export function StrategySessionPage() {
 
               <Card className="bg-card border-border p-6">
                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent-yellow/10 mb-4">
-                  <span className="text-2xl font-bold text-accent-yellow">3</span>
+                  <span className="text-2xl font-bold text-accent-yellow">
+                    3
+                  </span>
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-3">Data & Visibility Gaps</h3>
+                <h3 className="text-xl font-bold text-foreground mb-3">
+                  Data & Visibility Gaps
+                </h3>
                 <p className="text-base text-muted-foreground">
                   Do you truly have real-time control?
                 </p>
@@ -155,9 +184,13 @@ export function StrategySessionPage() {
 
               <Card className="bg-card border-border p-6">
                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent-yellow/10 mb-4">
-                  <span className="text-2xl font-bold text-accent-yellow">4</span>
+                  <span className="text-2xl font-bold text-accent-yellow">
+                    4
+                  </span>
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-3">AI Leverage Opportunities</h3>
+                <h3 className="text-xl font-bold text-foreground mb-3">
+                  AI Leverage Opportunities
+                </h3>
                 <p className="text-base text-muted-foreground">
                   Where automation creates immediate impact.
                 </p>
@@ -165,9 +198,13 @@ export function StrategySessionPage() {
 
               <Card className="bg-card border-border p-6">
                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent-yellow/10 mb-4">
-                  <span className="text-2xl font-bold text-accent-yellow">5</span>
+                  <span className="text-2xl font-bold text-accent-yellow">
+                    5
+                  </span>
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-3">Transformation Roadmap Overview</h3>
+                <h3 className="text-xl font-bold text-foreground mb-3">
+                  Transformation Roadmap Overview
+                </h3>
                 <p className="text-base text-muted-foreground">
                   What your Business OS would look like.
                 </p>
@@ -190,7 +227,9 @@ export function StrategySessionPage() {
                   <Target className="h-5 w-5 text-accent-yellow" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-foreground mb-1">Immediate system risks identified</h3>
+                  <h3 className="text-lg font-bold text-foreground mb-1">
+                    Immediate system risks identified
+                  </h3>
                 </div>
               </div>
 
@@ -199,7 +238,9 @@ export function StrategySessionPage() {
                   <TrendingUp className="h-5 w-5 text-accent-yellow" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-foreground mb-1">Key bottlenecks mapped</h3>
+                  <h3 className="text-lg font-bold text-foreground mb-1">
+                    Key bottlenecks mapped
+                  </h3>
                 </div>
               </div>
 
@@ -208,7 +249,9 @@ export function StrategySessionPage() {
                   <Shield className="h-5 w-5 text-accent-yellow" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-foreground mb-1">Founder load analysis</h3>
+                  <h3 className="text-lg font-bold text-foreground mb-1">
+                    Founder load analysis
+                  </h3>
                 </div>
               </div>
 
@@ -217,13 +260,19 @@ export function StrategySessionPage() {
                   <Clock className="h-5 w-5 text-accent-yellow" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-foreground mb-1">Strategic next steps</h3>
+                  <h3 className="text-lg font-bold text-foreground mb-1">
+                    Strategic next steps
+                  </h3>
                 </div>
               </div>
             </div>
             <div className="mt-8 p-6 bg-background border border-border rounded-xl">
               <p className="text-base text-muted-foreground text-center">
-                <strong className="text-foreground">This is not a pitch.</strong> It's a structured diagnostic. If we're not the right fit, we'll tell you.
+                <strong className="text-foreground">
+                  This is not a pitch.
+                </strong>{" "}
+                It's a structured diagnostic. If we're not the right fit, we'll
+                tell you.
               </p>
             </div>
           </div>
@@ -239,7 +288,8 @@ export function StrategySessionPage() {
                 Apply for Your Strategy Session
               </h2>
               <p className="text-lg sm:text-xl text-muted-foreground">
-                Complete the form below. We review all applications personally and respond within 24–48 hours.
+                Complete the form below. We review all applications personally
+                and respond within 24–48 hours.
               </p>
             </div>
             <StrategySessionApplicationForm />
@@ -257,31 +307,46 @@ export function StrategySessionPage() {
             <div className="grid md:grid-cols-3 gap-8">
               <div className="text-center">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent-yellow/10 mb-4">
-                  <span className="text-3xl font-bold text-accent-yellow">1</span>
+                  <span className="text-3xl font-bold text-accent-yellow">
+                    1
+                  </span>
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-2">Application Review</h3>
+                <h3 className="text-xl font-bold text-foreground mb-2">
+                  Application Review
+                </h3>
                 <p className="text-base text-muted-foreground">
-                  We review your submission within 24–48 hours to ensure mutual fit.
+                  We review your submission within 24–48 hours to ensure mutual
+                  fit.
                 </p>
               </div>
 
               <div className="text-center">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent-yellow/10 mb-4">
-                  <span className="text-3xl font-bold text-accent-yellow">2</span>
+                  <span className="text-3xl font-bold text-accent-yellow">
+                    2
+                  </span>
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-2">Session Scheduled</h3>
+                <h3 className="text-xl font-bold text-foreground mb-2">
+                  Session Scheduled
+                </h3>
                 <p className="text-base text-muted-foreground">
-                  If qualified, we'll send a calendar link to book your 60-minute session.
+                  If qualified, we'll send a calendar link to book your
+                  60-minute session.
                 </p>
               </div>
 
               <div className="text-center">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent-yellow/10 mb-4">
-                  <span className="text-3xl font-bold text-accent-yellow">3</span>
+                  <span className="text-3xl font-bold text-accent-yellow">
+                    3
+                  </span>
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-2">Strategic Diagnostic</h3>
+                <h3 className="text-xl font-bold text-foreground mb-2">
+                  Strategic Diagnostic
+                </h3>
                 <p className="text-base text-muted-foreground">
-                  We conduct a structured evaluation and provide immediate clarity.
+                  We conduct a structured evaluation and provide immediate
+                  clarity.
                 </p>
               </div>
             </div>

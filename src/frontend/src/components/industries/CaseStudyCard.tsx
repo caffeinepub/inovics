@@ -1,6 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { FileText, Download, Eye } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Download, Eye, FileText } from "lucide-react";
 
 interface CaseStudyCardProps {
   title: string;
@@ -9,10 +9,15 @@ interface CaseStudyCardProps {
   onOpenDetails?: () => void;
 }
 
-export function CaseStudyCard({ title, pdfUrl, hasDetails, onOpenDetails }: CaseStudyCardProps) {
+export function CaseStudyCard({
+  title,
+  pdfUrl,
+  hasDetails,
+  onOpenDetails,
+}: CaseStudyCardProps) {
   const handlePdfAction = () => {
     if (pdfUrl) {
-      window.open(pdfUrl, '_blank', 'noopener,noreferrer');
+      window.open(pdfUrl, "_blank", "noopener,noreferrer");
     }
   };
 
@@ -23,8 +28,8 @@ export function CaseStudyCard({ title, pdfUrl, hasDetails, onOpenDetails }: Case
   };
 
   return (
-    <Card 
-      className={`h-full border-border hover:border-accent-yellow transition-colors ${hasDetails ? 'cursor-pointer' : ''}`}
+    <Card
+      className={`h-full border-border hover:border-accent-yellow transition-colors ${hasDetails ? "cursor-pointer" : ""}`}
       onClick={hasDetails ? handleCardClick : undefined}
     >
       <CardHeader>

@@ -1,4 +1,4 @@
-import { StandardBulletList } from '@/components/shared/StandardBulletList';
+import { StandardBulletList } from "@/components/shared/StandardBulletList";
 
 export function OutcomesSection() {
   return (
@@ -11,17 +11,18 @@ export function OutcomesSection() {
               What Changes After Inovics?
             </h2>
             <p className="text-xl text-muted-foreground mb-8">
-              We don't just implement systems. We transform how your business operates.
+              We don't just implement systems. We transform how your business
+              operates.
             </p>
-            
+
             <StandardBulletList
               items={[
-                'Real-time visibility into operations, cash flow, and performance',
-                'Automated workflows that eliminate manual bottlenecks',
-                'Centralized data architecture that replaces fragmented spreadsheets',
-                'AI-powered insights for faster, smarter decision-making',
-                'Reduced founder dependency through structured governance',
-                'Scalable infrastructure that grows with your business',
+                "Real-time visibility into operations, cash flow, and performance",
+                "Automated workflows that eliminate manual bottlenecks",
+                "Centralized data architecture that replaces fragmented spreadsheets",
+                "AI-powered insights for faster, smarter decision-making",
+                "Reduced founder dependency through structured governance",
+                "Scalable infrastructure that grows with your business",
               ]}
             />
           </div>
@@ -35,8 +36,8 @@ export function OutcomesSection() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-accent-yellow/20 rounded-full blur-3xl"></div>
-            <div className="absolute -top-6 -left-6 w-32 h-32 bg-primary/20 rounded-full blur-3xl"></div>
+            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-accent-yellow/20 rounded-full blur-3xl" />
+            <div className="absolute -top-6 -left-6 w-32 h-32 bg-primary/20 rounded-full blur-3xl" />
           </div>
         </div>
       </div>

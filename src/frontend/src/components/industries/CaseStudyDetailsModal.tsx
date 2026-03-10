@@ -1,29 +1,25 @@
+import { StandardBulletList } from "@/components/shared/StandardBulletList";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { X } from 'lucide-react';
-import { StandardBulletList } from '@/components/shared/StandardBulletList';
-import type { CaseStudy } from './industriesContent';
+} from "@/components/ui/dialog";
+import { X } from "lucide-react";
+import type { CaseStudy } from "./industriesContent";
 
 interface CaseStudyDetailsModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   title: string;
-  details: CaseStudy['details'];
+  details: CaseStudy["details"];
 }
 
-// Helper to detect if content should be rendered as a list
 function shouldRenderAsList(content: string[]): boolean {
   if (content.length <= 1) return false;
-  
-  // Check if most items are short and don't end with periods (list-like)
   const listLikeCount = content.filter(
-    (item) => item.length < 100 && !item.endsWith('.') && item.trim() !== ''
+    (item) => item.length < 100 && !item.endsWith(".") && item.trim() !== "",
   ).length;
-  
   return listLikeCount > content.length / 2;
 }
 
@@ -49,6 +45,7 @@ export function CaseStudyDetailsModal({
               </p>
             </div>
             <button
+              type="button"
               onClick={() => onOpenChange(false)}
               className="flex-shrink-0 rounded-full p-2 hover:bg-accent/50 transition-colors"
               aria-label="Close"
@@ -59,23 +56,29 @@ export function CaseStudyDetailsModal({
         </DialogHeader>
 
         <div className="space-y-8 mt-6">
-          {details.sections.map((section, index) => (
+          {details.sections.map((section) => (
             <div
-              key={index}
-              className={section.isOutcome ? 'bg-accent-yellow/10 border-2 border-accent-yellow/30 rounded-xl p-6 lg:p-8' : ''}
+              key={section.title}
+              className={
+                section.isOutcome
+                  ? "bg-accent-yellow/10 border-2 border-accent-yellow/30 rounded-xl p-6 lg:p-8"
+                  : ""
+              }
             >
               <h3 className="text-2xl font-bold text-foreground mb-4">
                 {section.title}
               </h3>
               {shouldRenderAsList(section.content) ? (
-                <StandardBulletList items={section.content.filter(item => item.trim() !== '')} />
+                <StandardBulletList
+                  items={section.content.filter((item) => item.trim() !== "")}
+                />
               ) : (
                 <div className="space-y-3">
-                  {section.content.map((paragraph, pIndex) => {
-                    if (paragraph.trim() === '') return null;
+                  {section.content.map((paragraph) => {
+                    if (paragraph.trim() === "") return null;
                     return (
                       <p
-                        key={pIndex}
+                        key={paragraph.slice(0, 40)}
                         className="text-lg text-muted-foreground leading-relaxed"
                       >
                         {paragraph}

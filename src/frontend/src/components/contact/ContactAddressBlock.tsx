@@ -1,5 +1,5 @@
-import { MapPin } from 'lucide-react';
-import { CONTACT_ADDRESS } from '@/lib/contactConfig';
+import { CONTACT_ADDRESS } from "@/lib/contactConfig";
+import { MapPin } from "lucide-react";
 
 export function ContactAddressBlock() {
   return (
@@ -9,7 +9,9 @@ export function ContactAddressBlock() {
           <MapPin className="h-6 w-6 text-accent-yellow" />
         </div>
         <div>
-          <h3 className="text-xl font-semibold text-foreground mb-3">Office Address</h3>
+          <h3 className="text-xl font-semibold text-foreground mb-3">
+            Office Address
+          </h3>
           <p className="text-lg text-muted-foreground leading-relaxed">
             {CONTACT_ADDRESS}
           </p>

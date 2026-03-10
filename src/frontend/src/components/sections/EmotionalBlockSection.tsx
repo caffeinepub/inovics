@@ -8,12 +8,13 @@ export function EmotionalBlockSection() {
             If You Step Away for 30 Days… What Happens?
           </h2>
           <p className="text-xl sm:text-2xl text-muted-foreground leading-relaxed">
-            Most family businesses can't answer that question confidently. The founder is the
-            system. Every decision, every approval, every crisis flows through one person.
+            Most family businesses can't answer that question confidently. The
+            founder is the system. Every decision, every approval, every crisis
+            flows through one person.
           </p>
           <p className="text-xl sm:text-2xl text-muted-foreground leading-relaxed">
-            That's not a business. That's a dependency. Inovics builds the infrastructure that lets
-            you lead strategically—not operationally.
+            That's not a business. That's a dependency. Inovics builds the
+            infrastructure that lets you lead strategically—not operationally.
           </p>
         </div>
       </div>

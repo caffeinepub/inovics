@@ -1,23 +1,23 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useActor } from './useActor';
-import { useInternetIdentity } from './useInternetIdentity';
-import { useBackendHealthCheck } from './useBackendHealthCheck';
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useActor } from "./useActor";
+import { useBackendHealthCheck } from "./useBackendHealthCheck";
+import { useInternetIdentity } from "./useInternetIdentity";
 
-export function useAdminStatus(enabled: boolean = true) {
+export function useAdminStatus(enabled = true) {
   const { actor, isFetching: actorFetching } = useActor();
   const { identity } = useInternetIdentity();
   const { checkHealth } = useBackendHealthCheck();
-  const queryClient = useQueryClient();
+  const _queryClient = useQueryClient();
 
   // Include principal in query key to prevent cross-identity cache reuse
   // For credential users, use a generic key since they don't have a principal
-  const principalId = identity?.getPrincipal().toString() || 'credential-user';
+  const principalId = identity?.getPrincipal().toString() || "credential-user";
 
   const query = useQuery<{ isAdmin: boolean }>({
-    queryKey: ['adminStatus', principalId],
+    queryKey: ["adminStatus", principalId],
     queryFn: async () => {
       if (!actor) {
-        throw new Error('Actor not available');
+        throw new Error("Actor not available");
       }
 
       try {
@@ -26,9 +26,9 @@ export function useAdminStatus(enabled: boolean = true) {
       } catch (error: any) {
         // Gracefully handle authorization errors - treat as non-admin
         if (
-          error.message?.includes('Unauthorized') ||
-          error.message?.includes('trap') ||
-          error.message?.includes('permission')
+          error.message?.includes("Unauthorized") ||
+          error.message?.includes("trap") ||
+          error.message?.includes("permission")
         ) {
           return { isAdmin: false };
         }
@@ -42,7 +42,7 @@ export function useAdminStatus(enabled: boolean = true) {
 
   const retryConnection = async () => {
     const healthResult = await checkHealth();
-    if (healthResult.data?.status === 'reachable') {
+    if (healthResult.data?.status === "reachable") {
       await query.refetch();
     }
     return healthResult;

@@ -45,6 +45,14 @@ actor {
     "Backend is reachable";
   };
 
+  public shared ({ caller }) func resetAdminSystem() : async () {
+    // No authorization check - this function intentionally allows resetting the admin system
+    // to recover from lost admin access. After reset, the next user can claim admin via
+    // the bootstrap token mechanism.
+    adminBootstrapToken := null;
+    adminInitialized := false;
+  };
+
   public func addLead(
     firstName : Text,
     lastName : Text,
@@ -182,15 +190,5 @@ actor {
       Runtime.trap("Unauthorized: Only admins can grant admin privileges");
     };
     AccessControl.assignRole(accessControlState, caller, target, #admin);
-  };
-
-  public shared ({ caller }) func adminReset() : async () {
-    // SECURITY: Only existing admins can reset the admin initialization state
-    // This allows recovery when an admin needs to reinitialize the system
-    if (not AccessControl.isAdmin(accessControlState, caller)) {
-      Runtime.trap("Unauthorized: Only admins can reset admin initialization");
-    };
-    adminInitialized := false;
-    adminBootstrapToken := null;
   };
 };

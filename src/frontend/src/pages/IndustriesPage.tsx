@@ -1,16 +1,18 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { IndustriesLeadGenForm } from '@/components/forms/IndustriesLeadGenForm';
-import { bookStrategyCall } from '@/lib/strategyCall';
-import { PageHero } from '@/components/sections/PageHero';
-import { IndustryBlock } from '@/components/industries/IndustryBlock';
-import { CaseStudyDetailsModal } from '@/components/industries/CaseStudyDetailsModal';
-import { industriesContent } from '@/components/industries/industriesContent';
-import { StandardBulletList } from '@/components/shared/StandardBulletList';
-import type { CaseStudy } from '@/components/industries/industriesContent';
+import { IndustriesLeadGenForm } from "@/components/forms/IndustriesLeadGenForm";
+import { CaseStudyDetailsModal } from "@/components/industries/CaseStudyDetailsModal";
+import { IndustryBlock } from "@/components/industries/IndustryBlock";
+import { industriesContent } from "@/components/industries/industriesContent";
+import type { CaseStudy } from "@/components/industries/industriesContent";
+import { PageHero } from "@/components/sections/PageHero";
+import { StandardBulletList } from "@/components/shared/StandardBulletList";
+import { Button } from "@/components/ui/button";
+import { bookStrategyCall } from "@/lib/strategyCall";
+import { useState } from "react";
 
 export function IndustriesPage() {
-  const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(null);
+  const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(
+    null,
+  );
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleCaseStudyClick = (caseStudy: CaseStudy) => {
@@ -52,7 +54,11 @@ export function IndustriesPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <p className="text-xl sm:text-2xl text-muted-foreground leading-relaxed">
-              We work with businesses that have <strong className="text-foreground">outgrown manual systems</strong> but lack the internal capacity to architect transformation.
+              We work with businesses that have{" "}
+              <strong className="text-foreground">
+                outgrown manual systems
+              </strong>{" "}
+              but lack the internal capacity to architect transformation.
             </p>
           </div>
         </div>
@@ -83,11 +89,11 @@ export function IndustriesPage() {
             <div className="bg-background border border-border rounded-xl p-8 lg:p-10">
               <StandardBulletList
                 items={[
-                  'Founder-dependent decision-making',
-                  'Fragmented data across tools',
-                  'Manual, repetitive workflows',
-                  'Lack of real-time visibility',
-                  'No governance structure',
+                  "Founder-dependent decision-making",
+                  "Fragmented data across tools",
+                  "Manual, repetitive workflows",
+                  "Lack of real-time visibility",
+                  "No governance structure",
                 ]}
               />
               <p className="text-xl font-semibold text-foreground text-center mt-8">

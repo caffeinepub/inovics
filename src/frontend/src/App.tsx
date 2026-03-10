@@ -1,33 +1,37 @@
-import { useEffect, useState } from 'react';
-import { TopNav } from './components/TopNav';
-import { ScrollToTopControl } from './components/ScrollToTopControl';
-import { HeroSection } from './components/sections/HeroSection';
-import { ProblemSection } from './components/sections/ProblemSection';
-import { WhatInovicsDoesSection } from './components/sections/WhatInovicsDoesSection';
-import { ControlFrameworkSection } from './components/sections/ControlFrameworkSection';
-import { OutcomesSection } from './components/sections/OutcomesSection';
-import { IndustriesSection } from './components/sections/IndustriesSection';
-import { ProcessSection } from './components/sections/ProcessSection';
-import { EmotionalBlockSection } from './components/sections/EmotionalBlockSection';
-import { InsightsSection } from './components/sections/InsightsSection';
-import { FinalCtaSection } from './components/sections/FinalCtaSection';
-import { ContactSection } from './components/sections/ContactSection';
-import { Footer } from './components/Footer';
-import { ControlFrameworkPage } from './pages/ControlFrameworkPage';
-import { IndustriesPage } from './pages/IndustriesPage';
-import { ProcessPage } from './pages/ProcessPage';
-import { ContactPage } from './pages/ContactPage';
-import { StrategySessionPage } from './pages/StrategySessionPage';
-import { AdminPage } from './pages/AdminPage';
-import { FaqPage } from './pages/FaqPage';
-import { InsightsPage } from './pages/InsightsPage';
-import { ExcelIsNotABusinessSystemPage } from './pages/insights/ExcelIsNotABusinessSystemPage';
-import { WhyGrowthBreaksWeakInfrastructurePage } from './pages/insights/WhyGrowthBreaksWeakInfrastructurePage';
-import { FromFounderDrivenToSystemDrivenPage } from './pages/insights/FromFounderDrivenToSystemDrivenPage';
-import { CrmVsErpWhatGrowingSmesActuallyNeedPage } from './pages/insights/CrmVsErpWhatGrowingSmesActuallyNeedPage';
-import { TheHiddenCostOfManualReportingPage } from './pages/insights/TheHiddenCostOfManualReportingPage';
-import { CanYourBusinessRunWithoutYouPage } from './pages/insights/CanYourBusinessRunWithoutYouPage';
-import { isValidInsightSlug, INSIGHT_SLUGS } from './pages/insights/insightSlugs';
+import { useEffect, useState } from "react";
+import type { ComponentType } from "react";
+import { Footer } from "./components/Footer";
+import { ScrollToTopControl } from "./components/ScrollToTopControl";
+import { TopNav } from "./components/TopNav";
+import { ContactSection } from "./components/sections/ContactSection";
+import { ControlFrameworkSection } from "./components/sections/ControlFrameworkSection";
+import { EmotionalBlockSection } from "./components/sections/EmotionalBlockSection";
+import { FinalCtaSection } from "./components/sections/FinalCtaSection";
+import { HeroSection } from "./components/sections/HeroSection";
+import { IndustriesSection } from "./components/sections/IndustriesSection";
+import { InsightsSection } from "./components/sections/InsightsSection";
+import { OutcomesSection } from "./components/sections/OutcomesSection";
+import { ProblemSection } from "./components/sections/ProblemSection";
+import { ProcessSection } from "./components/sections/ProcessSection";
+import { WhatInovicsDoesSection } from "./components/sections/WhatInovicsDoesSection";
+import { AdminPage } from "./pages/AdminPage";
+import { ContactPage } from "./pages/ContactPage";
+import { ControlFrameworkPage } from "./pages/ControlFrameworkPage";
+import { FaqPage } from "./pages/FaqPage";
+import { IndustriesPage } from "./pages/IndustriesPage";
+import { InsightsPage } from "./pages/InsightsPage";
+import { ProcessPage } from "./pages/ProcessPage";
+import { StrategySessionPage } from "./pages/StrategySessionPage";
+import { CanYourBusinessRunWithoutYouPage } from "./pages/insights/CanYourBusinessRunWithoutYouPage";
+import { CrmVsErpWhatGrowingSmesActuallyNeedPage } from "./pages/insights/CrmVsErpWhatGrowingSmesActuallyNeedPage";
+import { ExcelIsNotABusinessSystemPage } from "./pages/insights/ExcelIsNotABusinessSystemPage";
+import { FromFounderDrivenToSystemDrivenPage } from "./pages/insights/FromFounderDrivenToSystemDrivenPage";
+import { TheHiddenCostOfManualReportingPage } from "./pages/insights/TheHiddenCostOfManualReportingPage";
+import { WhyGrowthBreaksWeakInfrastructurePage } from "./pages/insights/WhyGrowthBreaksWeakInfrastructurePage";
+import {
+  INSIGHT_SLUGS,
+  isValidInsightSlug,
+} from "./pages/insights/insightSlugs";
 
 function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
@@ -35,22 +39,22 @@ function App() {
   useEffect(() => {
     const handlePopState = () => {
       setCurrentPath(window.location.pathname);
-      window.scrollTo({ top: 0, behavior: 'auto' });
+      window.scrollTo({ top: 0, behavior: "auto" });
     };
 
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
   // Check if we're on a standalone page
-  const isControlFrameworkPage = currentPath === '/control-framework';
-  const isIndustriesPage = currentPath === '/industries';
-  const isProcessPage = currentPath === '/process';
-  const isContactPage = currentPath === '/contact';
-  const isStrategySessionPage = currentPath === '/strategy-session';
-  const isAdminPage = currentPath === '/admin';
-  const isFaqPage = currentPath === '/faq';
-  const isInsightsHubPage = currentPath === '/insights';
+  const isControlFrameworkPage = currentPath === "/control-framework";
+  const isIndustriesPage = currentPath === "/industries";
+  const isProcessPage = currentPath === "/process";
+  const isContactPage = currentPath === "/contact";
+  const isStrategySessionPage = currentPath === "/strategy-session";
+  const isAdminPage = currentPath === "/admin";
+  const isFaqPage = currentPath === "/faq";
+  const isInsightsHubPage = currentPath === "/insights";
 
   // Check for insight article pages
   const insightSlugMatch = currentPath.match(/^\/insights\/(.+)$/);
@@ -59,7 +63,7 @@ function App() {
 
   // Render insight article pages
   if (isInsightArticlePage && insightSlug) {
-    let ArticleComponent;
+    let ArticleComponent: ComponentType | null = null;
     switch (insightSlug) {
       case INSIGHT_SLUGS.EXCEL_IS_NOT_A_BUSINESS_SYSTEM:
         ArticleComponent = ExcelIsNotABusinessSystemPage;

@@ -1,4 +1,4 @@
-import { HeroSlider } from './HeroSlider';
+import { HeroSlider } from "./HeroSlider";
 
 export function HeroSection() {
   return (
@@ -11,9 +11,10 @@ export function HeroSection() {
         <div
           className="absolute inset-0 opacity-20"
           style={{
-            backgroundImage: 'url(/assets/generated/inovics-data-grid-bg-logo-palette.dim_1920x1080.png)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundImage:
+              "url(/assets/generated/inovics-data-grid-bg-logo-palette.dim_1920x1080.png)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         />
       </div>

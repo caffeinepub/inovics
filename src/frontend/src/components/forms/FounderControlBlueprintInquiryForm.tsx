@@ -1,121 +1,118 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { useLeadSubmission } from '@/hooks/useLeadSubmission';
-import { CheckCircle2, Loader2, WifiOff, RefreshCw } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { submitFormByEmail } from "@/lib/mailtoSubmit";
+import { CheckCircle2 } from "lucide-react";
+import { useState } from "react";
 
 const industries = [
-  'Manufacturing',
-  'Distribution & Logistics',
-  'Retail & E-commerce',
-  'Professional Services',
-  'Healthcare',
-  'Real Estate',
-  'Food & Beverage',
-  'Technology',
-  'Other',
+  "Manufacturing",
+  "Distribution & Logistics",
+  "Retail & E-commerce",
+  "Professional Services",
+  "Healthcare",
+  "Real Estate",
+  "Food & Beverage",
+  "Technology",
+  "Other",
 ];
 
-const revenueRanges = [
-  '₹5–10 Cr',
-  '₹10–25 Cr',
-  '₹25–50 Cr',
-  '50+ Cr',
-];
+const revenueRanges = ["₹5–10 Cr", "₹10–25 Cr", "₹25–50 Cr", "50+ Cr"];
 
 export function FounderControlBlueprintInquiryForm() {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    companyName: '',
-    industry: '',
-    revenueRange: '',
-    numberOfEmployees: '',
-    operationalBottleneck: '',
-    email: '',
-    mobile: '',
+    firstName: "",
+    lastName: "",
+    companyName: "",
+    industry: "",
+    revenueRange: "",
+    numberOfEmployees: "",
+    operationalBottleneck: "",
+    email: "",
+    mobile: "",
   });
-
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const { submitLead, isLoading, isSuccess, error, actorInitializing, retry } = useLeadSubmission();
-
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
+  const [submitted, setSubmitted] = useState(false);
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
-
-    if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
-    if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
-    if (!formData.companyName.trim()) newErrors.companyName = 'Company name is required';
-    if (!formData.industry) newErrors.industry = 'Industry is required';
-    if (!formData.revenueRange) newErrors.revenueRange = 'Revenue range is required';
-    if (!formData.numberOfEmployees.trim()) newErrors.numberOfEmployees = 'Number of employees is required';
-    if (!formData.operationalBottleneck.trim()) newErrors.operationalBottleneck = 'Please describe your biggest operational bottleneck';
-    if (!formData.email.trim()) {
-      newErrors.email = 'Work email is required';
-    } else if (!validateEmail(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
-    }
-    if (!formData.mobile.trim()) newErrors.mobile = 'Mobile number is required';
-
+    if (!formData.firstName.trim())
+      newErrors.firstName = "First name is required";
+    if (!formData.lastName.trim()) newErrors.lastName = "Last name is required";
+    if (!formData.companyName.trim())
+      newErrors.companyName = "Company name is required";
+    if (!formData.industry) newErrors.industry = "Industry is required";
+    if (!formData.revenueRange)
+      newErrors.revenueRange = "Revenue range is required";
+    if (!formData.numberOfEmployees.trim())
+      newErrors.numberOfEmployees = "Number of employees is required";
+    if (!formData.operationalBottleneck.trim())
+      newErrors.operationalBottleneck =
+        "Please describe your biggest operational bottleneck";
+    if (!formData.email.trim()) newErrors.email = "Work email is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+      newErrors.email = "Please enter a valid email address";
+    if (!formData.mobile.trim()) newErrors.mobile = "Mobile number is required";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!validateForm()) return;
+    const body = `Founder Control Blueprint™ Inquiry
 
-    const message = `Contact Page Inquiry - Founder Control Blueprint™ Request
-
+Name: ${formData.firstName} ${formData.lastName}
 Company: ${formData.companyName}
 Industry: ${formData.industry}
-Revenue Range: ${formData.revenueRange}
+Annual Revenue: ${formData.revenueRange}
 Number of Employees: ${formData.numberOfEmployees}
+Work Email: ${formData.email}
 Mobile: ${formData.mobile}
 
 Biggest Operational Bottleneck:
 ${formData.operationalBottleneck}`;
-
-    await submitLead({
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      companyName: formData.companyName,
-      industry: formData.industry,
-      revenueRange: formData.revenueRange,
-      operationalBottleneck: formData.operationalBottleneck,
-      email: formData.email,
-      mobileNumber: formData.mobile,
-      message,
-    });
+    submitFormByEmail(
+      `Founder Control Blueprint™ Inquiry – ${formData.companyName}`,
+      body,
+    );
+    setSubmitted(true);
   };
 
-  const handleRetry = async () => {
-    await retry();
-  };
-
-  if (isSuccess) {
+  if (submitted) {
     return (
       <div className="bg-card border border-border rounded-xl p-8 lg:p-10 text-center">
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent-yellow/10 mb-6">
           <CheckCircle2 className="h-8 w-8 text-accent-yellow" />
         </div>
-        <h3 className="text-2xl font-bold text-foreground mb-4">Thank You!</h3>
-        <p className="text-lg text-muted-foreground mb-6">
-          Your inquiry has been received. Our team will review your submission and get back to you shortly.
+        <h3 className="text-2xl font-bold text-foreground mb-4">
+          Opening Your Email Client…
+        </h3>
+        <p className="text-lg text-muted-foreground mb-4">
+          Your details have been prepared. Please send the email that just
+          opened to complete your inquiry.
+        </p>
+        <p className="text-sm text-muted-foreground">
+          If nothing opened, email us at{" "}
+          <a
+            href="mailto:contact@weareinovics.com"
+            className="text-accent-yellow underline"
+          >
+            contact@weareinovics.com
+          </a>
         </p>
         <Button
-          onClick={() => window.location.reload()}
+          onClick={() => setSubmitted(false)}
           variant="outline"
-          className="border-accent-yellow text-accent-yellow hover:bg-accent-yellow/10"
+          className="mt-6 border-accent-yellow text-accent-yellow hover:bg-accent-yellow/10"
         >
           Submit Another Inquiry
         </Button>
@@ -124,31 +121,11 @@ ${formData.operationalBottleneck}`;
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-card border border-border rounded-xl p-8 lg:p-10">
-      {actorInitializing && (
-        <Alert className="mb-6">
-          <Loader2 className="h-4 w-4 animate-spin" />
-          <AlertDescription>
-            Connecting to backend, please wait...
-          </AlertDescription>
-        </Alert>
-      )}
-
-      {error && (
-        <Alert variant="destructive" className="mb-6">
-          <WifiOff className="h-4 w-4" />
-          <AlertDescription className="flex items-center justify-between">
-            <span>{error}</span>
-            {error.includes('retry') && (
-              <Button onClick={handleRetry} variant="outline" size="sm" className="ml-4">
-                <RefreshCw className="mr-2 h-3 w-3" />
-                Retry
-              </Button>
-            )}
-          </AlertDescription>
-        </Alert>
-      )}
-
+    <form
+      onSubmit={handleSubmit}
+      className="bg-card border border-border rounded-xl p-8 lg:p-10"
+      data-ocid="blueprint_form.panel"
+    >
       <div className="grid md:grid-cols-2 gap-6 mb-6">
         <div>
           <Label htmlFor="firstName" className="text-foreground mb-2 block">
@@ -157,13 +134,16 @@ ${formData.operationalBottleneck}`;
           <Input
             id="firstName"
             value={formData.firstName}
-            onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-            className={errors.firstName ? 'border-destructive' : ''}
-            disabled={isLoading || actorInitializing}
+            onChange={(e) =>
+              setFormData({ ...formData, firstName: e.target.value })
+            }
+            className={errors.firstName ? "border-destructive" : ""}
+            data-ocid="blueprint_form.firstName.input"
           />
-          {errors.firstName && <p className="text-sm text-destructive mt-1">{errors.firstName}</p>}
+          {errors.firstName && (
+            <p className="text-sm text-destructive mt-1">{errors.firstName}</p>
+          )}
         </div>
-
         <div>
           <Label htmlFor="lastName" className="text-foreground mb-2 block">
             Last Name <span className="text-destructive">*</span>
@@ -171,14 +151,17 @@ ${formData.operationalBottleneck}`;
           <Input
             id="lastName"
             value={formData.lastName}
-            onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-            className={errors.lastName ? 'border-destructive' : ''}
-            disabled={isLoading || actorInitializing}
+            onChange={(e) =>
+              setFormData({ ...formData, lastName: e.target.value })
+            }
+            className={errors.lastName ? "border-destructive" : ""}
+            data-ocid="blueprint_form.lastName.input"
           />
-          {errors.lastName && <p className="text-sm text-destructive mt-1">{errors.lastName}</p>}
+          {errors.lastName && (
+            <p className="text-sm text-destructive mt-1">{errors.lastName}</p>
+          )}
         </div>
       </div>
-
       <div className="mb-6">
         <Label htmlFor="companyName" className="text-foreground mb-2 block">
           Company Name <span className="text-destructive">*</span>
@@ -186,13 +169,16 @@ ${formData.operationalBottleneck}`;
         <Input
           id="companyName"
           value={formData.companyName}
-          onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-          className={errors.companyName ? 'border-destructive' : ''}
-          disabled={isLoading || actorInitializing}
+          onChange={(e) =>
+            setFormData({ ...formData, companyName: e.target.value })
+          }
+          className={errors.companyName ? "border-destructive" : ""}
+          data-ocid="blueprint_form.companyName.input"
         />
-        {errors.companyName && <p className="text-sm text-destructive mt-1">{errors.companyName}</p>}
+        {errors.companyName && (
+          <p className="text-sm text-destructive mt-1">{errors.companyName}</p>
+        )}
       </div>
-
       <div className="grid md:grid-cols-2 gap-6 mb-6">
         <div>
           <Label htmlFor="industry" className="text-foreground mb-2 block">
@@ -200,78 +186,105 @@ ${formData.operationalBottleneck}`;
           </Label>
           <Select
             value={formData.industry}
-            onValueChange={(value) => setFormData({ ...formData, industry: value })}
-            disabled={isLoading || actorInitializing}
+            onValueChange={(v) => setFormData({ ...formData, industry: v })}
           >
-            <SelectTrigger id="industry" className={errors.industry ? 'border-destructive' : ''}>
+            <SelectTrigger
+              id="industry"
+              className={errors.industry ? "border-destructive" : ""}
+              data-ocid="blueprint_form.industry.select"
+            >
               <SelectValue placeholder="Select industry" />
             </SelectTrigger>
             <SelectContent>
-              {industries.map((industry) => (
-                <SelectItem key={industry} value={industry}>
-                  {industry}
+              {industries.map((i) => (
+                <SelectItem key={i} value={i}>
+                  {i}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
-          {errors.industry && <p className="text-sm text-destructive mt-1">{errors.industry}</p>}
+          {errors.industry && (
+            <p className="text-sm text-destructive mt-1">{errors.industry}</p>
+          )}
         </div>
-
         <div>
           <Label htmlFor="revenueRange" className="text-foreground mb-2 block">
             Annual Revenue Range <span className="text-destructive">*</span>
           </Label>
           <Select
             value={formData.revenueRange}
-            onValueChange={(value) => setFormData({ ...formData, revenueRange: value })}
-            disabled={isLoading || actorInitializing}
+            onValueChange={(v) => setFormData({ ...formData, revenueRange: v })}
           >
-            <SelectTrigger id="revenueRange" className={errors.revenueRange ? 'border-destructive' : ''}>
+            <SelectTrigger
+              id="revenueRange"
+              className={errors.revenueRange ? "border-destructive" : ""}
+              data-ocid="blueprint_form.revenueRange.select"
+            >
               <SelectValue placeholder="Select range" />
             </SelectTrigger>
             <SelectContent>
-              {revenueRanges.map((range) => (
-                <SelectItem key={range} value={range}>
-                  {range}
+              {revenueRanges.map((r) => (
+                <SelectItem key={r} value={r}>
+                  {r}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
-          {errors.revenueRange && <p className="text-sm text-destructive mt-1">{errors.revenueRange}</p>}
+          {errors.revenueRange && (
+            <p className="text-sm text-destructive mt-1">
+              {errors.revenueRange}
+            </p>
+          )}
         </div>
       </div>
-
       <div className="mb-6">
-        <Label htmlFor="numberOfEmployees" className="text-foreground mb-2 block">
+        <Label
+          htmlFor="numberOfEmployees"
+          className="text-foreground mb-2 block"
+        >
           Number of Employees <span className="text-destructive">*</span>
         </Label>
         <Input
           id="numberOfEmployees"
           value={formData.numberOfEmployees}
-          onChange={(e) => setFormData({ ...formData, numberOfEmployees: e.target.value })}
-          className={errors.numberOfEmployees ? 'border-destructive' : ''}
-          disabled={isLoading || actorInitializing}
+          onChange={(e) =>
+            setFormData({ ...formData, numberOfEmployees: e.target.value })
+          }
+          className={errors.numberOfEmployees ? "border-destructive" : ""}
           placeholder="e.g., 25"
+          data-ocid="blueprint_form.employees.input"
         />
-        {errors.numberOfEmployees && <p className="text-sm text-destructive mt-1">{errors.numberOfEmployees}</p>}
+        {errors.numberOfEmployees && (
+          <p className="text-sm text-destructive mt-1">
+            {errors.numberOfEmployees}
+          </p>
+        )}
       </div>
-
       <div className="mb-6">
-        <Label htmlFor="operationalBottleneck" className="text-foreground mb-2 block">
-          Biggest Operational Bottleneck <span className="text-destructive">*</span>
+        <Label
+          htmlFor="operationalBottleneck"
+          className="text-foreground mb-2 block"
+        >
+          Biggest Operational Bottleneck{" "}
+          <span className="text-destructive">*</span>
         </Label>
         <Textarea
           id="operationalBottleneck"
           value={formData.operationalBottleneck}
-          onChange={(e) => setFormData({ ...formData, operationalBottleneck: e.target.value })}
-          className={errors.operationalBottleneck ? 'border-destructive' : ''}
+          onChange={(e) =>
+            setFormData({ ...formData, operationalBottleneck: e.target.value })
+          }
+          className={errors.operationalBottleneck ? "border-destructive" : ""}
           rows={4}
-          disabled={isLoading || actorInitializing}
           placeholder="Describe your biggest operational challenge..."
+          data-ocid="blueprint_form.bottleneck.textarea"
         />
-        {errors.operationalBottleneck && <p className="text-sm text-destructive mt-1">{errors.operationalBottleneck}</p>}
+        {errors.operationalBottleneck && (
+          <p className="text-sm text-destructive mt-1">
+            {errors.operationalBottleneck}
+          </p>
+        )}
       </div>
-
       <div className="grid md:grid-cols-2 gap-6 mb-6">
         <div>
           <Label htmlFor="email" className="text-foreground mb-2 block">
@@ -281,13 +294,16 @@ ${formData.operationalBottleneck}`;
             id="email"
             type="email"
             value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className={errors.email ? 'border-destructive' : ''}
-            disabled={isLoading || actorInitializing}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
+            className={errors.email ? "border-destructive" : ""}
+            data-ocid="blueprint_form.email.input"
           />
-          {errors.email && <p className="text-sm text-destructive mt-1">{errors.email}</p>}
+          {errors.email && (
+            <p className="text-sm text-destructive mt-1">{errors.email}</p>
+          )}
         </div>
-
         <div>
           <Label htmlFor="mobile" className="text-foreground mb-2 block">
             Mobile Number <span className="text-destructive">*</span>
@@ -296,34 +312,24 @@ ${formData.operationalBottleneck}`;
             id="mobile"
             type="tel"
             value={formData.mobile}
-            onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
-            className={errors.mobile ? 'border-destructive' : ''}
-            disabled={isLoading || actorInitializing}
+            onChange={(e) =>
+              setFormData({ ...formData, mobile: e.target.value })
+            }
+            className={errors.mobile ? "border-destructive" : ""}
+            data-ocid="blueprint_form.mobile.input"
           />
-          {errors.mobile && <p className="text-sm text-destructive mt-1">{errors.mobile}</p>}
+          {errors.mobile && (
+            <p className="text-sm text-destructive mt-1">{errors.mobile}</p>
+          )}
         </div>
       </div>
-
       <Button
         type="submit"
-        disabled={isLoading || actorInitializing}
         className="w-full bg-accent-yellow text-navy hover:bg-accent-yellow/90 font-semibold text-lg py-6"
+        data-ocid="blueprint_form.submit_button"
       >
-        {isLoading ? (
-          <>
-            <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-            Submitting...
-          </>
-        ) : actorInitializing ? (
-          <>
-            <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-            Connecting...
-          </>
-        ) : (
-          'Submit Inquiry'
-        )}
+        Submit Inquiry
       </Button>
-
       <p className="text-sm text-muted-foreground text-center mt-4">
         Our team reviews all submissions personally.
       </p>

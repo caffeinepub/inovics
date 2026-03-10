@@ -1,15 +1,27 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Calendar, Download, Mail, MessageCircle } from 'lucide-react';
-import { bookStrategyCall } from '@/lib/strategyCall';
-import { CONTACT_CONFIG, CONTACT_EMAIL, COMPANY_PROFILE_URL } from '@/lib/contactConfig';
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  COMPANY_PROFILE_URL,
+  CONTACT_CONFIG,
+  CONTACT_EMAIL,
+} from "@/lib/contactConfig";
+import { bookStrategyCall } from "@/lib/strategyCall";
+import { Calendar, Download, Mail, MessageCircle } from "lucide-react";
 
 export function ContactOptionsGrid() {
   const handleWhatsAppClick = () => {
     if (CONTACT_CONFIG.whatsappUrl) {
-      window.open(CONTACT_CONFIG.whatsappUrl, '_blank');
+      window.open(CONTACT_CONFIG.whatsappUrl, "_blank");
     } else {
-      alert('WhatsApp Business link is not configured. Please contact us via email.');
+      alert(
+        "WhatsApp Business link is not configured. Please contact us via email.",
+      );
     }
   };
 
@@ -21,11 +33,14 @@ export function ContactOptionsGrid() {
           <div className="w-12 h-12 rounded-lg bg-accent-yellow/10 flex items-center justify-center mb-4">
             <Calendar className="h-6 w-6 text-accent-yellow" />
           </div>
-          <CardTitle className="text-xl text-foreground">Schedule a Founder Strategy Call</CardTitle>
+          <CardTitle className="text-xl text-foreground">
+            Schedule a Founder Strategy Call
+          </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <CardDescription className="text-muted-foreground">
-            Discuss your operational challenges, system gaps, and growth objectives with our transformation team.
+            Discuss your operational challenges, system gaps, and growth
+            objectives with our transformation team.
           </CardDescription>
           <Button
             onClick={bookStrategyCall}
@@ -42,18 +57,25 @@ export function ContactOptionsGrid() {
           <div className="w-12 h-12 rounded-lg bg-accent-yellow/10 flex items-center justify-center mb-4">
             <Download className="h-6 w-6 text-accent-yellow" />
           </div>
-          <CardTitle className="text-xl text-foreground">Download Our Company Profile</CardTitle>
+          <CardTitle className="text-xl text-foreground">
+            Download Our Company Profile
+          </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <CardDescription className="text-muted-foreground">
-            Explore our methodology, industries served, engagement model, and case insights.
+            Explore our methodology, industries served, engagement model, and
+            case insights.
           </CardDescription>
           <Button
             asChild
             variant="outline"
             className="w-full border-accent-yellow text-accent-yellow hover:bg-accent-yellow/10 font-semibold"
           >
-            <a href={COMPANY_PROFILE_URL} target="_blank" rel="noopener noreferrer">
+            <a
+              href={COMPANY_PROFILE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Download Profile
             </a>
           </Button>
@@ -66,7 +88,9 @@ export function ContactOptionsGrid() {
           <div className="w-12 h-12 rounded-lg bg-accent-yellow/10 flex items-center justify-center mb-4">
             <Mail className="h-6 w-6 text-accent-yellow" />
           </div>
-          <CardTitle className="text-xl text-foreground">Email Us Directly</CardTitle>
+          <CardTitle className="text-xl text-foreground">
+            Email Us Directly
+          </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <CardDescription className="text-muted-foreground">
@@ -77,9 +101,7 @@ export function ContactOptionsGrid() {
             variant="outline"
             className="w-full border-accent-yellow text-accent-yellow hover:bg-accent-yellow/10 font-semibold"
           >
-            <a href={`mailto:${CONTACT_EMAIL}`}>
-              Send Email
-            </a>
+            <a href={`mailto:${CONTACT_EMAIL}`}>Send Email</a>
           </Button>
         </CardContent>
       </Card>
@@ -90,7 +112,9 @@ export function ContactOptionsGrid() {
           <div className="w-12 h-12 rounded-lg bg-accent-yellow/10 flex items-center justify-center mb-4">
             <MessageCircle className="h-6 w-6 text-accent-yellow" />
           </div>
-          <CardTitle className="text-xl text-foreground">WhatsApp Business Chat</CardTitle>
+          <CardTitle className="text-xl text-foreground">
+            WhatsApp Business Chat
+          </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <CardDescription className="text-muted-foreground">

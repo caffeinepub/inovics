@@ -3,134 +3,113 @@
 @tailwind utilities;
 
 @layer base {
-    :root {
-        --radius: 0.5rem;
-        
-        /* INOVICS Logo-matched Navy/Teal Base Colors */
-        --navy: 0.20 0.10 210;
-        --navy-dark: 0.14 0.10 210;
-        --charcoal: 0.18 0.04 215;
-        
-        /* INOVICS Logo-matched Golden Yellow Accent */
-        --accent-yellow: 0.82 0.20 75;
-        
-        /* Dark Mode Design System (logo-palette aligned) */
-        --background: 0.16 0.10 210;
-        --foreground: 0.98 0.01 75;
-        --card: 0.22 0.08 210;
-        --card-foreground: 0.98 0.01 75;
-        --popover: 0.22 0.08 210;
-        --popover-foreground: 0.98 0.01 75;
-        --primary: 0.82 0.20 75;
-        --primary-foreground: 0.16 0.10 210;
-        --secondary: 0.32 0.08 210;
-        --secondary-foreground: 0.98 0.01 75;
-        --muted: 0.32 0.08 210;
-        --muted-foreground: 0.68 0.06 210;
-        --accent: 0.32 0.08 210;
-        --accent-foreground: 0.98 0.01 75;
-        --destructive: 0.55 0.22 25;
-        --destructive-foreground: 0.98 0.01 75;
-        --border: 0.38 0.08 210;
-        --input: 0.38 0.08 210;
-        --ring: 0.82 0.20 75;
-        --chart-1: 0.65 0.20 200;
-        --chart-2: 0.60 0.15 280;
-        --chart-3: 0.70 0.18 150;
-        --chart-4: 0.75 0.16 320;
-        --chart-5: 0.68 0.19 40;
-    }
+  :root {
+    --radius: 0.5rem;
 
-    .dark {
-        --background: 0.16 0.10 210;
-        --foreground: 0.98 0.01 75;
-        --card: 0.22 0.08 210;
-        --card-foreground: 0.98 0.01 75;
-        --popover: 0.22 0.08 210;
-        --popover-foreground: 0.98 0.01 75;
-        --primary: 0.82 0.20 75;
-        --primary-foreground: 0.16 0.10 210;
-        --secondary: 0.32 0.08 210;
-        --secondary-foreground: 0.98 0.01 75;
-        --muted: 0.32 0.08 210;
-        --muted-foreground: 0.68 0.06 210;
-        --accent: 0.32 0.08 210;
-        --accent-foreground: 0.98 0.01 75;
-        --destructive: 0.55 0.22 25;
-        --destructive-foreground: 0.98 0.01 75;
-        --border: 0.38 0.08 210;
-        --input: 0.38 0.08 210;
-        --ring: 0.82 0.20 75;
-        --chart-1: 0.65 0.20 200;
-        --chart-2: 0.60 0.15 280;
-        --chart-3: 0.70 0.18 150;
-        --chart-4: 0.75 0.16 320;
-        --chart-5: 0.68 0.19 40;
-    }
+    /* INOVICS Brand Colors */
+    --navy: 0.2 0.1 210;
+    --navy-dark: 0.14 0.1 210;
+    --charcoal: 0.18 0.04 215;
+    --accent-yellow: 0.82 0.2 75;
 
-    * {
-        @apply border-border;
-    }
-    
-    body {
-        @apply bg-background text-foreground;
-        font-feature-settings: "rlig" 1, "calt" 1;
-    }
-    
-    html {
-        scroll-behavior: smooth;
-    }
-    
-    /* Scroll margin for anchor links to account for sticky header */
-    section[id] {
-        scroll-margin-top: 6rem;
-    }
+    /* Background: #0D1E35 navy blue */
+    --background: 0.17 0.07 235;
+    --foreground: 1 0 0;
+    --card: 0.22 0.07 235;
+    --card-foreground: 1 0 0;
+    --popover: 0.22 0.07 235;
+    --popover-foreground: 1 0 0;
+    /* Primary: #E8AE20 golden yellow */
+    --primary: 0.76 0.17 80;
+    --primary-foreground: 0.17 0.07 235;
+    --secondary: 0.28 0.07 235;
+    --secondary-foreground: 1 0 0;
+    --muted: 0.28 0.07 235;
+    --muted-foreground: 0.9 0.02 235;
+    --accent: 0.28 0.07 235;
+    --accent-foreground: 1 0 0;
+    --destructive: 0.55 0.22 25;
+    --destructive-foreground: 1 0 0;
+    --border: 0.32 0.07 235;
+    --input: 0.32 0.07 235;
+    --ring: 0.76 0.17 80;
+    --chart-1: 0.65 0.2 200;
+    --chart-2: 0.6 0.15 280;
+    --chart-3: 0.7 0.18 150;
+    --chart-4: 0.75 0.16 320;
+    --chart-5: 0.68 0.19 40;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    background-color: #0d1e35;
+    color: #ffffff;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: #0d1e35;
+  }
+
+  /* All headings use INOVICS golden yellow accent */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: #e8ae20;
+  }
+
+  /* Scroll margin for anchor links */
+  section[id] {
+    scroll-margin-top: 6rem;
+  }
 }
 
 @layer utilities {
-    /* Decorative visual utility - prevents layout shift and ensures responsive rendering */
-    .decorative-visual {
-        display: block;
-        max-width: 100%;
-        height: auto;
-        object-fit: cover;
+  .decorative-visual {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .process-punchline {
+    @apply mt-4 pt-4 border-l-4 border-accent-yellow/40 pl-4 bg-accent-yellow/5 py-3 rounded-r;
+  }
+
+  .process-investment-block {
+    @apply p-6 bg-accent-yellow/10 border-2 border-accent-yellow/30 rounded-lg space-y-2;
+  }
+
+  .standard-bullet {
+    @apply mt-0.5 w-5 h-5 rounded-full bg-accent-yellow flex items-center justify-center;
+  }
+
+  .standard-bullet svg {
+    @apply text-navy;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
     }
-    
-    /* Text clamping utility for article previews */
-    .line-clamp-2 {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-    
-    /* Process Section Content Hierarchy Utilities */
-    .process-punchline {
-        @apply mt-4 pt-4 border-l-4 border-accent-yellow/40 pl-4 bg-accent-yellow/5 py-3 rounded-r;
-    }
-    
-    .process-investment-block {
-        @apply p-6 bg-accent-yellow/10 border-2 border-accent-yellow/30 rounded-lg space-y-2;
-    }
-    
-    /* Standardized bullet style - yellow circle with tick mark */
-    .standard-bullet {
-        @apply mt-0.5 w-5 h-5 rounded-full bg-accent-yellow flex items-center justify-center;
-    }
-    
-    .standard-bullet svg {
-        @apply text-navy;
-    }
-    
-    /* Reduced motion support */
-    @media (prefers-reduced-motion: reduce) {
-        *,
-        *::before,
-        *::after {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
-            scroll-behavior: auto !important;
-        }
-    }
+  }
 }

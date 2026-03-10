@@ -1,11 +1,11 @@
-import { Button } from '@/components/ui/button';
-import { ContactOptionsGrid } from '@/components/contact/ContactOptionsGrid';
-import { ContactAddressBlock } from '@/components/contact/ContactAddressBlock';
-import { FounderControlBlueprintInquiryForm } from '@/components/forms/FounderControlBlueprintInquiryForm';
-import { Check } from 'lucide-react';
-import { bookStrategyCall } from '@/lib/strategyCall';
-import { PageHero } from '@/components/sections/PageHero';
-import { useEffect } from 'react';
+import { ContactAddressBlock } from "@/components/contact/ContactAddressBlock";
+import { ContactOptionsGrid } from "@/components/contact/ContactOptionsGrid";
+import { FounderControlBlueprintInquiryForm } from "@/components/forms/FounderControlBlueprintInquiryForm";
+import { PageHero } from "@/components/sections/PageHero";
+import { Button } from "@/components/ui/button";
+import { bookStrategyCall } from "@/lib/strategyCall";
+import { Check } from "lucide-react";
+import { useEffect } from "react";
 
 export function ContactPage() {
   useEffect(() => {
@@ -15,7 +15,7 @@ export function ContactPage() {
       const element = document.getElementById(hash);
       if (element) {
         setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
         }, 100);
       }
     }
@@ -38,7 +38,7 @@ export function ContactPage() {
               Choose How You'd Like to Connect
             </h2>
             <ContactOptionsGrid />
-            
+
             {/* Address Block */}
             <div className="mt-12">
               <ContactAddressBlock />
@@ -48,7 +48,10 @@ export function ContactPage() {
       </section>
 
       {/* Inquiry Form Section */}
-      <section id="founder-control-blueprint" className="py-16 lg:py-24 bg-background scroll-mt-20">
+      <section
+        id="founder-control-blueprint"
+        className="py-16 lg:py-24 bg-background scroll-mt-20"
+      >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
@@ -72,11 +75,15 @@ export function ContactPage() {
               Who We Work With
             </h2>
             <div className="bg-background border border-border rounded-xl p-8 lg:p-10">
-              <p className="text-lg text-muted-foreground mb-6">We are best suited for:</p>
+              <p className="text-lg text-muted-foreground mb-6">
+                We are best suited for:
+              </p>
               <div className="space-y-4 mb-8">
                 <div className="flex items-start gap-3">
                   <Check className="h-6 w-6 text-accent-yellow shrink-0 mt-0.5" />
-                  <p className="text-lg text-foreground">₹5–50 Cr revenue businesses</p>
+                  <p className="text-lg text-foreground">
+                    ₹5–50 Cr revenue businesses
+                  </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <Check className="h-6 w-6 text-accent-yellow shrink-0 mt-0.5" />
@@ -84,16 +91,21 @@ export function ContactPage() {
                 </div>
                 <div className="flex items-start gap-3">
                   <Check className="h-6 w-6 text-accent-yellow shrink-0 mt-0.5" />
-                  <p className="text-lg text-foreground">Growth-stage, system-fragmented companies</p>
+                  <p className="text-lg text-foreground">
+                    Growth-stage, system-fragmented companies
+                  </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <Check className="h-6 w-6 text-accent-yellow shrink-0 mt-0.5" />
-                  <p className="text-lg text-foreground">Founders ready for structural transformation</p>
+                  <p className="text-lg text-foreground">
+                    Founders ready for structural transformation
+                  </p>
                 </div>
               </div>
               <div className="pt-6 border-t border-border">
                 <p className="text-base text-muted-foreground">
-                  If you're seeking basic website development or marketing services, we may not be the right fit.
+                  If you're seeking basic website development or marketing
+                  services, we may not be the right fit.
                 </p>
               </div>
             </div>
@@ -109,7 +121,9 @@ export function ContactPage() {
               Our Presence
             </h2>
             <div className="text-center mb-8">
-              <p className="text-lg text-muted-foreground mb-2">Based in India.</p>
+              <p className="text-lg text-muted-foreground mb-2">
+                Based in India.
+              </p>
               <p className="text-lg text-muted-foreground">
                 Serving growth-stage family businesses nationally.
               </p>

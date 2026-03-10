@@ -4,7 +4,7 @@ import animate from 'tailwindcss-animate';
 
 /** @type {import('tailwindcss').Config} */
 export default {
-    darkMode: ['class'],
+    darkMode: 'media',
     content: ['index.html', 'src/**/*.{js,ts,jsx,tsx,html,css}'],
     theme: {
         container: {
@@ -19,11 +19,11 @@ export default {
                 border: 'oklch(var(--border))',
                 input: 'oklch(var(--input))',
                 ring: 'oklch(var(--ring) / <alpha-value>)',
-                background: 'oklch(var(--background))',
+                background: '#0D1E35',
                 foreground: 'oklch(var(--foreground))',
                 primary: {
-                    DEFAULT: 'oklch(var(--primary) / <alpha-value>)',
-                    foreground: 'oklch(var(--primary-foreground))'
+                    DEFAULT: '#E8AE20',
+                    foreground: '#0D1E35'
                 },
                 secondary: {
                     DEFAULT: 'oklch(var(--secondary) / <alpha-value>)',
@@ -56,13 +56,12 @@ export default {
                     4: 'oklch(var(--chart-4))',
                     5: 'oklch(var(--chart-5))'
                 },
-                // Custom INOVICS logo-matched colors
                 navy: {
-                    DEFAULT: 'oklch(var(--navy))',
-                    dark: 'oklch(var(--navy-dark))'
+                    DEFAULT: '#0D1E35',
+                    dark: '#08121F'
                 },
                 charcoal: 'oklch(var(--charcoal))',
-                'accent-yellow': 'oklch(var(--accent-yellow) / <alpha-value>)'
+                'accent-yellow': '#E8AE20'
             },
             borderRadius: {
                 lg: 'var(--radius)',

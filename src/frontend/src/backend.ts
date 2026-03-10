@@ -115,7 +115,6 @@ export enum UserRole {
 export interface backendInterface {
     _initializeAccessControlWithSecret(userSecret: string): Promise<void>;
     addLead(firstName: string, lastName: string, companyName: string, industry: string, revenueRange: string, operationalBottleneck: string, email: string, mobileNumber: string, message: string): Promise<bigint>;
-    adminReset(): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     authenticateAdminCredentials(username: string, password: string): Promise<AuthenticationResult>;
     getAllLeads(): Promise<Array<Lead>>;
@@ -129,6 +128,7 @@ export interface backendInterface {
     isCallerAdmin(): Promise<boolean>;
     promoteFirstAdmin(token: string): Promise<void>;
     renewBootstrapToken(): Promise<string>;
+    resetAdminSystem(): Promise<void>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
 }
 import type { Lead as _Lead, UserProfile as _UserProfile, UserRole as _UserRole } from "./declarations/backend.did.d.ts";
@@ -159,20 +159,6 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.addLead(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
-            return result;
-        }
-    }
-    async adminReset(): Promise<void> {
-        if (this.processError) {
-            try {
-                const result = await this.actor.adminReset();
-                return result;
-            } catch (e) {
-                this.processError(e);
-                throw new Error("unreachable");
-            }
-        } else {
-            const result = await this.actor.adminReset();
             return result;
         }
     }
@@ -355,6 +341,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.renewBootstrapToken();
+            return result;
+        }
+    }
+    async resetAdminSystem(): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.resetAdminSystem();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.resetAdminSystem();
             return result;
         }
     }

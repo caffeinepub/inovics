@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import type { MajorService } from './industriesContent';
+import { useState } from "react";
+import type { MajorService } from "./industriesContent";
 
 interface MajorServiceTileProps {
   service: MajorService;

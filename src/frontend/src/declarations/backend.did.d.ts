@@ -35,7 +35,6 @@ export interface _SERVICE {
     [string, string, string, string, string, string, string, string, string],
     bigint
   >,
-  'adminReset' : ActorMethod<[], undefined>,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
   'authenticateAdminCredentials' : ActorMethod<
     [string, string],
@@ -52,6 +51,7 @@ export interface _SERVICE {
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'promoteFirstAdmin' : ActorMethod<[string], undefined>,
   'renewBootstrapToken' : ActorMethod<[], string>,
+  'resetAdminSystem' : ActorMethod<[], undefined>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
 }
 export declare const idlService: IDL.ServiceClass;

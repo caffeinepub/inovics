@@ -1,11 +1,11 @@
-import React from 'react';
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
+} from "@/components/ui/dialog";
+import React from "react";
 
 interface CompanyProfileDownloadDialogProps {
   open: boolean;
@@ -22,7 +22,8 @@ export function CompanyProfileDownloadDialog({
         <DialogHeader>
           <DialogTitle>Download Company Profile</DialogTitle>
           <DialogDescription>
-            Your company profile download should begin automatically. If it doesn't start, please try again.
+            Your company profile download should begin automatically. If it
+            doesn't start, please try again.
           </DialogDescription>
         </DialogHeader>
       </DialogContent>

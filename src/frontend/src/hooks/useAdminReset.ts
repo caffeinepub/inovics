@@ -1,15 +1,19 @@
-import { useState } from 'react';
-import { useActor } from './useActor';
+import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import { useActor } from "./useActor";
 
 export function useAdminReset() {
   const { actor } = useActor();
+  const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
   const resetAdmin = async () => {
     if (!actor) {
-      throw new Error('Backend connection not available. Please retry connection.');
+      throw new Error(
+        "Backend connection not available. Please retry connection.",
+      );
     }
 
     setIsLoading(true);
@@ -17,19 +21,32 @@ export function useAdminReset() {
     setSuccess(false);
 
     try {
-      await actor.adminReset();
+      // Use resetAdminSystem instead of adminReset
+      await actor.resetAdminSystem();
+
+      // Invalidate all admin-related queries
+      await queryClient.invalidateQueries({ queryKey: ["adminInitialized"] });
+      await queryClient.invalidateQueries({ queryKey: ["isAdmin"] });
+
       setSuccess(true);
       return true;
     } catch (err: any) {
-      console.error('Admin reset error:', err);
-      
+      console.error("Admin reset error:", err);
+
       // Parse backend error messages
-      if (err.message?.includes('Unauthorized')) {
-        setError('You do not have permission to reset admin initialization. Only existing admins can perform this action.');
-      } else if (err.message?.includes('trap')) {
-        setError('Authorization failed. Please ensure you are logged in as an admin.');
+      if (err.message?.includes("Unauthorized")) {
+        setError(
+          "You do not have permission to reset admin initialization. Only existing admins can perform this action.",
+        );
+      } else if (err.message?.includes("trap")) {
+        setError(
+          "Authorization failed. Please ensure you are logged in as an admin.",
+        );
       } else {
-        setError(err.message || 'Failed to reset admin initialization. Please try again.');
+        setError(
+          err.message ||
+            "Failed to reset admin initialization. Please try again.",
+        );
       }
       return false;
     } finally {

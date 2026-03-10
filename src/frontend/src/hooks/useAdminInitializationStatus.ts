@@ -1,18 +1,18 @@
-import { useQuery } from '@tanstack/react-query';
-import { useActor } from './useActor';
-import { useInternetIdentity } from './useInternetIdentity';
+import { useQuery } from "@tanstack/react-query";
+import { useActor } from "./useActor";
+import { useInternetIdentity } from "./useInternetIdentity";
 
 export function useAdminInitializationStatus() {
   const { actor, isFetching: actorFetching } = useActor();
   const { identity } = useInternetIdentity();
-  
+
   // Use principal in query key to scope by identity
-  const principalId = identity?.getPrincipal().toString() || 'anonymous';
+  const principalId = identity?.getPrincipal().toString() || "anonymous";
 
   const query = useQuery<boolean>({
-    queryKey: ['adminInitialized', principalId],
+    queryKey: ["adminInitialized", principalId],
     queryFn: async () => {
-      if (!actor) throw new Error('Actor not available');
+      if (!actor) throw new Error("Actor not available");
       return actor.isAdminInitialized();
     },
     enabled: !!actor && !actorFetching,

@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { ArrowUp } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
+import { ArrowUp } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export function ScrollToTopControl() {
   const [isVisible, setIsVisible] = useState(false);
@@ -11,14 +11,14 @@ export function ScrollToTopControl() {
       setIsVisible(window.scrollY > 400);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   };
 

@@ -1,7 +1,12 @@
-import { Mail, Phone, MapPin } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { bookStrategyCall } from '@/lib/strategyCall';
-import { CONTACT_EMAIL, CONTACT_PHONE_DISPLAY, CONTACT_PHONE_TEL, CONTACT_ADDRESS } from '@/lib/contactConfig';
+import { Button } from "@/components/ui/button";
+import {
+  CONTACT_ADDRESS,
+  CONTACT_EMAIL,
+  CONTACT_PHONE_DISPLAY,
+  CONTACT_PHONE_TEL,
+} from "@/lib/contactConfig";
+import { bookStrategyCall } from "@/lib/strategyCall";
+import { Mail, MapPin, Phone } from "lucide-react";
 
 export function ContactSection() {
   return (

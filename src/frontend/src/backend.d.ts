@@ -32,7 +32,6 @@ export enum UserRole {
 }
 export interface backendInterface {
     addLead(firstName: string, lastName: string, companyName: string, industry: string, revenueRange: string, operationalBottleneck: string, email: string, mobileNumber: string, message: string): Promise<bigint>;
-    adminReset(): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     authenticateAdminCredentials(username: string, password: string): Promise<AuthenticationResult>;
     getAllLeads(): Promise<Array<Lead>>;
@@ -46,5 +45,6 @@ export interface backendInterface {
     isCallerAdmin(): Promise<boolean>;
     promoteFirstAdmin(token: string): Promise<void>;
     renewBootstrapToken(): Promise<string>;
+    resetAdminSystem(): Promise<void>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
 }

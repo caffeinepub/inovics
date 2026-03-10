@@ -1,16 +1,29 @@
-import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { AlertTriangle, RefreshCw, CheckCircle2, ShieldAlert } from 'lucide-react';
-import { useAdminReset } from '../../hooks/useAdminReset';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  AlertTriangle,
+  CheckCircle2,
+  RefreshCw,
+  ShieldAlert,
+} from "lucide-react";
+import { useState } from "react";
+import { useAdminReset } from "../../hooks/useAdminReset";
 
-const CONFIRMATION_TEXT = 'RESET ADMIN';
+const CONFIRMATION_TEXT = "RESET ADMIN";
 
-export function AdminResetRecoveryCard({ onResetSuccess }: { onResetSuccess: () => void }) {
-  const [confirmationInput, setConfirmationInput] = useState('');
+export function AdminResetRecoveryCard({
+  onResetSuccess,
+}: { onResetSuccess: () => void }) {
+  const [confirmationInput, setConfirmationInput] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false);
   const { resetAdmin, isLoading, error, success } = useAdminReset();
 
@@ -34,7 +47,7 @@ export function AdminResetRecoveryCard({ onResetSuccess }: { onResetSuccess: () 
 
   const handleCancel = () => {
     setShowConfirmation(false);
-    setConfirmationInput('');
+    setConfirmationInput("");
   };
 
   const isConfirmationValid = confirmationInput === CONFIRMATION_TEXT;
@@ -62,11 +75,13 @@ export function AdminResetRecoveryCard({ onResetSuccess }: { onResetSuccess: () 
               <AlertTitle>Admin Already Initialized</AlertTitle>
               <AlertDescription className="space-y-2 mt-2">
                 <p>
-                  This system already has an admin. If you are locked out and need to regain access, 
-                  you can reset the admin initialization state.
+                  This system already has an admin. If you are locked out and
+                  need to regain access, you can reset the admin initialization
+                  state.
                 </p>
                 <p className="font-medium">
-                  This will allow you to set up a new admin using a bootstrap token.
+                  This will allow you to set up a new admin using a bootstrap
+                  token.
                 </p>
               </AlertDescription>
             </Alert>
@@ -75,16 +90,18 @@ export function AdminResetRecoveryCard({ onResetSuccess }: { onResetSuccess: () 
               <AlertTriangle className="h-4 w-4" />
               <AlertTitle>Warning: This Action Cannot Be Undone</AlertTitle>
               <AlertDescription className="space-y-2 mt-2">
-                <p>
-                  Resetting admin initialization will:
-                </p>
+                <p>Resetting admin initialization will:</p>
                 <ul className="list-disc list-inside space-y-1 ml-2">
                   <li>Remove all existing admin privileges</li>
                   <li>Clear the current bootstrap token</li>
-                  <li>Require generating a new bootstrap token to set up admin access</li>
+                  <li>
+                    Require generating a new bootstrap token to set up admin
+                    access
+                  </li>
                 </ul>
                 <p className="font-medium mt-3">
-                  Only use this option if you are locked out and need to recover access to the admin panel.
+                  Only use this option if you are locked out and need to recover
+                  access to the admin panel.
                 </p>
               </AlertDescription>
             </Alert>
@@ -106,7 +123,8 @@ export function AdminResetRecoveryCard({ onResetSuccess }: { onResetSuccess: () 
               <AlertTriangle className="h-4 w-4" />
               <AlertTitle>Confirm Admin Reset</AlertTitle>
               <AlertDescription>
-                This action will remove all existing admin access. Type <strong>{CONFIRMATION_TEXT}</strong> below to confirm.
+                This action will remove all existing admin access. Type{" "}
+                <strong>{CONFIRMATION_TEXT}</strong> below to confirm.
               </AlertDescription>
             </Alert>
 
@@ -137,7 +155,8 @@ export function AdminResetRecoveryCard({ onResetSuccess }: { onResetSuccess: () 
                 <CheckCircle2 className="h-4 w-4 text-success" />
                 <AlertTitle>Reset Successful</AlertTitle>
                 <AlertDescription>
-                  Admin initialization has been reset. You can now generate a new bootstrap token to set up admin access.
+                  Admin initialization has been reset. You can now generate a
+                  new bootstrap token to set up admin access.
                 </AlertDescription>
               </Alert>
             )}

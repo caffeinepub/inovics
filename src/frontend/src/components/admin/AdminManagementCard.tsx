@@ -1,16 +1,22 @@
-import { useState } from 'react';
-import { useActor } from '../../hooks/useActor';
-import { Principal } from '@dfinity/principal';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { UserPlus, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Principal } from "@dfinity/principal";
+import { AlertCircle, CheckCircle2, Loader2, UserPlus } from "lucide-react";
+import { useState } from "react";
+import { useActor } from "../../hooks/useActor";
 
 export function AdminManagementCard() {
   const { actor } = useActor();
-  const [principalInput, setPrincipalInput] = useState('');
+  const [principalInput, setPrincipalInput] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -26,7 +32,7 @@ export function AdminManagementCard() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Clear previous messages
     setSuccessMessage(null);
     setErrorMessage(null);
@@ -34,17 +40,21 @@ export function AdminManagementCard() {
     // Validate input
     const trimmedInput = principalInput.trim();
     if (!trimmedInput) {
-      setErrorMessage('Please enter a Principal ID.');
+      setErrorMessage("Please enter a Principal ID.");
       return;
     }
 
     if (!validatePrincipal(trimmedInput)) {
-      setErrorMessage('Invalid Principal ID format. Please check and try again.');
+      setErrorMessage(
+        "Invalid Principal ID format. Please check and try again.",
+      );
       return;
     }
 
     if (!actor) {
-      setErrorMessage('Backend connection not available. Please refresh the page and try again.');
+      setErrorMessage(
+        "Backend connection not available. Please refresh the page and try again.",
+      );
       return;
     }
 
@@ -53,18 +63,30 @@ export function AdminManagementCard() {
     try {
       const targetPrincipal = Principal.fromText(trimmedInput);
       await actor.grantAdminPrivileges(targetPrincipal);
-      
-      setSuccessMessage(`Admin privileges successfully granted to ${trimmedInput}`);
-      setPrincipalInput('');
+
+      setSuccessMessage(
+        `Admin privileges successfully granted to ${trimmedInput}`,
+      );
+      setPrincipalInput("");
     } catch (error: any) {
-      console.error('Grant admin error:', error);
-      
-      if (error.message?.includes('Unauthorized')) {
-        setErrorMessage('You do not have permission to grant admin privileges. Only admins can perform this action.');
-      } else if (error.message?.includes('Backend connection failed') || error.message?.includes('Actor not available')) {
-        setErrorMessage('Unable to connect to the backend. Please check your connection and try again.');
+      console.error("Grant admin error:", error);
+
+      if (error.message?.includes("Unauthorized")) {
+        setErrorMessage(
+          "You do not have permission to grant admin privileges. Only admins can perform this action.",
+        );
+      } else if (
+        error.message?.includes("Backend connection failed") ||
+        error.message?.includes("Actor not available")
+      ) {
+        setErrorMessage(
+          "Unable to connect to the backend. Please check your connection and try again.",
+        );
       } else {
-        setErrorMessage(error.message || 'Failed to grant admin privileges. Please try again.');
+        setErrorMessage(
+          error.message ||
+            "Failed to grant admin privileges. Please try again.",
+        );
       }
     } finally {
       setIsSubmitting(false);

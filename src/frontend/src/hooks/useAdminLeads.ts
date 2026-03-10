@@ -1,8 +1,8 @@
-import { useQuery } from '@tanstack/react-query';
-import { useActor } from './useActor';
-import { useInternetIdentity } from './useInternetIdentity';
-import { useBackendHealthCheck } from './useBackendHealthCheck';
-import type { Lead } from '../backend';
+import { useQuery } from "@tanstack/react-query";
+import type { Lead } from "../backend";
+import { useActor } from "./useActor";
+import { useBackendHealthCheck } from "./useBackendHealthCheck";
+import { useInternetIdentity } from "./useInternetIdentity";
 
 export function useAdminLeads(isAdmin: boolean) {
   const { actor, isFetching: actorFetching } = useActor();
@@ -11,21 +11,21 @@ export function useAdminLeads(isAdmin: boolean) {
 
   // Include principal in query key to prevent cross-identity cache reuse
   // For credential users, use a generic key since they don't have a principal
-  const principalId = identity?.getPrincipal().toString() || 'credential-user';
+  const principalId = identity?.getPrincipal().toString() || "credential-user";
 
   const query = useQuery<Lead[]>({
-    queryKey: ['adminLeads', principalId],
+    queryKey: ["adminLeads", principalId],
     queryFn: async () => {
       if (!actor) {
-        throw new Error('Backend connection failed: Actor not available');
+        throw new Error("Backend connection failed: Actor not available");
       }
 
       try {
         const leads = await actor.getAllLeads();
         return leads;
       } catch (error: any) {
-        console.error('Error fetching leads:', error);
-        throw new Error(error.message || 'Failed to fetch leads');
+        console.error("Error fetching leads:", error);
+        throw new Error(error.message || "Failed to fetch leads");
       }
     },
     enabled: isAdmin && !!actor && !actorFetching,
@@ -35,7 +35,7 @@ export function useAdminLeads(isAdmin: boolean) {
 
   const retryConnection = async () => {
     const healthResult = await checkHealth();
-    if (healthResult.data?.status === 'reachable') {
+    if (healthResult.data?.status === "reachable") {
       await query.refetch();
     }
     return healthResult;

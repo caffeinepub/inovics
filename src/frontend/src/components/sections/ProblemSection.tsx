@@ -1,26 +1,17 @@
-import { FileSpreadsheet, MessageSquare, Eye, Clock, Users } from 'lucide-react';
+import {
+  Clock,
+  Eye,
+  FileSpreadsheet,
+  MessageSquare,
+  Users,
+} from "lucide-react";
 
 const problems = [
-  {
-    icon: FileSpreadsheet,
-    text: 'Data scattered across Excel',
-  },
-  {
-    icon: MessageSquare,
-    text: 'Founder approval bottlenecks',
-  },
-  {
-    icon: Eye,
-    text: 'No real-time visibility',
-  },
-  {
-    icon: Clock,
-    text: 'Manual reporting delays',
-  },
-  {
-    icon: Users,
-    text: 'Teams dependent on memory',
-  },
+  { icon: FileSpreadsheet, text: "Data scattered across Excel" },
+  { icon: MessageSquare, text: "Founder approval bottlenecks" },
+  { icon: Eye, text: "No real-time visibility" },
+  { icon: Clock, text: "Manual reporting delays" },
+  { icon: Users, text: "Teams dependent on memory" },
 ];
 
 export function ProblemSection() {
@@ -33,23 +24,30 @@ export function ProblemSection() {
           </h2>
 
           <div className="grid md:grid-cols-2 gap-8 lg:gap-12 mb-16">
-            {problems.map((problem, index) => (
+            {problems.map((problem) => (
               <div
-                key={index}
+                key={problem.text}
                 className="flex items-start gap-4 p-6 rounded-lg bg-card border border-border hover:border-accent-yellow/50 transition-colors"
               >
                 <div className="shrink-0">
-                  <problem.icon className="h-8 w-8 text-accent-yellow" strokeWidth={1.5} />
+                  <problem.icon
+                    className="h-8 w-8 text-accent-yellow"
+                    strokeWidth={1.5}
+                  />
                 </div>
-                <p className="text-lg text-muted-foreground font-medium">{problem.text}</p>
+                <p className="text-lg text-muted-foreground font-medium">
+                  {problem.text}
+                </p>
               </div>
             ))}
           </div>
 
           <div className="text-center">
             <p className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground">
-              You don't have a growth problem.{' '}
-              <span className="text-accent-yellow">You have a systems problem.</span>
+              You don't have a growth problem.{" "}
+              <span className="text-accent-yellow">
+                You have a systems problem.
+              </span>
             </p>
           </div>
         </div>

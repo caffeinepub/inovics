@@ -1,4 +1,4 @@
-import { techStackLogos } from '@/lib/techStackLogos';
+import { techStackLogos } from "@/lib/techStackLogos";
 
 export function TechStackSection() {
   return (
@@ -10,7 +10,8 @@ export function TechStackSection() {
             Technology Stack
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            We leverage best-in-class platforms and tools to build your Business OS
+            We leverage best-in-class platforms and tools to build your Business
+            OS
           </p>
         </div>
 

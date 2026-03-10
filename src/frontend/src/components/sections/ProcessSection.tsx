@@ -1,66 +1,66 @@
+import { StandardBulletList } from "@/components/shared/StandardBulletList";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
-import { StandardBulletList } from '@/components/shared/StandardBulletList';
+} from "@/components/ui/accordion";
 
 const processSteps = [
   {
-    number: '01',
-    title: 'Diagnose',
-    subtitle: 'Founder Control Blueprint™',
+    number: "01",
+    title: "Diagnose",
+    subtitle: "Founder Control Blueprint™",
     description:
-      'We map your workflows, identify bottlenecks, and expose hidden dependencies. No generic assessments—just structured clarity.',
+      "We map your workflows, identify bottlenecks, and expose hidden dependencies. No generic assessments—just structured clarity.",
     details: [
-      'Deep founder interview and operational audit',
-      'Department-level workflow mapping',
-      'Data architecture assessment',
-      'Risk and dependency analysis',
-      'Profit leakage identification',
+      "Deep founder interview and operational audit",
+      "Department-level workflow mapping",
+      "Data architecture assessment",
+      "Risk and dependency analysis",
+      "Profit leakage identification",
     ],
   },
   {
-    number: '02',
-    title: 'Architect',
-    subtitle: 'Business OS Design',
+    number: "02",
+    title: "Architect",
+    subtitle: "Business OS Design",
     description:
-      'We design your centralized operating system—CRM, dashboards, workflows, and governance structures tailored to your business.',
+      "We design your centralized operating system—CRM, dashboards, workflows, and governance structures tailored to your business.",
     details: [
-      'Centralized data architecture design',
-      'CRM and workflow structure planning',
-      'Access hierarchies and permissions',
-      'Dashboard and reporting blueprint',
-      'Automation roadmap development',
+      "Centralized data architecture design",
+      "CRM and workflow structure planning",
+      "Access hierarchies and permissions",
+      "Dashboard and reporting blueprint",
+      "Automation roadmap development",
     ],
   },
   {
-    number: '03',
-    title: 'Implement',
-    subtitle: 'Controlled Deployment',
+    number: "03",
+    title: "Implement",
+    subtitle: "Controlled Deployment",
     description:
-      'We deploy systems in phases, train your team, and ensure adoption. No disruption. No chaos. Just structured transformation.',
+      "We deploy systems in phases, train your team, and ensure adoption. No disruption. No chaos. Just structured transformation.",
     details: [
-      'Phased system deployment',
-      'Data migration and integration',
-      'Team training and onboarding',
-      'Workflow automation setup',
-      'AI intelligence layer implementation',
+      "Phased system deployment",
+      "Data migration and integration",
+      "Team training and onboarding",
+      "Workflow automation setup",
+      "AI intelligence layer implementation",
     ],
   },
   {
-    number: '04',
-    title: 'Optimize',
-    subtitle: 'Continuous Governance',
+    number: "04",
+    title: "Optimize",
+    subtitle: "Continuous Governance",
     description:
-      'Post-implementation, we provide ongoing governance, AI optimization, and strategic advisory to ensure long-term institutional strength.',
+      "Post-implementation, we provide ongoing governance, AI optimization, and strategic advisory to ensure long-term institutional strength.",
     details: [
-      'Monthly performance reviews',
-      'AI model optimization',
-      'System upgrades and enhancements',
-      'Governance alignment sessions',
-      'Strategic advisory and planning',
+      "Monthly performance reviews",
+      "AI model optimization",
+      "System upgrades and enhancements",
+      "Governance alignment sessions",
+      "Strategic advisory and planning",
     ],
   },
 ];
@@ -75,15 +75,16 @@ export function ProcessSection() {
               Our Process
             </h2>
             <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
-              A structured, risk-controlled path from operational chaos to institutional strength.
+              A structured, risk-controlled path from operational chaos to
+              institutional strength.
             </p>
           </div>
 
           <Accordion type="single" collapsible className="space-y-4">
-            {processSteps.map((step, index) => (
+            {processSteps.map((step) => (
               <AccordionItem
-                key={index}
-                value={`step-${index}`}
+                key={step.number}
+                value={`step-${step.number}`}
                 className="bg-card border border-border rounded-lg overflow-hidden hover:border-accent-yellow/50 transition-all"
               >
                 <AccordionTrigger className="px-6 py-4 hover:no-underline text-left [&[data-state=open]]:border-b [&[data-state=open]]:border-border">

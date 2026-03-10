@@ -1,24 +1,26 @@
 /**
  * Contact configuration for external integrations.
- * 
+ *
  * These values should be configured with actual URLs before deployment:
  * - calendarUrl: Your Calendly, Cal.com, or other booking platform URL
  * - whatsappUrl: Your WhatsApp Business link (format: https://wa.me/919876543210)
  * - companyProfileUrl: Direct link to your company profile PDF or document
- * 
+ *
  * Leave empty strings for graceful fallback behavior.
  */
 export const CONTACT_CONFIG = {
-  calendarUrl: '', // e.g., 'https://calendly.com/inovics/strategy-call'
-  whatsappUrl: 'https://wa.me/919322286441', // WhatsApp Business chat link
-  companyProfileUrl: 'https://210.16.112.168/Ebandhan_2025/INOVICS%20%E2%80%93%20Corporate%20Presentation.pdf', // Company profile PDF file
+  calendarUrl: "", // e.g., 'https://calendly.com/inovics/strategy-call'
+  whatsappUrl: "https://wa.me/919322286441", // WhatsApp Business chat link
+  companyProfileUrl:
+    "https://210.16.112.168/Ebandhan_2025/INOVICS%20%E2%80%93%20Corporate%20Presentation.pdf", // Company profile PDF file
 };
 
 // Centralized contact information
-export const CONTACT_EMAIL = 'contact@weareinovics.com';
-export const CONTACT_PHONE_DISPLAY = '+ 91-9322286441';
-export const CONTACT_PHONE_TEL = 'tel:+919322286441';
-export const CONTACT_ADDRESS = 'Mahendra Mansion, D.J Road, Vile Parle (West), Mumbai - 400056, Maharashtra';
+export const CONTACT_EMAIL = "contact@weareinovics.com";
+export const CONTACT_PHONE_DISPLAY = "+ 91-9322286441";
+export const CONTACT_PHONE_TEL = "tel:+919322286441";
+export const CONTACT_ADDRESS =
+  "Mahendra Mansion, D.J Road, Vile Parle (West), Mumbai - 400056, Maharashtra";
 
 // Export individual URLs for convenience
 export const CALENDAR_URL = CONTACT_CONFIG.calendarUrl;

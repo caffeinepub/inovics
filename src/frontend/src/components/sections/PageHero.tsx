@@ -12,7 +12,7 @@ export function PageHero({
   subtitle,
   description,
   children,
-  backgroundImage = '/assets/generated/inovics-data-grid-bg-logo-palette.dim_1920x1080.png',
+  backgroundImage = "/assets/generated/inovics-data-grid-bg-logo-palette.dim_1920x1080.png",
   backgroundOpacity = 10,
 }: PageHeroProps) {
   return (
@@ -22,8 +22,8 @@ export function PageHero({
           className="absolute inset-0"
           style={{
             backgroundImage: `url(${backgroundImage})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundSize: "cover",
+            backgroundPosition: "center",
             opacity: backgroundOpacity / 100,
           }}
         />

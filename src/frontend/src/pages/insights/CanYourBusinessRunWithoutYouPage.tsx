@@ -1,20 +1,32 @@
-import { InsightArticleLayout } from './components/InsightArticleLayout';
-import { INSIGHT_ARTICLES } from './insightArticles';
-import { INSIGHT_SLUGS } from './insightSlugs';
+import { InsightArticleLayout } from "./components/InsightArticleLayout";
+import { INSIGHT_ARTICLES } from "./insightArticles";
+import { INSIGHT_SLUGS } from "./insightSlugs";
 
 export function CanYourBusinessRunWithoutYouPage() {
-  const article = INSIGHT_ARTICLES[INSIGHT_SLUGS.CAN_YOUR_BUSINESS_RUN_WITHOUT_YOU];
+  const article =
+    INSIGHT_ARTICLES[INSIGHT_SLUGS.CAN_YOUR_BUSINESS_RUN_WITHOUT_YOU];
 
   return (
-    <InsightArticleLayout title={article.title} description={article.description}>
+    <InsightArticleLayout
+      title={article.title}
+      description={article.description}
+    >
       <div className="space-y-12 text-muted-foreground">
-        {article.sections.map((section, index) => (
-          <section key={index} className="space-y-6">
+        {article.sections.map((section) => (
+          <section
+            key={section.heading ?? section.content[0]}
+            className="space-y-6"
+          >
             {section.heading && (
-              <h2 className="text-3xl font-bold text-foreground">{section.heading}</h2>
+              <h2 className="text-3xl font-bold text-foreground">
+                {section.heading}
+              </h2>
             )}
-            {section.content.map((paragraph, pIndex) => (
-              <p key={pIndex} className="text-lg leading-relaxed">
+            {section.content.map((paragraph) => (
+              <p
+                key={paragraph.slice(0, 40)}
+                className="text-lg leading-relaxed"
+              >
                 {paragraph}
               </p>
             ))}

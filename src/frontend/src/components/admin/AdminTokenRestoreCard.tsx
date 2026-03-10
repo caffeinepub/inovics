@@ -1,26 +1,35 @@
-import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Key, RefreshCw, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { AlertCircle, CheckCircle2, Key, RefreshCw } from "lucide-react";
+import { useState } from "react";
 
 interface AdminTokenRestoreCardProps {
   onTokenSubmit: (token: string) => Promise<void>;
   isSubmitting: boolean;
 }
 
-export function AdminTokenRestoreCard({ onTokenSubmit, isSubmitting }: AdminTokenRestoreCardProps) {
-  const [token, setToken] = useState('');
+export function AdminTokenRestoreCard({
+  onTokenSubmit,
+  isSubmitting,
+}: AdminTokenRestoreCardProps) {
+  const [token, setToken] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!token.trim()) {
-      setError('Please enter a bootstrap token');
+      setError("Please enter a bootstrap token");
       return;
     }
 
@@ -30,16 +39,25 @@ export function AdminTokenRestoreCard({ onTokenSubmit, isSubmitting }: AdminToke
     try {
       await onTokenSubmit(token.trim());
       setSuccess(true);
-      setToken(''); // Clear the input after successful submission
+      setToken(""); // Clear the input after successful submission
     } catch (err: any) {
-      if (err.message?.includes('already been initialized')) {
-        setError('Admin has already been initialized. This system already has an admin.');
-      } else if (err.message?.includes('Invalid or expired')) {
-        setError('Invalid or expired bootstrap token. Please generate a new one above.');
-      } else if (err.message?.includes('Backend connection')) {
-        setError('Unable to connect to the backend. Please check your connection and try again.');
+      if (err.message?.includes("already been initialized")) {
+        setError(
+          "Admin has already been initialized. This system already has an admin.",
+        );
+      } else if (err.message?.includes("Invalid or expired")) {
+        setError(
+          "Invalid or expired bootstrap token. Please generate a new one above.",
+        );
+      } else if (err.message?.includes("Backend connection")) {
+        setError(
+          "Unable to connect to the backend. Please check your connection and try again.",
+        );
       } else {
-        setError(err.message || 'Failed to verify bootstrap token. Please check and try again.');
+        setError(
+          err.message ||
+            "Failed to verify bootstrap token. Please check and try again.",
+        );
       }
       setSuccess(false);
     }
@@ -53,7 +71,8 @@ export function AdminTokenRestoreCard({ onTokenSubmit, isSubmitting }: AdminToke
           <CardTitle>Submit Bootstrap Token</CardTitle>
         </div>
         <CardDescription>
-          Paste the bootstrap token you generated above to become the first admin. This is a one-time initialization process.
+          Paste the bootstrap token you generated above to become the first
+          admin. This is a one-time initialization process.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -87,7 +106,11 @@ export function AdminTokenRestoreCard({ onTokenSubmit, isSubmitting }: AdminToke
             </Alert>
           )}
 
-          <Button type="submit" disabled={isSubmitting || !token.trim()} className="w-full">
+          <Button
+            type="submit"
+            disabled={isSubmitting || !token.trim()}
+            className="w-full"
+          >
             {isSubmitting ? (
               <>
                 <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
